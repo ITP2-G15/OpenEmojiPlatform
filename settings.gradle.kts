@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Open Emoji"
+rootProject.name = "OpenEmojiPlatform"
 include(":app")
  
