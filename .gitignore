@@ -1,0 +1,23 @@
+# IntelliJ
+*.iml
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Gradle
+.gradle/
+
+# misc
+.DS_Store
+
+# Build
+/build/
+/app/build/
+
+# Native build
+.externalNativeBuild/
+.cxx/
+
+# Local configuration
+local.properties
