@@ -1,4 +1,4 @@
-package com.example.openemoji.ui.theme
+package com.platform.openemoji.ui.theme
 
 import android.app.Activity
 import android.os.Build
