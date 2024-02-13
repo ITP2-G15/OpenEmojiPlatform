@@ -52,8 +52,6 @@ android {
     }
 }
 
-val ktlint by configurations.creating
-
 dependencies {
 
     implementation(
@@ -123,53 +121,4 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     // Optional - Integration with RxJava
     implementation("androidx.compose.runtime:runtime-rxjava2")
-
-    ktlint(
-        "com.pinterest.ktlint:ktlint-cli:1.1.1",
-    ) {
-        attributes {
-            attribute(
-                Bundling.BUNDLING_ATTRIBUTE,
-                objects.named(Bundling.EXTERNAL),
-            )
-        }
-    }
 }
-
-val ktlintCheck by tasks.registering(
-    JavaExec::class,
-) {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-}
-
-tasks.check {
-    dependsOn(ktlintCheck)
-}
-
-tasks.register<JavaExec>("ktlintFormat") {
-    group = LifecycleBasePlugin.VERIFICATION_GROUP
-    description = "Check Kotlin code style and format"
-    classpath = ktlint
-    mainClass.set("com.pinterest.ktlint.Main")
-    jvmArgs(
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-    )
-    // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
-    args(
-        "-F",
-        "**/src/**/*.kt",
-        "**.kts",
-        "!**/build/**",
-    )
-}
-
-
