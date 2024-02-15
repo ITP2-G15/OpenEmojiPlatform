@@ -1,4 +1,4 @@
-package com.example.openemoji
+package com.platform.openemoji
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

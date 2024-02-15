@@ -1,4 +1,4 @@
-package com.example.openemoji.ui.theme
+package com.platform.openemoji.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

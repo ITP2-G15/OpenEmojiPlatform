@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.openemoji"
+    namespace = "com.platform.openemoji"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.openemoji"
+        applicationId = "com.platform.openemoji"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
