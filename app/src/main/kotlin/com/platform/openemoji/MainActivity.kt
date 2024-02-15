@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.platform.openemoji.components.CategoryScrollBox
+import com.platform.openemoji.screens.SearchScreen
 import com.platform.openemoji.components.EmojiIcon
 
 import com.platform.openemoji.ui.theme.OpenEmojiPlatformTheme
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column {
-                        CategoryScrollBox()
+                        SearchScreen()
                         EmojiIcon()
                     }
                 }
