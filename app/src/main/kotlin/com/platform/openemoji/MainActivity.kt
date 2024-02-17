@@ -4,11 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.platform.openemoji.components.CategoryScrollBox
+import androidx.compose.material3.Text
+import com.platform.openemoji.emoji.EmojiMockData
 import com.platform.openemoji.ui.theme.OpenEmojiPlatformTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,13 +13,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OpenEmojiPlatformTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    Column {
-                        CategoryScrollBox()
-                    }
+                Column {
+                    Text(
+                        text =
+                            EmojiMockData.getFrom(
+                                resources,
+                            ).joinToString("\n") { "${it.title} ${it.emojiCode}" },
+                    )
                 }
             }
         }

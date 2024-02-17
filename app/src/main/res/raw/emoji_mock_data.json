@@ -1,0 +1,47 @@
+[
+  {
+    "id": "0",
+    "title": "Grinning Face",
+    "emojiCode": "\uD83D\uDE00",
+    "category": "Smileys",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with simple, open eyes and a broad, open smile, showing upper teeth and tongue on some platforms. Often conveys general pleasure and good cheer or humor.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Femojiterra.com%2Fgrinning-face%2F&psig=AOvVaw3T06tBd72A3wbVfOlzQkRV&ust=1708077283721000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOifvO-JrYQDFQAAAAAdAAAAABAE"
+  },
+  {
+    "id": "1",
+    "title": "Face with Tears of Joy",
+    "emojiCode": "\uD83D\uDE02",
+    "category": "Smileys",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with a big grin, uplifted eyebrows, and smiling eyes, each shedding a tear from laughing so hard. Widely used to show something is funny or pleasing.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonduck.com%2Femojis%2F37696%2Fface-with-tears-of-joy&psig=AOvVaw1Krcd4NQ4dXKoqRX8G3azz&ust=1708077324196000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPCj4oKKrYQDFQAAAAAdAAAAABAJ"
+  },
+  {
+    "id": "2",
+    "title": "Red Heart",
+    "emojiCode": "❤\uFE0F",
+    "category": "Smileys & Emotion",
+    "subCategory": "Love & Valentine's Day",
+    "description": "A classic love heart emoji, used for expressions of love. Displayed in various shades of red on most platforms.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Femojipedia.org%2Fheart-suit%2F&psig=AOvVaw1Krcd4NQ4dXKoqRX8G3azz&ust=1708077324196000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPCj4oKKrYQDFQAAAAAdAAAAABAJ"
+  },
+  {
+    "id": "3",
+    "title": "Thumbs Up",
+    "emojiCode": "\uD83D\uDC4D",
+    "category": "People & Body",
+    "subCategory": "Hand gestures",
+    "description": "A thumbs-up gesture indicating approval. Commonly used to express agreement or acceptance.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Femojipedia.org%2Fthumbs-up%2F&psig=AOvVaw1Krcd4NQ4dXKoqRX8G3azz&ust=1708077324196000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPCj4oKKrYQDFQAAAAAdAAAAABAJ"
+  },
+  {
+    "id": "4",
+    "title": "Fire",
+    "emojiCode": "\uD83D\uDD25",
+    "category": "Animals & Nature",
+    "subCategory": "Weather",
+    "description": "A flame, as produced when something is on fire. Depicted as a red, orange, and yellow flickering flame.",
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Femojipedia.org%2Ffire%2F&psig=AOvVaw1Krcd4NQ4dXKoqRX8G3azz&ust=1708077324196000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPCj4oKKrYQDFQAAAAAdAAAAABAJ"
+  }
+]
