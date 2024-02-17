@@ -4,22 +4,32 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.platform.openemoji.emoji.category.CategoryScrollBox
+import com.platform.openemoji.emoji.EmojiIcon
 import com.platform.openemoji.emoji.EmojiMockData
-import com.platform.openemoji.ui.theme.OpenEmojiPlatformTheme
+import com.platform.openemoji.theme.OpenEmojiPlatformTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             OpenEmojiPlatformTheme {
-                Column {
-                    Text(
-                        text =
-                            EmojiMockData.getFrom(
-                                resources,
-                            ).joinToString("\n") { "${it.title} ${it.emojiCode}" },
-                    )
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    Column {
+                        CategoryScrollBox()
+                        EmojiMockData.getFrom(resources)
+                            .subList(0, 10)
+                            .forEach { emoji ->
+                                EmojiIcon(emoji)
+                            }
+                    }
                 }
             }
         }

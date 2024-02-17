@@ -1,4 +1,4 @@
-package com.platform.openemoji.components
+package com.platform.openemoji.emoji.category
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
