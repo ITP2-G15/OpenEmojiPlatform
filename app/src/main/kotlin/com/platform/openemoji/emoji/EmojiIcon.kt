@@ -1,4 +1,4 @@
-package com.platform.openemoji.components
+package com.platform.openemoji.emoji
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -8,13 +8,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
-fun EmojiIcon() {
-    val imageUrl =
-        "https://static-00.iconduck.com/assets.00/" +
-            "smiling-face-with-sunglasses-emoji-512x512-7y1eta1y.png"
+fun EmojiIcon(emoji: Emoji) {
     AsyncImage(
-        model = imageUrl,
-        contentDescription = "emoji.title",
+        model = emoji.imageUrl,
+        contentDescription = emoji.title,
         modifier =
             Modifier
                 .size(65.dp)

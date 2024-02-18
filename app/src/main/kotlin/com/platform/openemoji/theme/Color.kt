@@ -1,4 +1,4 @@
-package com.platform.openemoji.ui.theme
+package com.platform.openemoji.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight =
