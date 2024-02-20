@@ -28,14 +28,21 @@ fun CategoryScrollCarousel(
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
 
-    LazyRow {
+    LazyRow(
+        Modifier.padding(bottom = 10.dp),
+    ) {
         items(categories.size) { index ->
             val category = categories[index]
             val isSelected = "search/${route(category)}" == currentRoute
             Button(
                 onClick = {
-                    val destination = if (isSelected) "search"
-                        else "search/${route(category)}"
+                    // Return to all categories when an already selected category is pressed
+                    val destination =
+                        if (isSelected) {
+                            "search"
+                        } else {
+                            "search/${route(category)}"
+                        }
                     navController.navigate(destination)
                 },
                 modifier = Modifier.padding(horizontal = 4.dp),

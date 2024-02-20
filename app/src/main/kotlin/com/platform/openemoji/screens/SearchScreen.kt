@@ -22,14 +22,29 @@ fun SearchScreen(resources: Resources) {
     Column(modifier = Modifier.padding(16.dp)) {
         val categoryNav = rememberNavController()
         CategoryScrollCarousel(categoryNav, emojiCatalogue.categories)
-        NavHost(navController = categoryNav, startDestination = "search") {
-            composable("search") {
-                EmojiCatalogueComponent(emojis = emojiCatalogue.byCategory)
+        NavHost(
+            navController = categoryNav,
+            startDestination = "search",
+        ) {
+            // Categories
+            composable(
+                "search",
+            ) {
+                EmojiCatalogueComponent(
+                    emojis = emojiCatalogue.byCategory,
+                    maxEmojisPerGrid = 15,
+                )
             }
+            // Subcategories (e.g. Activities > Sport)
             emojiCatalogue.categories.forEach { category ->
-                composable("search/${route(category)}") {
+                composable(
+                    "search/${route(category)}",
+                ) {
                     emojiCatalogue.bySubCategory(category)?.let {
-                        EmojiCatalogueComponent(emojis = it)
+                        EmojiCatalogueComponent(
+                            emojis = it,
+                            maxEmojisPerGrid = 15,
+                        )
                     }
                 }
             }
