@@ -1,6 +1,11 @@
 package com.platform.openemoji.emoji.category
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -22,38 +27,40 @@ fun CategoryScrollCarousel(
     val currentRoute =
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
-
-    LazyRow {
-        items(categories.size) { index ->
-            val category = categories[index]
-            val isSelected = category.route == currentRoute
-            Button(
-                onClick = {
-                    navController.navigate(category.route)
-                },
-                modifier = Modifier.padding(horizontal = 4.dp),
-                contentPadding = PaddingValues(8.dp),
-                colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor =
-                            if (isSelected) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.secondary
-                            },
-                    ),
-            ) {
-                Text(
-                    category.name,
-                    style = MaterialTheme.typography.labelMedium,
-                    color =
-                        if (isSelected) {
-                            MaterialTheme.colorScheme.onPrimary
-                        } else {
-                            MaterialTheme.colorScheme.onSecondary
-                        },
-                )
+    Column {
+        LazyRow(modifier = Modifier.padding(vertical = 8.dp)) {
+            items(categories.size) { index ->
+                val category = categories[index]
+                val isSelected = category.route == currentRoute
+                Button(
+                    onClick = {
+                        navController.navigate(category.route)
+                    },
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    contentPadding = PaddingValues(8.dp),
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor =
+                                if (isSelected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.secondary
+                                },
+                        ),
+                ) {
+                    Text(category.name)
+                }
             }
         }
+        Box(
+            modifier =
+                Modifier
+                    .height(2.dp)
+                    .fillMaxWidth()
+                    .background(
+                        MaterialTheme.colorScheme.onBackground
+                            .copy(alpha = 0.25f),
+                    ),
+        )
     }
 }

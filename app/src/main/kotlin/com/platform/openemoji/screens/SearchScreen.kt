@@ -1,11 +1,8 @@
 package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -33,7 +30,7 @@ fun SearchScreen() {
             Category("Flags", "flags"),
         )
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column {
         val categoryNav = rememberNavController()
         CategoryScrollCarousel(categoryNav, categoryList)
         NavHost(navController = categoryNav, startDestination = "all") {
