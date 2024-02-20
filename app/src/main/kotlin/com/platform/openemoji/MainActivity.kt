@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.platform.openemoji.emoji.EmojiIcon
 import com.platform.openemoji.emoji.EmojiMockData
 import com.platform.openemoji.emoji.category.CategoryScrollBox
 import com.platform.openemoji.theme.OpenEmojiPlatformTheme
@@ -24,11 +23,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         CategoryScrollBox()
-                        EmojiMockData.getFrom(resources)
-                            .subList(0, 10)
-                            .forEach { emoji ->
-                                EmojiIcon(emoji)
-                            }
+                        val allEmojis = EmojiMockData.getFrom(resources)
                     }
                 }
             }
