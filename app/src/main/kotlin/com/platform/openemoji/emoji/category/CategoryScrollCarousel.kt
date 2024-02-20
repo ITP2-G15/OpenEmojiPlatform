@@ -27,29 +27,37 @@ fun CategoryScrollCarousel(
     val currentRoute =
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
-    Column {
-        LazyRow(modifier = Modifier.padding(vertical = 8.dp)) {
-            items(categories.size) { index ->
-                val category = categories[index]
-                val isSelected = category.route == currentRoute
-                Button(
-                    onClick = {
-                        navController.navigate(category.route)
-                    },
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    contentPadding = PaddingValues(8.dp),
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor =
-                                if (isSelected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.secondary
-                                },
-                        ),
-                ) {
-                    Text(category.name)
-                }
+
+    LazyRow(
+        Modifier.padding(bottom = 10.dp),
+    ) {
+        items(categories.size) { index ->
+            val category = categories[index]
+            val isSelected = "search/${route(category)}" == currentRoute
+            Button(
+                onClick = {
+                    // Return to all categories when an already selected category is pressed
+                    val destination =
+                        if (isSelected) {
+                            "search"
+                        } else {
+                            "search/${route(category)}"
+                        }
+                    navController.navigate(destination)
+                },
+                modifier = Modifier.padding(horizontal = 4.dp),
+                contentPadding = PaddingValues(8.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor =
+                            if (isSelected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.secondary
+                            },
+                    ),
+            ) {
+                Text(category)
             }
         }
         Box(
