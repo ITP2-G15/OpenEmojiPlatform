@@ -9,8 +9,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.platform.openemoji.components.Category
-import com.platform.openemoji.components.CategoryScrollCarousel
+import com.platform.openemoji.emoji.category.Category
+import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 
 @Composable
 fun CategoryGrid(name: String) {

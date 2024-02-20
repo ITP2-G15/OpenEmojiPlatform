@@ -1,4 +1,4 @@
-package com.platform.openemoji.emoji
+package com.platform.openemoji.emoji.category
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -13,8 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-
-data class Category(val name: String, val route: String)
 
 @Composable
 fun CategoryScrollCarousel(
