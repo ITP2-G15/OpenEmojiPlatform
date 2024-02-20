@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         SearchScreen()
-                        // EmojiIcon()
                     }
                 }
             }

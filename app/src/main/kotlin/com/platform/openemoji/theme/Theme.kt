@@ -87,7 +87,6 @@ private val lightScheme =
         surfaceContainerHigh =
         surfaceContainerHighLight,
         surfaceContainerHighest =
-
         surfaceContainerHighestLight,
     )
 
