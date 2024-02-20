@@ -34,9 +34,9 @@ fun SearchScreen() {
         )
 
     Column(modifier = Modifier.padding(16.dp)) {
-        val navController = rememberNavController()
-        CategoryScrollCarousel(navController, categoryList)
-        NavHost(navController = navController, startDestination = "all") {
+        val categoryNav = rememberNavController()
+        CategoryScrollCarousel(categoryNav, categoryList)
+        NavHost(navController = categoryNav, startDestination = "all") {
             categoryList.forEach { category ->
                 composable(category.route) {
                     CategoryGrid(category.name)
