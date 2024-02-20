@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.EmojiIcon
+import com.platform.openemoji.emoji.IconRoute
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -16,7 +16,7 @@ fun EmojiGrid(emojis: List<Emoji>) {
         Modifier.padding(bottom = 20.dp),
     ) {
         emojis.forEach {
-            EmojiIcon(emoji = it)
+            IconRoute(emoji = it)
         }
     }
 }

@@ -57,7 +57,16 @@ fun CategoryScrollCarousel(
                             },
                     ),
             ) {
-                Text(category)
+                Text(
+                    category,
+                    style = MaterialTheme.typography.labelMedium,
+                    color =
+                        if (isSelected) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.onSecondary
+                        },
+                )
             }
         }
     }
