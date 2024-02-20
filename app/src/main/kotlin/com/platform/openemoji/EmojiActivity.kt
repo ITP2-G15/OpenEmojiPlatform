@@ -23,7 +23,7 @@ class EmojiActivity : ComponentActivity() {
                 ) {
                     Column {
                         CategoryScrollBox()
-                        val allEmojis = EmojiMockData.getFrom(resources) 
+                        val allEmojis = EmojiMockData.getFrom(resources)
                     }
                 }
             }
