@@ -36,14 +36,7 @@ fun CategoryScrollCarousel(
             val isSelected = "search/${route(category)}" == currentRoute
             Button(
                 onClick = {
-                    // Return to all categories when an already selected category is pressed
-                    val destination =
-                        if (isSelected) {
-                            "search"
-                        } else {
-                            "search/${route(category)}"
-                        }
-                    navController.navigate(destination)
+                    navController.navigate("search/${route(category)}")
                 },
                 modifier = Modifier.padding(horizontal = 4.dp),
                 contentPadding = PaddingValues(8.dp),

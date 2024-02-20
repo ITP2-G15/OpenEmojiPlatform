@@ -2,10 +2,7 @@ package com.platform.openemoji.screens
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,16 +16,19 @@ import com.platform.openemoji.emoji.category.route
 fun SearchScreen(resources: Resources) {
     val emojiCatalogue = EmojiCatalogue(EmojiMockData.getFrom(resources))
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column {
         val categoryNav = rememberNavController()
-        CategoryScrollCarousel(categoryNav, emojiCatalogue.categories)
+        CategoryScrollCarousel(
+            categoryNav,
+            listOf("All") + emojiCatalogue.categories,
+        )
         NavHost(
             navController = categoryNav,
-            startDestination = "search",
+            startDestination = "search/all",
         ) {
-            // Categories
+            // Categories (All)
             composable(
-                "search",
+                "search/all",
             ) {
                 EmojiCatalogueComponent(
                     emojis = emojiCatalogue.byCategory,
