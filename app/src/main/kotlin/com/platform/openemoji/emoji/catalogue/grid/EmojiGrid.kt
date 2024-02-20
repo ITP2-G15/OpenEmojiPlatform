@@ -1,10 +1,15 @@
 package com.platform.openemoji.emoji.catalogue.grid
 
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import com.platform.openemoji.emoji.Emoji
+import com.platform.openemoji.emoji.EmojiIcon
 
 @Composable
 fun EmojiGrid(emojis: List<Emoji>) {
-    Text(text = "GRID")
+    Column {
+        emojis.forEach {
+            EmojiIcon(emoji = it)
+        }
+    }
 }
