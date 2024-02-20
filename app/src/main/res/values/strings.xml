@@ -1,3 +1,7 @@
+<!-- Add all strings here instead of hardcoding them so they can easily be changed when needed, and
+easily add support for multiple languages if needed -->
 <resources>
     <string name="app_name">Open Emoji</string>
+    <string name="copy">Copy</string>
+    <string name="copy_icon_description">Click to copy emoji</string>
 </resources>
