@@ -45,11 +45,11 @@ fun IconRoute(
 ) {
     Text(
         emoji.emojiCode,
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.displaySmall,
         modifier =
             Modifier.clickable {
-                navController.navigate("emoji/${emoji.title}")
-            },
+                // navController.navigate("emoji/${emoji.title}")
+            }.padding(4.dp),
     )
 }
 
