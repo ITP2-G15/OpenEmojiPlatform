@@ -27,7 +27,7 @@ fun EmojiCatalogueUi(
         emojis.forEach { (category, emojis) ->
             Text(
                 text = category,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
             // Limit number of emojis displayed in each grid

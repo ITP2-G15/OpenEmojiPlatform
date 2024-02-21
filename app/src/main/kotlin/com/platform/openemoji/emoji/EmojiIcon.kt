@@ -40,11 +40,11 @@ fun IconRoute(emoji: Emoji) {
     val navController = rememberNavController()
     Text(
         emoji.emojiCode,
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.displaySmall,
         modifier =
             Modifier.clickable {
                 // navController.navigate("emoji/${emoji.title}")
-            }.padding(5.dp),
+            }.padding(4.dp),
     )
 }
 
