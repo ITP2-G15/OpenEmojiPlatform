@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.platform.openemoji.screens.SearchScreen
 import com.platform.openemoji.theme.OpenEmojiPlatformTheme
 
-class MainActivity : ComponentActivity() {
+class EmojiActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
