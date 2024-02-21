@@ -18,6 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
+/* This could potentially generate the same route from different category names,
+    but this won't realistically happen with our data.
+*/
+fun route(category: String): String =
+    category.lowercase()
+        .replace(Regex("[^a-zA-Z ]"), "")
+        .replace(Regex(" +"), "-")
+
 @Composable
 fun CategoryScrollCarousel(
     navController: NavController,
