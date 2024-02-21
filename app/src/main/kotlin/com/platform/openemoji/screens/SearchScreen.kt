@@ -1,20 +1,18 @@
 package com.platform.openemoji.screens
 
-import android.content.res.Resources
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.platform.openemoji.emoji.EmojiMockData
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogueComponent
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import com.platform.openemoji.emoji.category.route
 
 @Composable
-fun SearchScreen(resources: Resources) {
-    val emojiCatalogue = EmojiCatalogue(EmojiMockData.getFrom(resources))
+fun SearchScreen() {
+    val emojiCatalogue = EmojiCatalogue.get()
 
     Column {
         val categoryNav = rememberNavController()
@@ -30,7 +28,7 @@ fun SearchScreen(resources: Resources) {
             composable(
                 "search/all",
             ) {
-                EmojiCatalogueComponent(
+                EmojiCatalogueUi(
                     emojis = emojiCatalogue.byCategory,
                     maxEmojisPerGrid = 15,
                 )
@@ -41,7 +39,7 @@ fun SearchScreen(resources: Resources) {
                     "search/${route(category)}",
                 ) {
                     emojiCatalogue.bySubCategory(category)?.let {
-                        EmojiCatalogueComponent(
+                        EmojiCatalogueUi(
                             emojis = it,
                             maxEmojisPerGrid = 15,
                         )

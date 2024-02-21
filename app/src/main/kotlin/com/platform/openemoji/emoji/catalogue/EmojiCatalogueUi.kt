@@ -2,7 +2,6 @@ package com.platform.openemoji.emoji.catalogue
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -15,7 +14,7 @@ import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import kotlin.math.min
 
 @Composable
-fun EmojiCatalogueComponent(
+fun EmojiCatalogueUi(
     emojis: Map<String, List<Emoji>>,
     maxEmojisPerGrid: Int? = null,
 ) {
