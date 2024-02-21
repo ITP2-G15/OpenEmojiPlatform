@@ -2,6 +2,7 @@ package com.platform.openemoji.emoji.category
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,35 +30,46 @@ fun route(category: String): String =
 @Composable
 fun CategoryScrollCarousel(
     navController: NavController,
-    categories: List<Category>,
+    categories: List<String>,
 ) {
     val currentRoute =
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
 
-    LazyRow(
-        Modifier.padding(bottom = 10.dp),
-    ) {
-        items(categories.size) { index ->
-            val category = categories[index]
-            val isSelected = "search/${route(category)}" == currentRoute
-            Button(
-                onClick = {
-                    navController.navigate("search/${route(category)}")
-                },
-                modifier = Modifier.padding(horizontal = 4.dp),
-                contentPadding = PaddingValues(8.dp),
-                colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor =
+    Column {
+        LazyRow(
+            modifier = Modifier.padding(vertical = 8.dp),
+        ) {
+            items(categories.size) { index ->
+                val category = categories[index]
+                val isSelected = "search/${route(category)}" == currentRoute
+                Button(
+                    onClick = {
+                        navController.navigate("search/${route(category)}")
+                    },
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    contentPadding = PaddingValues(8.dp),
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor =
+                                if (isSelected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.secondary
+                                },
+                        ),
+                ) {
+                    Text(
+                        category,
+                        style = MaterialTheme.typography.labelMedium,
+                        color =
                             if (isSelected) {
-                                MaterialTheme.colorScheme.primary
+                                MaterialTheme.colorScheme.onPrimary
                             } else {
-                                MaterialTheme.colorScheme.secondary
+                                MaterialTheme.colorScheme.onSecondary
                             },
-                    ),
-            ) {
-                Text(category)
+                    )
+                }
             }
         }
         Box(
