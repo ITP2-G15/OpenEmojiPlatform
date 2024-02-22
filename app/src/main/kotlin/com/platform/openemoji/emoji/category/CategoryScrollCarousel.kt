@@ -19,22 +19,33 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
+/* This could potentially generate the same route from different category names,
+    but this won't realistically happen with our data.
+*/
+fun route(category: String): String =
+    category.lowercase()
+        .replace(Regex("[^a-zA-Z ]"), "")
+        .replace(Regex(" +"), "-")
+
 @Composable
 fun CategoryScrollCarousel(
     navController: NavController,
-    categories: List<Category>,
+    categories: List<String>,
 ) {
     val currentRoute =
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
+
     Column {
-        LazyRow(modifier = Modifier.padding(vertical = 8.dp)) {
+        LazyRow(
+            modifier = Modifier.padding(vertical = 8.dp),
+        ) {
             items(categories.size) { index ->
                 val category = categories[index]
-                val isSelected = category.route == currentRoute
+                val isSelected = "search/${route(category)}" == currentRoute
                 Button(
                     onClick = {
-                        navController.navigate(category.route)
+                        navController.navigate("search/${route(category)}")
                     },
                     modifier = Modifier.padding(horizontal = 4.dp),
                     contentPadding = PaddingValues(8.dp),
@@ -48,7 +59,16 @@ fun CategoryScrollCarousel(
                                 },
                         ),
                 ) {
-                    Text(category.name)
+                    Text(
+                        category,
+                        style = MaterialTheme.typography.labelMedium,
+                        color =
+                            if (isSelected) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.onSecondary
+                            },
+                    )
                 }
             }
         }
