@@ -14,35 +14,19 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.platform.openemoji.emoji.category.Category
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
-
-@Composable
-fun CategoryGrid(name: String) {
-    Text(name)
-}
+import com.platform.openemoji.emoji.category.route
 
 @Composable
 fun SearchScreen() {
-    val categoryList =
-        listOf(
-            Category("All", "all"),
-            Category("Smileys & Emotion", "smileys"),
-            Category("People & Body", "people"),
-            Category("Animals & Nature", "animals"),
-            Category("Food & Drink", "food"),
-            Category("Travel & Places", "travel"),
-            Category("Activities", "activities"),
-            Category("Objects", "object"),
-            Category("Symbols", "symbols"),
-            Category("Flags", "flags"),
-        )
+    val emojiCatalogue = EmojiCatalogue.get()
 
     //Creates a state for the search text
     val searchText = remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.padding(16.dp)) {
-
+    Column {
         //Displays a TextField at the top of the screen
         TextField(
             value = searchText.value,
@@ -55,11 +39,34 @@ fun SearchScreen() {
         )
 
         val categoryNav = rememberNavController()
-        CategoryScrollCarousel(categoryNav, categoryList)
-        NavHost(navController = categoryNav, startDestination = "all") {
-            categoryList.forEach { category ->
-                composable(category.route) {
-                    CategoryGrid(category.name)
+        CategoryScrollCarousel(
+            categoryNav,
+            listOf("All") + emojiCatalogue.categories,
+        )
+        NavHost(
+            navController = categoryNav,
+            startDestination = "search/all",
+        ) {
+            // Categories (All)
+            composable(
+                "search/all",
+            ) {
+                EmojiCatalogueUi(
+                    emojis = emojiCatalogue.byCategory,
+                    maxEmojisPerGrid = 15,
+                )
+            }
+            // Subcategories (e.g. Activities > Sport)
+            emojiCatalogue.categories.forEach { category ->
+                composable(
+                    "search/${route(category)}",
+                ) {
+                    emojiCatalogue.bySubCategory(category)?.let {
+                        EmojiCatalogueUi(
+                            emojis = it,
+                            maxEmojisPerGrid = 15,
+                        )
+                    }
                 }
             }
         }
