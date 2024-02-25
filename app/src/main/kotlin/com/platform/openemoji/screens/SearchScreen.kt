@@ -23,19 +23,24 @@ import com.platform.openemoji.emoji.category.route
 fun SearchScreen() {
     val emojiCatalogue = EmojiCatalogue.get()
 
-    //Creates a state for the search text
+    // Creates a state for the search text
     val searchText = remember { mutableStateOf("") }
 
     Column {
-        //Displays a TextField at the top of the screen
+        // Displays a TextField at the top of the screen
         TextField(
             value = searchText.value,
-            onValueChange = { newText -> searchText.value = newText },
-            label = { Text("Search for emoji") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            shape = RoundedCornerShape(12.dp)
+            onValueChange = { newText ->
+                searchText.value = newText
+            },
+            label = {
+                Text("Search for emoji")
+            },
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            shape = RoundedCornerShape(12.dp),
         )
 
         val categoryNav = rememberNavController()
