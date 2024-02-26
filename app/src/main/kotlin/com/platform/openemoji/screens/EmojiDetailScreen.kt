@@ -23,30 +23,32 @@ import androidx.compose.ui.unit.sp
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 
-
 @Composable
 fun EmojiDetailScreen(emoji: Emoji) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    Column() {
+    Column {
         /**
          * Arrow back button, takes you back to previous location.
          */
-        IconButton(onClick = {/*TODO*/}) {
+        IconButton(onClick = { /*TODO*/ }) {
             Icon(
                 Icons.Filled.ArrowBack,
                 contentDescription = "back",
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(48.dp),
             )
         }
-        Card(modifier = Modifier
-                .fillMaxWidth()
-                .size(width = screenWidth, height = 150.dp)
-                .padding(horizontal = 12.dp, vertical = 8.dp)
+        Card(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .size(width = screenWidth, height = 150.dp)
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -54,7 +56,7 @@ fun EmojiDetailScreen(emoji: Emoji) {
                 Text(
                     text = emoji.title,
                     fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
         }
@@ -62,7 +64,7 @@ fun EmojiDetailScreen(emoji: Emoji) {
         Text(
             text = emoji.description,
             fontSize = 20.sp,
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
         )
     }
 }
