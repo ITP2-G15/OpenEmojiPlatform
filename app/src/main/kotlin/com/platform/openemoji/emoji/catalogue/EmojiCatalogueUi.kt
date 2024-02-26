@@ -21,14 +21,20 @@ fun EmojiCatalogueUi(
 ) {
     Column(
         modifier =
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(start = 16.dp, end = 16.dp),
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(start = 16.dp, end = 16.dp),
     ) {
         emojis.forEach { (category, emojis) ->
             // Filter the emojis based on the filterText (often from searchbar input)
             // This filters the emojis based on the title of the emoji
-            val filteredEmojis = emojis.filter { it.title.contains(filterText, ignoreCase = true) }
+            val filteredEmojis =
+                emojis.filter {
+                    it.title.contains(
+                        filterText,
+                        ignoreCase = true,
+                    )
+                }
             // Only display the category if it has any emojis that match the filter
             if (filteredEmojis.isNotEmpty()) {
                 Text(
@@ -41,7 +47,10 @@ fun EmojiCatalogueUi(
                     if (maxEmojisPerGrid == null) {
                         filteredEmojis
                     } else {
-                        filteredEmojis.subList(0, min(filteredEmojis.size, maxEmojisPerGrid))
+                        filteredEmojis.subList(
+                            0,
+                            min(filteredEmojis.size, maxEmojisPerGrid),
+                        )
                     }
 
                 EmojiGrid(emojis = emojisToDisplay) // Display the filtered emojis
