@@ -58,6 +58,7 @@ fun SearchScreen() {
             ) {
                 EmojiCatalogueUi(
                     emojis = emojiCatalogue.byCategory,
+                    filterText = searchText.value,
                     maxEmojisPerGrid = 15,
                 )
             }
@@ -69,6 +70,7 @@ fun SearchScreen() {
                     emojiCatalogue.bySubCategory(category)?.let {
                         EmojiCatalogueUi(
                             emojis = it,
+                            filterText = searchText.value,
                             maxEmojisPerGrid = 15,
                         )
                     }

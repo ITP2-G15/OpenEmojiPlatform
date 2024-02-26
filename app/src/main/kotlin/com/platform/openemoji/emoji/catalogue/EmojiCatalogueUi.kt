@@ -16,6 +16,7 @@ import kotlin.math.min
 @Composable
 fun EmojiCatalogueUi(
     emojis: Map<String, List<Emoji>>,
+    filterText: String,
     maxEmojisPerGrid: Int? = null,
 ) {
     Column(
@@ -25,20 +26,35 @@ fun EmojiCatalogueUi(
                 .padding(start = 16.dp, end = 16.dp),
     ) {
         emojis.forEach { (category, emojis) ->
-            Text(
-                text = category,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            // Limit number of emojis displayed in each grid
-            val emojisToDisplay =
-                if (maxEmojisPerGrid == null) {
-                    emojis
-                } else {
-                    emojis.subList(0, min(emojis.size, maxEmojisPerGrid))
+            // Filter the emojis based on the filterText (often from searchbar input)
+            // This filters the emojis based on the title of the emoji
+            val filteredEmojis =
+                emojis.filter {
+                    it.title.contains(
+                        filterText,
+                        ignoreCase = true,
+                    )
                 }
+            // Only display the category if it has any emojis that match the filter
+            if (filteredEmojis.isNotEmpty()) {
+                Text(
+                    text = category,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                // Limit number of emojis displayed in each grid
+                val emojisToDisplay =
+                    if (maxEmojisPerGrid == null) {
+                        filteredEmojis
+                    } else {
+                        filteredEmojis.subList(
+                            0,
+                            min(filteredEmojis.size, maxEmojisPerGrid),
+                        )
+                    }
 
-            EmojiGrid(emojis = emojisToDisplay)
+                EmojiGrid(emojis = emojisToDisplay) // Display the filtered emojis
+            }
         }
     }
 }
