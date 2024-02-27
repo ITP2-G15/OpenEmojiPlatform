@@ -3,6 +3,7 @@ package com.platform.openemoji.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,22 +41,25 @@ fun EmojiDetailScreen(emoji: Emoji) {
         }
         Card(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .size(width = screenWidth, height = 150.dp)
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+            Modifier
+                .fillMaxWidth()
+                .size(width = screenWidth, height = 150.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
             Row(
                 modifier =
-                    Modifier.fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconCopy(emoji)
                 Text(
                     text = emoji.title,
-                    fontSize = 22.sp,
+                    modifier = Modifier.padding(12.dp), //So that for large text,
+                    // title will not go to close to emoji
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                 )
             }
@@ -63,7 +67,7 @@ fun EmojiDetailScreen(emoji: Emoji) {
 
         Text(
             text = emoji.description,
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
         )
     }
