@@ -1,0 +1,461 @@
+[
+  {
+    "id": "0",
+    "title": "Grinning Face",
+    "emojiCode": "\uD83D\uDE00",
+    "category": "Smileys",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with simple, open eyes and a broad, open smile, showing upper teeth and tongue on some platforms. Often conveys general pleasure and good cheer or humor.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/grinning-face_1f600.png"
+  },
+  {
+    "id": "1",
+    "title": "Face with Tears of Joy",
+    "emojiCode": "\uD83D\uDE02",
+    "category": "Smileys",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with a big grin, uplifted eyebrows, and smiling eyes, each shedding a tear from laughing so hard. Widely used to show something is funny or pleasing.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/face-with-tears-of-joy_1f602.png"
+  },
+  {
+    "id": "2",
+    "title": "Red Heart",
+    "emojiCode": "❤\uFE0F",
+    "category": "Smileys & Emotion",
+    "subCategory": "Love & Valentine's Day",
+    "description": "A classic love heart emoji, used for expressions of love. Displayed in various shades of red on most platforms.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/red-heart_2764-fe0f.png"
+  },
+  {
+    "id": "3",
+    "title": "Thumbs Up",
+    "emojiCode": "\uD83D\uDC4D",
+    "category": "People & Body",
+    "subCategory": "Hand gestures",
+    "description": "A thumbs-up gesture indicating approval. Commonly used to express agreement or acceptance.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/thumbs-up_1f44d.png"
+  },
+  {
+    "id": "4",
+    "title": "Fire",
+    "emojiCode": "\uD83D\uDD25",
+    "category": "Animals & Nature",
+    "subCategory": "Weather",
+    "description": "A flame, as produced when something is on fire. Depicted as a red, orange, and yellow flickering flame.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/fire_1f525.png"
+  },
+  {
+    "id": "5",
+    "title": "Smiling Face with Heart-Eyes",
+    "emojiCode": "\uD83D\uDE0D",
+    "category": "Smileys & Emotion",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with smiling eyes, a closed smile, rosy cheeks, and several hearts floating around its head. Expresses a range of positive, happy, and affectionate feelings, especially being in love.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/smiling-face-with-heart-eyes_1f60d.png"
+  },
+  {
+    "id": "6",
+    "title": "Winking Face",
+    "emojiCode": "\uD83D\uDE09",
+    "category": "Smileys & Emotion",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with a slight smile shown winking, usually its left eye. May signal a joke, flirtation, hidden meaning, or general positivity.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/winking-face_1f609.png"
+  },
+  {
+    "id": "7",
+    "title": "OK Hand",
+    "emojiCode": "\uD83D\uDC4C",
+    "category": "People & Body",
+    "subCategory": "Hand gestures",
+    "description": "A gesture showing the index finger and thumb touching to make an open circle. Represents 'okay', 'all good', or 'very good'. May signal approval, agreement, consent, or comfort.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/ok-hand_1f44c.png"
+  },
+  {
+    "id": "8",
+    "title": "Sunflower",
+    "emojiCode": "\uD83C\uDF3B",
+    "category": "Animals & Nature",
+    "subCategory": "Plant flora",
+    "description": "A sunflower, a tall, round flower with large yellow petals. Depicted as a single, vertical sunflower with a large, dark-brown center on a green stem.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/sunflower_1f33b.png"
+  },
+  {
+    "id": "9",
+    "title": "Smirking Face",
+    "emojiCode": "\uD83D\uDE0F",
+    "category": "Smileys & Emotion",
+    "subCategory": "Smiling & Affectionate",
+    "description": "A yellow face with a sly, smug, mischievous, or suggestive facial expression. Often used to convey flirtation or sexual innuendo.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/smirking-face_1f60f.png"
+  },
+  {
+    "id": "10",
+    "title": "Crying Face",
+    "emojiCode": "\uD83D\uDE22",
+    "category": "Smileys & Emotion",
+    "subCategory": "Sad & Melancholy",
+    "description": "A yellow face with a big tear falling from one eye, usually depicted as closed eyes with an open mouth.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/crying-face_1f622.png"
+  },
+  {
+    "id": "11",
+    "title": "Loudly Crying Face",
+    "emojiCode": "\uD83D\uDE2D",
+    "category": "Smileys & Emotion",
+    "subCategory": "Sad & Melancholy",
+    "description": "A yellow face with an open mouth wailing and streams of heavy tears flowing from closed eyes.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/loudly-crying-face_1f62d.png"
+  },
+  {
+    "id": "12",
+    "title": "Angry Face",
+    "emojiCode": "\uD83D\uDE20",
+    "category": "Smileys & Emotion",
+    "subCategory": "Angry & Frustrated",
+    "description": "A yellow face with a frowning mouth and eyes and eyebrows scrunched downward in anger. Google's design features a reddish face and Facebook's, clenched teeth.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/angry-face_1f620.png"
+  },
+  {
+    "id": "13",
+    "title": "Sleeping Face",
+    "emojiCode": "\uD83D\uDE34",
+    "category": "Smileys & Emotion",
+    "subCategory": "Sleepy & Tired",
+    "description": "A yellow face with eyes closed and mouth letting out three, cartoon-styled Zzz’s overhead to indicate it's sound asleep.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/sleeping-face_1f634.png"
+  },
+  {
+    "id": "14",
+    "title": "Thinking Face",
+    "emojiCode": "\uD83E\uDD14",
+    "category": "Smileys & Emotion",
+    "subCategory": "Thinking & Contemplative",
+    "description": "A yellow face with furrowed eyebrows looking upwards with thumb and index finger resting on its chin. Used to indicate thinking, or deep thought.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/thinking-face_1f914.png"
+  },
+  {
+    "id": "15",
+    "title": "Penguin",
+    "emojiCode": "\uD83D\uDC27",
+    "category": "Animals & Nature",
+    "subCategory": "Animal-Bird",
+    "description": "A penguin, a flightless bird adapted to water and ice. Depicted as a black-and-white bird with a yellow or orange beak.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/penguin_1f427.png"
+  },
+  {
+    "id": "16",
+    "title": "Tropical Drink",
+    "emojiCode": "\uD83C\uDF79",
+    "category": "Food & Drink",
+    "subCategory": "Drink",
+    "description": "A tropical drink, served with a straw and wedge of lemon or lime. Positioned at a 45° angle, with a cherry on top.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/tropical-drink_1f379.png"
+  },
+  {
+    "id": "17",
+    "title": "Football",
+    "emojiCode": "\u26BD",
+    "category": "Activities",
+    "subCategory": "Sport",
+    "description": "A round, black and white ball used in the game of football, which is known as soccer in much of the world.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/football_26bd.png"
+  },
+  {
+    "id": "18",
+    "title": "Graduation Cap",
+    "emojiCode": "\uD83C\uDF93",
+    "category": "Objects",
+    "subCategory": "Clothing",
+    "description": "A graduation cap, worn on the head of students graduating from college or university. Known as a mortarboard in the United States.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/graduation-cap_1f393.png"
+  },
+  {
+    "id": "19",
+    "title": "Rocket",
+    "emojiCode": "\uD83D\uDE80",
+    "category": "Travel & Places",
+    "subCategory": "Transport Air",
+    "description": "A rocket being propelled into space. Shown either leaving a trail of exhaust gases and flames or as already in space.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/rocket_1f680.png"
+  },
+  {
+    "id": "20",
+    "title": "Unicorn Face",
+    "emojiCode": "\uD83E\uDD84",
+    "category": "Animals & Nature",
+    "subCategory": "Animal-Mammal",
+    "description": "The face of a unicorn, a mythical creature in the form of a white horse with a single, long horn on its forehead. Generally depicted as a white horse head facing left with a pink or purple mane and a yellow or rainbow-colored horn.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/unicorn-face_1f984.png"
+  },
+  {
+    "id": "21",
+    "title": "Blue Heart",
+    "emojiCode": "\uD83D\uDC99",
+    "category": "Smileys & Emotion",
+    "subCategory": "Love & Valentine's Day",
+    "description": "A blue heart emoji, commonly used to represent love and affection. Displayed in various shades of blue on most platforms.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/blue-heart_1f499.png"
+  },
+  {
+    "id": "22",
+    "title": "Money Bag",
+    "emojiCode": "\uD83D\uDCB0",
+    "category": "Objects",
+    "subCategory": "Money",
+    "description": "A bag full of money. Depicted as a sack, usually tan, tied off and displaying a dollar sign.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/money-bag_1f4b0.png"
+  },
+  {
+    "id": "23",
+    "title": "Bicycle",
+    "emojiCode": "\uD83D\uDEB2",
+    "category": "Travel & Places",
+    "subCategory": "Transport Ground",
+    "description": "A classic two-wheeled bicycle, which is used for exercise, sport, or transportation.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/bicycle_1f6b2.png"
+  },
+  {
+    "id": "24",
+    "title": "Movie Camera",
+    "emojiCode": "\uD83C\uDF9E",
+    "category": "Objects",
+    "subCategory": "Entertainment",
+    "description": "A classic movie camera, as used to shoot film or movies. Generally depicted as a gray or black video camera with viewfinder, control buttons, and lens pointed left.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/movie-camera_1f3a5.png"
+  },
+  {
+    "id": "25",
+    "title": "Hamburger",
+    "emojiCode": "\uD83C\uDF54",
+    "category": "Food & Drink",
+    "subCategory": "Food-Prepared",
+    "description": "A hamburger, beef burger, burger, or cheeseburger with two buns and a beef patty, displayed with cheese, lettuce, and tomato, or additional toppings on most platforms.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/hamburger_1f354.png"
+  },
+  {
+    "id": "26",
+    "title": "House with Garden",
+    "emojiCode": "\uD83C\uDFE1",
+    "category": "Travel & Places",
+    "subCategory": "Place-Residential",
+    "description": "A two-story house, with a display of greenery in front, or a garden. Commonly used for various content concerning building and houses, or residential areas in general.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/house-with-garden_1f3e1.png"
+  },
+  {
+    "id": "27",
+    "title": "Airplane",
+    "emojiCode": "\u2708",
+    "category": "Travel & Places",
+    "subCategory": "Transport Air",
+    "description": "A commercial airliner, as flown by a pilot. Depicted with two or three sections of windows, mounted on a landing gear, and pointed left or right.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/airplane_2708.png"
+  },
+  {
+    "id": "28",
+    "title": "Basketball",
+    "emojiCode": "\uD83C\uDFC0",
+    "category": "Activities",
+    "subCategory": "Sport",
+    "description": "A basketball, used in the sport of basketball, which is played on a court with two hoops. Depicted as an orange or brown ball with textured surface.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/basketball_1f3c0.png"
+  },
+  {
+    "id": "29",
+    "title": "Globe Showing Americas",
+    "emojiCode": "\uD83C\uDF0E",
+    "category": "Travel & Places",
+    "subCategory": "Place-Geographic",
+    "description": "A globe, showing the continents of North and South America in green against blue ocean. May be used to represent various content concerning the North and South American regions.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/globe-showing-americas_1f30e.png"
+  },
+  {
+    "id": "30",
+    "title": "Alarm Clock",
+    "emojiCode": "\u23F0",
+    "category": "Travel & Places",
+    "subCategory": "Time",
+    "description": "An old-fashioned alarm clock, mechanical, with two bells on top. In the past, often set to 07:00 in the morning.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/alarm-clock_23f0.png"
+  },
+  {
+    "id": "31",
+    "title": "Candle",
+    "emojiCode": "\uD83D\uDD6F",
+    "category": "Objects",
+    "subCategory": "Light & Video",
+    "description": "A burning candle, as lit when taking a bath or the power is out. Depicted as a white, pillar-shaped candle with a flame and wax dripping down its side.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/candle_1f56f.png"
+  },
+  {
+    "id": "32",
+    "title": "Fishing Pole",
+    "emojiCode": "\uD83C\uDFA3",
+    "category": "Activities",
+    "subCategory": "Sport",
+    "description": "A fishing rod (pole) with a fishing line and a fish hooked at the end. May be used to represent various types of fishing activities.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/fishing-pole_1f3a3.png"
+  },
+  {
+    "id": "33",
+    "title": "Laptop Computer",
+    "emojiCode": "\uD83D\uDCBB",
+    "category": "Objects",
+    "subCategory": "Computer",
+    "description": "A personal computer, most commonly depicted as a laptop computer. May be used for various content concerning computers, technology, and work.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/laptop-computer_1f4bb.png"
+  },
+  {
+    "id": "34",
+    "title": "Soccer Ball",
+    "emojiCode": "\u26BD",
+    "category": "Activities",
+    "subCategory": "Sport",
+    "description": "A round, black and white ball used in the game of football, which is known as soccer in much of the world.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/soccer-ball_26bd.png"
+  },
+  {
+    "id": "35",
+    "title": "Sun with Face",
+    "emojiCode": "\uD83C\uDF1E",
+    "category": "Animals & Nature",
+    "subCategory": "Sky & Weather",
+    "description": "The sun, with a face. Often depicted with a smiling face, with sunglasses, or with a sunburst of rays.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/sun-with-face_1f31e.png"
+  },
+  {
+    "id": "36",
+    "title": "Telephone",
+    "emojiCode": "\u260E",
+    "category": "Objects",
+    "subCategory": "Phone",
+    "description": "A classic telephone, as a landline home phone. Most platforms depict a red, push-button phone with the handset on the base.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/telephone_260e.png"
+  },
+  {
+    "id": "37",
+    "title": "Beach with Umbrella",
+    "emojiCode": "\uD83C\uDFD6",
+    "category": "Travel & Places",
+    "subCategory": "Place-Other",
+    "description": "A tropical beach with a palm tree, beach umbrella, and beach ball. May be used to represent various types of beaches (e.g., tropical, sandy, pebble) and summer fun.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/beach-with-umbrella_1f3d6.png"
+  },
+  {
+    "id": "38",
+    "title": "Guitar",
+    "emojiCode": "\uD83C\uDFB8",
+    "category": "Activities",
+    "subCategory": "Entertainment",
+    "description": "A guitar, a stringed musical instrument with a wooden body and a fretted neck. Played by strumming or plucking the strings with one hand while fretting the strings with the other hand.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/guitar_1f3b8.png"
+  },
+  {
+    "id": "39",
+    "title": "Cat Face",
+    "emojiCode": "\uD83D\uDC31",
+    "category": "Animals & Nature",
+    "subCategory": "Animal-Cat",
+    "description": "The face of a cat, looking directly forward. Shown as yellow or gray on most platforms, this emoji generally has a cartoon-style appearance and visible whiskers.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/cat-face_1f431.png"
+  },
+  {
+    "id": "40",
+    "title": "Car",
+    "emojiCode": "\uD83D\uDE98",
+    "category": "Travel & Places",
+    "subCategory": "Transport Ground",
+    "description": "A car, which is generally depicted as a red or blue sedan, styled after various notable car manufacturers.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/car_1f698.png"
+  },
+  {
+    "id": "41",
+    "title": "Rainbow",
+    "emojiCode": "\uD83C\uDF08",
+    "category": "Animals & Nature",
+    "subCategory": "Sky & Weather",
+    "description": "A rainbow with six colors: violet, blue, green, yellow, orange, red. Apple and WhatsApp's designs feature pots of gold at each end of the rainbow.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/rainbow_1f308.png"
+  },
+  {
+    "id": "42",
+    "title": "Penguin",
+    "emojiCode": "\uD83D\uDC27",
+    "category": "Animals & Nature",
+    "subCategory": "Animal-Bird",
+    "description": "A penguin, a flightless bird adapted to water and ice. Depicted as a black-and-white bird with a yellow or orange beak.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/penguin_1f427.png"
+  },
+  {
+    "id": "43",
+    "title": "Cocktail Glass",
+    "emojiCode": "\uD83C\uDF78",
+    "category": "Food & Drink",
+    "subCategory": "Drink",
+    "description": "A glass filled with a cocktail, usually containing ice, alcohol, and a garnish—such as a lemon or lime slice. Positioned at a 45° angle, as if about to slide into the glass.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/cocktail-glass_1f378.png"
+  },
+  {
+    "id": "44",
+    "title": "Shopping Bags",
+    "emojiCode": "\uD83C\uDF81",
+    "category": "Objects",
+    "subCategory": "Shopping",
+    "description": "Two colorful shopping bags, as contain consumer items purchased at a department store. Depicted as gift bags in various bright colors, patterns, and sizes.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/shopping-bags_1f6cd.png"
+  },
+  {
+    "id": "45",
+    "title": "Globe Showing Europe-Africa",
+    "emojiCode": "\uD83C\uDF0D",
+    "category": "Travel & Places",
+    "subCategory": "Place-Geographic",
+    "description": "A globe, showing the continents of Europe and Africa in green against blue ocean. May be used to represent various content concerning the European and African regions.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/globe-showing-europe-africa_1f30d.png"
+  },
+  {
+    "id": "46",
+    "title": "Horse",
+    "emojiCode": "\uD83D\uDC34",
+    "category": "Animals & Nature",
+    "subCategory": "Animal-Mammal",
+    "description": "The face of a horse, looking straight ahead. Generally depicted in full profile on all fours facing left, with a flowing mane and tail.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/horse_1f434.png"
+  },
+  {
+    "id": "47",
+    "title": "Taco",
+    "emojiCode": "\uD83C\uDF2E",
+    "category": "Food & Drink",
+    "subCategory": "Food-Prepared",
+    "description": "A taco, a traditional Mexican dish, displayed inside a hard or soft taco shell. Ingredients vary by platform, most commonly including beef, lettuce, and cheese.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/taco_1f32e.png"
+  },
+  {
+    "id": "48",
+    "title": "Motorcycle",
+    "emojiCode": "\uD83C\uDFCD",
+    "category": "Travel & Places",
+    "subCategory": "Transport Ground",
+    "description": "A motorcycle, otherwise known as a motorbike used for sport/racing or for transportation. Depicted as a sport bike in Apple's artwork, and a cruiser motorcycle in Google's.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/motorcycle_1f3cd.png"
+  },
+  {
+    "id": "49",
+    "title": "Game Die",
+    "emojiCode": "\uD83C\uDFB2",
+    "category": "Activities",
+    "subCategory": "Game",
+    "description": "A six-sided die, used in a range of board and turn-based games. Commonly called 'dice' or 'd6' in role-playing games.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/game-die_1f3b2.png"
+  },
+  {
+    "id": "50",
+    "title": "Television",
+    "emojiCode": "\uD83D\uDCFA",
+    "category": "Objects",
+    "subCategory": "Entertainment",
+    "description": "A classic television set, as CRT-based TV (cathode ray tube) with rabbit-ear antennas. Commonly used for various content concerning television, broadcasting, and watching TV.",
+    "imageUrl": "https://em-content.zobj.net/source/apple/354/television_1f4fa.png"
+  }
+]

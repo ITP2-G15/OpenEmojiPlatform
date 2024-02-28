@@ -1,0 +1,35 @@
+package com.platform.openemoji
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.platform.openemoji.emoji.EmojiMockData
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.screens.SearchScreen
+import com.platform.openemoji.theme.OpenEmojiPlatformTheme
+
+class EmojiActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Loads all emojis once for use by all the components that need them.
+        val emojiMockData = EmojiMockData.getFrom(resources)
+        EmojiCatalogue.get().populate(emojiMockData)
+        setContent {
+            OpenEmojiPlatformTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    Column {
+                        SearchScreen()
+                    }
+                }
+            }
+        }
+    }
+}

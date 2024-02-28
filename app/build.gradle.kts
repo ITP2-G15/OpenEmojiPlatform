@@ -2,14 +2,15 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint")
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 android {
-    namespace = "com.example.openemoji"
+    namespace = "com.platform.openemoji"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.openemoji"
+        applicationId = "com.platform.openemoji"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -72,6 +73,9 @@ dependencies {
     implementation(
         "androidx.navigation:navigation-ui-ktx:2.7.6",
     )
+    implementation(
+        "androidx.navigation:navigation-compose:2.4.0-alpha10",
+    )
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.compose.ui:ui")
@@ -121,4 +125,8 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     // Optional - Integration with RxJava
     implementation("androidx.compose.runtime:runtime-rxjava2")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    // coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }
