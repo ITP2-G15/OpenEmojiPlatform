@@ -3,13 +3,14 @@ package com.platform.openemoji
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.platform.openemoji.emoji.EmojiMockData
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.nav.BottomNavigationBar
 import com.platform.openemoji.screens.SearchScreen
 import com.platform.openemoji.theme.OpenEmojiPlatformTheme
 
@@ -21,11 +22,13 @@ class EmojiActivity : ComponentActivity() {
         EmojiCatalogue.get().populate(emojiMockData)
         setContent {
             OpenEmojiPlatformTheme {
-                Surface(
+                Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                    bottomBar = { BottomNavigationBar() },
                 ) {
-                    Column {
+                    Surface(
+                        color = MaterialTheme.colorScheme.background,
+                    ) {
                         SearchScreen()
                     }
                 }
