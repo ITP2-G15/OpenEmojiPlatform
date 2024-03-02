@@ -52,4 +52,16 @@ class EmojiCatalogue private constructor() {
      */
     fun bySubCategory(category: String): Map<String, List<Emoji>>? =
         byCategory[category]?.groupBy { it.subCategory }
+
+    /**
+     * Search based on emoji.title. Ignores uppercase.
+     * @param query query string to search for emojis.
+     * @return list of emojis matching the query.
+     */
+    fun search(query: String): List<Emoji> {
+        val queryLowerCase = query.lowercase()
+        return byCategory.values.flatten().filter {
+            it.title.lowercase().contains(queryLowerCase)
+        }
+    }
 }
