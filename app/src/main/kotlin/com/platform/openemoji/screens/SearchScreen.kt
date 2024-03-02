@@ -23,7 +23,6 @@ import com.platform.openemoji.emoji.category.route
 @Composable
 fun SearchScreen() {
     val emojiCatalogue = EmojiCatalogue.get()
-
     // Creates a state for the search text
     val searchText = remember { mutableStateOf("") }
 
@@ -43,50 +42,49 @@ fun SearchScreen() {
                     .padding(8.dp),
             shape = RoundedCornerShape(12.dp),
         )
-        // Filtered emojis based on search
-        val filteredEmojis =
-            emojiCatalogue.byCategory
-                .mapValues {
-                    it.value.filter {
-                            emoji ->
-                        emoji.title.contains(searchText.value, ignoreCase = true)
-                    }
-                }
-                .values
-                .flatten()
 
         if (searchText.value.isNotEmpty()) {
             Text("Search results for: ${searchText.value}")
+            // filters the emojis if their title contains search input
+            val filteredEmojis =
+                emojiCatalogue.byCategory
+                    .mapValues {
+                        it.value.filter { emoji ->
+                            emoji.title.contains(searchText.value, ignoreCase = true)
+                        }
+                    }
+                    .values
+                    .flatten()
             EmojiGrid(emojis = filteredEmojis)
-        }
-
-        val categoryNav = rememberNavController()
-        CategoryScrollCarousel(
-            categoryNav,
-            listOf("All") + emojiCatalogue.categories,
-        )
-        NavHost(
-            navController = categoryNav,
-            startDestination = "search/all",
-        ) {
-            // Categories (All)
-            composable(
-                "search/all",
+        } else {
+            val categoryNav = rememberNavController()
+            CategoryScrollCarousel(
+                categoryNav,
+                listOf("All") + emojiCatalogue.categories,
+            )
+            NavHost(
+                navController = categoryNav,
+                startDestination = "search/all",
             ) {
-                EmojiCatalogueUi(
-                    emojis = emojiCatalogue.byCategory,
-                    maxEmojisPerGrid = 15,
-                )
-            }
-            // Subcategories (e.g. Activities > Sport)
-            emojiCatalogue.categories.forEach { category ->
+                // Categories (All)
                 composable(
-                    "search/${route(category)}",
+                    "search/all",
                 ) {
-                    emojiCatalogue.bySubCategory(category)?.let {
-                        EmojiCatalogueUi(
-                            emojis = it,
-                        )
+                    EmojiCatalogueUi(
+                        emojis = emojiCatalogue.byCategory,
+                        maxEmojisPerGrid = 15,
+                    )
+                }
+                // Subcategories (e.g. Activities > Sport)
+                emojiCatalogue.categories.forEach { category ->
+                    composable(
+                        "search/${route(category)}",
+                    ) {
+                        emojiCatalogue.bySubCategory(category)?.let {
+                            EmojiCatalogueUi(
+                                emojis = it,
+                            )
+                        }
                     }
                 }
             }
