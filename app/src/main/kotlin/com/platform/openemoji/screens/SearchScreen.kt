@@ -10,7 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -44,8 +47,12 @@ fun SearchScreen() {
         )
 
         if (searchText.value.isNotEmpty()) {
-            Text("Search results for: ${searchText.value}")
-            // filters the emojis if their title contains search input
+            Text(
+                "Search results for: ${searchText.value}",
+                modifier = Modifier.padding(bottom = 10.dp),
+                style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Medium),
+            )
+            // filters emoji based on title
             val filteredEmojis =
                 emojiCatalogue.byCategory
                     .mapValues {
