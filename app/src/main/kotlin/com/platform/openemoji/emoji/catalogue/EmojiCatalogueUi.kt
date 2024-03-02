@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
@@ -29,6 +30,7 @@ fun EmojiCatalogueUi(
                 text = category,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.testTag("catalogueUiCategoryHeader"),
             )
             // Limit number of emojis displayed in each grid
             val emojisToDisplay =
