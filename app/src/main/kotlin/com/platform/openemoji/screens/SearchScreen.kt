@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
+import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import com.platform.openemoji.emoji.category.route
 
@@ -42,6 +43,22 @@ fun SearchScreen() {
                     .padding(8.dp),
             shape = RoundedCornerShape(12.dp),
         )
+        // Filtered emojis based on search
+        val filteredEmojis =
+            emojiCatalogue.byCategory
+                .mapValues {
+                    it.value.filter {
+                            emoji ->
+                        emoji.title.contains(searchText.value, ignoreCase = true)
+                    }
+                }
+                .values
+                .flatten()
+
+        if (searchText.value.isNotEmpty()) {
+            Text("Search results for: ${searchText.value}")
+            EmojiGrid(emojis = filteredEmojis)
+        }
 
         val categoryNav = rememberNavController()
         CategoryScrollCarousel(
@@ -58,7 +75,6 @@ fun SearchScreen() {
             ) {
                 EmojiCatalogueUi(
                     emojis = emojiCatalogue.byCategory,
-                    filterText = searchText.value,
                     maxEmojisPerGrid = 15,
                 )
             }
@@ -70,8 +86,6 @@ fun SearchScreen() {
                     emojiCatalogue.bySubCategory(category)?.let {
                         EmojiCatalogueUi(
                             emojis = it,
-                            filterText = searchText.value,
-                            maxEmojisPerGrid = 15,
                         )
                     }
                 }
