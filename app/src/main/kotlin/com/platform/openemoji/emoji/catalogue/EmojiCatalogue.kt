@@ -29,7 +29,14 @@ class EmojiCatalogue private constructor() {
     var byCategory: Map<String, List<Emoji>> = emptyMap()
         private set
 
+    /**
+     * Once populated, this is a list of all emojis
+     */
+    var allEmojis: List<Emoji> = emptyList()
+        private set
+
     fun populate(emojis: List<Emoji>) {
+        allEmojis = emojis
         if (byCategory.isEmpty()) {
             byCategory = emojis.groupBy { it.category }
         }
@@ -52,4 +59,16 @@ class EmojiCatalogue private constructor() {
      */
     fun bySubCategory(category: String): Map<String, List<Emoji>>? =
         byCategory[category]?.groupBy { it.subCategory }
+
+    /**
+     * Search based on emoji.title. Ignores uppercase.
+     * @param query query string to search for emojis.
+     * @return list of emojis matching the query.
+     */
+    fun search(query: String): List<Emoji> {
+        val queryLowerCase = query.lowercase()
+        return allEmojis.filter {
+            it.title.lowercase().contains(queryLowerCase)
+        }
+    }
 }

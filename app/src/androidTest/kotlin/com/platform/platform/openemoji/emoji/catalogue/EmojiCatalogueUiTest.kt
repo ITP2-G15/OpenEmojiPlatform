@@ -34,7 +34,6 @@ class EmojiCatalogueUiTest {
         composeTestRule.setContent {
             EmojiCatalogueUi(
                 emojis = emojiCatalogue.byCategory,
-                filterText = "",
             )
         }
 

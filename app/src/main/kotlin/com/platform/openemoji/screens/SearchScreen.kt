@@ -3,7 +3,10 @@ package com.platform.openemoji.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -16,22 +19,22 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
+import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import com.platform.openemoji.emoji.category.route
 
 @Composable
 fun SearchScreen() {
     val emojiCatalogue = EmojiCatalogue.get()
-
     // Creates a state for the search text
-    val searchText = remember { mutableStateOf("") }
+    val query = remember { mutableStateOf("") }
 
     Column {
         // Displays a TextField at the top of the screen
         TextField(
-            value = searchText.value,
+            value = query.value,
             onValueChange = { newText ->
-                searchText.value = newText
+                query.value = newText
             },
             label = {
                 Text("Search for emoji")
@@ -44,35 +47,50 @@ fun SearchScreen() {
         )
 
         val categoryNav = rememberNavController()
-        CategoryScrollCarousel(
-            categoryNav,
-            listOf("All") + emojiCatalogue.categories,
-        )
-        NavHost(
-            navController = categoryNav,
-            startDestination = "search/all",
-        ) {
-            // Categories (All)
-            composable(
-                "search/all",
+
+        if (query.value.isNotEmpty()) {
+            Column(
+                modifier =
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(start = 16.dp, end = 16.dp),
             ) {
-                EmojiCatalogueUi(
-                    emojis = emojiCatalogue.byCategory,
-                    filterText = searchText.value,
-                    maxEmojisPerGrid = 15,
+                Text(
+                    text = "Search results for: ${query.value}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
+                val filteredEmojis = emojiCatalogue.search(query.value)
+                EmojiGrid(emojis = filteredEmojis)
             }
-            // Subcategories (e.g. Activities > Sport)
-            emojiCatalogue.categories.forEach { category ->
+        } else {
+            CategoryScrollCarousel(
+                categoryNav,
+                listOf("All") + emojiCatalogue.categories,
+            )
+            NavHost(
+                navController = categoryNav,
+                startDestination = "search/all",
+            ) {
+                // Categories (All)
                 composable(
-                    "search/${route(category)}",
+                    "search/all",
                 ) {
-                    emojiCatalogue.bySubCategory(category)?.let {
-                        EmojiCatalogueUi(
-                            emojis = it,
-                            filterText = searchText.value,
-                            maxEmojisPerGrid = 15,
-                        )
+                    EmojiCatalogueUi(
+                        emojis = emojiCatalogue.byCategory,
+                        maxEmojisPerGrid = 15,
+                    )
+                }
+                // Subcategories (e.g. Activities > Sport)
+                emojiCatalogue.categories.forEach { category ->
+                    composable(
+                        "search/${route(category)}",
+                    ) {
+                        emojiCatalogue.bySubCategory(category)?.let {
+                            EmojiCatalogueUi(
+                                emojis = it,
+                            )
+                        }
                     }
                 }
             }
