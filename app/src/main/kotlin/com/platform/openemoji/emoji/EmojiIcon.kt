@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.platform.openemoji.R
 
@@ -41,7 +40,7 @@ fun IconDesign(emoji: Emoji) {
 // This will be used for the emoji grid since it routes to the emoji icon details view
 @Composable
 fun IconRoute(emoji: Emoji) {
-    val navController = rememberNavController()
+    // val navController = rememberNavController()
     Text(
         emoji.emojiCode,
         style = MaterialTheme.typography.displaySmall,
