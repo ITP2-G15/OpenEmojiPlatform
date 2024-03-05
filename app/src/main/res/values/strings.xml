@@ -6,6 +6,6 @@ easily add support for multiple languages if needed -->
     <string name="copy_icon_description">Click to copy emoji</string>
     <string name="home">Home</string>
     <string name="home_icon_description">Click to navigate to the home screen</string>
-    <string name="search">Søk</string>
+    <string name="search">Search</string>
     <string name="search_icon_description">Click to navigate to the search screen</string>
 </resources>
