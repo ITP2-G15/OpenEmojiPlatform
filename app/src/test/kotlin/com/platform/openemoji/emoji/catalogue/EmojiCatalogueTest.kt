@@ -3,6 +3,7 @@ package com.platform.openemoji
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -75,5 +76,19 @@ class EmojiCatalogueTest {
                 "subCategory3" to listOf(emoji3),
             )
         assertEquals(expected2, emojiCatalogue.bySubCategory("category2"))
+    }
+
+    @Test
+    fun testSearch() {
+        val searchResult1 = emojiCatalogue.search("title1")
+        val expected1 = listOf(emoji1)
+        assertEquals(expected1, searchResult1)
+
+        val searchResult2 = emojiCatalogue.search("tit")
+        val expected2 = listOf(emoji1, emoji2, emoji3)
+        assertEquals(expected2, searchResult2)
+
+        val searchResult3 = emojiCatalogue.search("Nerf Yasuo")
+        assertTrue(searchResult3.isEmpty())
     }
 }
