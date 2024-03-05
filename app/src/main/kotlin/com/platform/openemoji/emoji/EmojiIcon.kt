@@ -76,6 +76,7 @@ fun IconCopy(emoji: Emoji) {
                         MaterialTheme.colorScheme.primary,
                 ),
             shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.testTag("emojiIconCopyButton"),
         ) {
             Icon(
                 Icons.Default.ContentCopy,
