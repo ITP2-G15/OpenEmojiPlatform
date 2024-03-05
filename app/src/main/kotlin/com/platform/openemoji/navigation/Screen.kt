@@ -2,12 +2,15 @@ package com.platform.openemoji.navigation
 
 import com.platform.openemoji.emoji.Emoji
 
-sealed class Screen(val route: String) {
-    object SearchScreen  : Screen("SearchScreen")
-    object EmojiDetailScreen : Screen("EmojiDetailScreen/{emoji}") {
-        fun routeTo(emoji: Emoji) : String = "EmojiDetailScreen/$emoji"
+enum class Screen {
+    SEARCHSCREEN,
+    EMOJIDETAILSCREEN
+}
+sealed class NavigationItem(val route: String) {
+    object SearchScreen  : NavigationItem(Screen.SEARCHSCREEN.name)
+    object EmojiDetailScreen : NavigationItem(Screen.EMOJIDETAILSCREEN.name + "/emoji") {
+        fun routeTo(emoji: Emoji) : String = "${Screen.SEARCHSCREEN}/$emoji"
     }
-
-    object AllCategories : Screen("search/all")
+    object AllCategories : NavigationItem("search/all")
 
 }
