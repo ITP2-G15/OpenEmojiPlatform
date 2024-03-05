@@ -13,7 +13,7 @@ import com.platform.openemoji.R
 
 @Composable
 fun BottomNavigationBar() {
-    val selectedItem = stringResource(R.string.home)
+    val selectedItem = stringResource(R.string.search)
     NavigationBar {
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.home),
