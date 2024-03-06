@@ -80,7 +80,7 @@ class EmojiCatalogueTest {
 
     @Test
     fun testSearch() {
-        val searchResult1 = emojiCatalogue.search("title1")
+        val searchResult1 = emojiCatalogue.search("Title1")
         val expected1 = listOf(emoji1)
         assertEquals(expected1, searchResult1)
 
