@@ -12,9 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.platform.openemoji.R
+import androidx.navigation.navArgument
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
@@ -47,7 +50,7 @@ fun SearchScreen() {
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 val filteredEmojis = emojiCatalogue.search(query.value)
-                EmojiGrid(emojis = filteredEmojis)
+                EmojiGrid(emojis = filteredEmojis, navController = categoryNav)
             }
         } else {
             // Remember the string resource here
@@ -78,8 +81,24 @@ fun SearchScreen() {
                         emojiCatalogue.bySubCategory(category)?.let {
                             EmojiCatalogueUi(
                                 emojis = it,
+                                navController = categoryNav
                             )
                         }
+                    }
+                }
+                composable(
+                    route = "emoji/{emojiTitle}",
+                    arguments = listOf(navArgument("emojiTitle") {
+                        type = NavType.StringType
+                        nullable = true
+                    })
+                ){backStackEntry ->
+                    val emojiTitle = backStackEntry.arguments?.getString("emojiTitle")
+                    val emoji = emojiCatalogue.getEmojiByTitle(emojiTitle)
+                    if (emoji != null) {
+                        EmojiDetailScreen(emoji = emoji, navController = categoryNav)
+                    } else {
+                        throw IllegalArgumentException(stringResource(R.string.emoji_not_found))
                     }
                 }
             }

@@ -71,4 +71,20 @@ class EmojiCatalogue private constructor() {
             it.title.lowercase().contains(queryLowerCase)
         }
     }
+
+    /**
+     * Search after specific emoji based on title.
+     * @param emojiTitle String.
+     * @return Emoji with that title. Else return null.
+     */
+    fun getEmojiByTitle(emojiTitle : String?): Emoji? {
+        byCategory.forEach { (category, emojis) ->
+            emojis.forEach {emoji ->
+                if (emojiTitle == emoji.title) {
+                    return emoji
+                }
+            }
+        }
+        return null
+    }
 }
