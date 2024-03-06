@@ -43,7 +43,7 @@ class SearchScreenTest {
 
         // Perform search
         val query = "A"
-        composeTestRule.onNodeWithTag("searchTextField").performTextInput("A")
+        composeTestRule.onNodeWithTag("searchTextField").performTextInput(query)
 
         // test that search header exists
         composeTestRule.onNodeWithText("Search results for: $query").assertExists()
