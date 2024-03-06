@@ -8,4 +8,7 @@ easily add support for multiple languages if needed -->
     <string name="home_icon_description">Click to navigate to the home screen</string>
     <string name="search">Search</string>
     <string name="search_icon_description">Click to navigate to the search screen</string>
+    <string name="back_arrow">Back</string>
+    <string name="all">All</string>
+    <string name="emoji_not_found">Emoji not found.</string>
 </resources>

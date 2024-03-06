@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import kotlin.math.min
@@ -18,6 +19,7 @@ import kotlin.math.min
 fun EmojiCatalogueUi(
     emojis: Map<String, List<Emoji>>,
     maxEmojisPerGrid: Int? = null,
+    navController : NavController,
 ) {
     Column(
         modifier =
@@ -40,7 +42,7 @@ fun EmojiCatalogueUi(
                     emojis.subList(0, min(emojis.size, maxEmojisPerGrid))
                 }
 
-            EmojiGrid(emojis = emojisToDisplay)
+            EmojiGrid(emojis = emojisToDisplay, navController = navController)
         }
     }
 }

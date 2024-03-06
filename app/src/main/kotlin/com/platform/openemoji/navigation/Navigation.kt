@@ -33,13 +33,5 @@ fun Navigation() {
         composable(route = NavigationItem.SearchScreen.route,) {
             SearchScreen()
         }
-
-        allEmojis.forEach { (category, emojis) ->
-            emojis.forEach {emoji ->
-                composable("emoji/${emoji.title}") {
-                    EmojiDetailScreen(emoji = emoji)
-                }
-            }
-        }
     }
 }

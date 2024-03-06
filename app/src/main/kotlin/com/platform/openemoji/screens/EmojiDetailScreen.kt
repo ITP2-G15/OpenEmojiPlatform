@@ -17,22 +17,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 
 @Composable
-fun EmojiDetailScreen(emoji: Emoji) {
+fun EmojiDetailScreen(emoji: Emoji, navController: NavController) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column {
         /**
          * Arrow back button, takes you back to previous location.
          */
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = { navController.popBackStack()}) {
             Icon(
                 Icons.Filled.ArrowBack,
-                contentDescription = "back",
+                contentDescription = stringResource(R.string.back_arrow),
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(48.dp),
             )

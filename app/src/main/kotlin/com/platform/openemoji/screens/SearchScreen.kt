@@ -13,10 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
@@ -40,9 +44,9 @@ fun SearchScreen() {
                 Text("Search for emoji")
             },
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             shape = RoundedCornerShape(12.dp),
         )
 
@@ -51,9 +55,9 @@ fun SearchScreen() {
         if (query.value.isNotEmpty()) {
             Column(
                 modifier =
-                    Modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(start = 16.dp, end = 16.dp),
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(start = 16.dp, end = 16.dp),
             ) {
                 Text(
                     text = "Search results for: ${query.value}",
@@ -61,7 +65,7 @@ fun SearchScreen() {
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 val filteredEmojis = emojiCatalogue.search(query.value)
-                EmojiGrid(emojis = filteredEmojis)
+                EmojiGrid(emojis = filteredEmojis, navController = categoryNav)
             }
         } else {
             CategoryScrollCarousel(
@@ -79,6 +83,7 @@ fun SearchScreen() {
                     EmojiCatalogueUi(
                         emojis = emojiCatalogue.byCategory,
                         maxEmojisPerGrid = 15,
+                        categoryNav
                     )
                 }
                 // Subcategories (e.g. Activities > Sport)
@@ -89,8 +94,24 @@ fun SearchScreen() {
                         emojiCatalogue.bySubCategory(category)?.let {
                             EmojiCatalogueUi(
                                 emojis = it,
+                                navController = categoryNav
                             )
                         }
+                    }
+                }
+                composable(
+                    route = "emoji/{emojiTitle}",
+                    arguments = listOf(navArgument("emojiTitle") {
+                        type = NavType.StringType
+                        nullable = true
+                    })
+                ){backStackEntry ->  
+                    val emojiTitle = backStackEntry.arguments?.getString("emojiTitle") 
+                    val emoji = emojiCatalogue.getEmojiByTitle(emojiTitle) 
+                    if (emoji != null) {
+                        EmojiDetailScreen(emoji = emoji, navController = categoryNav)
+                    } else {
+                        throw IllegalArgumentException(stringResource(R.string.emoji_not_found))
                     }
                 }
             }
