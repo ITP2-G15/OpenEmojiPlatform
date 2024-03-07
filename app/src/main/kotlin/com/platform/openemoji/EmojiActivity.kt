@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import com.platform.openemoji.emoji.EmojiMockData
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.nav.BottomNavigationBar
+import com.platform.openemoji.navigation.Navigation
 import com.platform.openemoji.screens.SearchScreen
 import com.platform.openemoji.theme.OpenEmojiPlatformTheme
 
@@ -30,7 +31,7 @@ class EmojiActivity : ComponentActivity() {
                     Surface(
                         color = MaterialTheme.colorScheme.background,
                     ) {
-                        SearchScreen()
+                        Navigation()
                     }
                 }
             }
