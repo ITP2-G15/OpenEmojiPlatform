@@ -67,6 +67,7 @@ fun SearchScreen() {
                 ) {
                     EmojiCatalogueUi(
                         emojis = emojiCatalogue.byCategory,
+                        maxEmojisPerGrid = 14,
                     )
                 }
                 // Subcategories (e.g. Activities > Sport)

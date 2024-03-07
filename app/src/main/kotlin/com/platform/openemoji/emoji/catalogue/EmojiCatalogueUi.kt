@@ -17,7 +17,7 @@ import kotlin.math.min
 @Composable
 fun EmojiCatalogueUi(
     emojis: Map<String, List<Emoji>>,
-    maxEmojisPerGrid: Int? = 14,
+    maxEmojisPerGrid: Int? = null,
 ) {
     Column(
         modifier =
