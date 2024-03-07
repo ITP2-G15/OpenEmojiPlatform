@@ -10,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
@@ -28,9 +30,7 @@ fun SearchScreen() {
     val query = remember { mutableStateOf("") }
 
     Column {
-        SearchField(query = query.value, onQueryChange = { newQuery ->
-            query.value = newQuery
-        })
+        SearchField(query)
 
         val categoryNav = rememberNavController()
 
@@ -39,10 +39,10 @@ fun SearchScreen() {
                 modifier =
                     Modifier
                         .verticalScroll(rememberScrollState())
-                        .padding(start = 16.dp, end = 16.dp),
+                        .padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = "Search results for: ${query.value}",
+                    text = "${stringResource(R.string.search_result)} ${query.value}",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -50,21 +50,24 @@ fun SearchScreen() {
                 EmojiGrid(emojis = filteredEmojis)
             }
         } else {
+            // Remember the string resource here
+            val overview = stringResource(R.string.overview)
+            val lowerCaseOverview = overview.lowercase()
             CategoryScrollCarousel(
                 categoryNav,
-                listOf("All") + emojiCatalogue.categories,
+                listOf(overview) + emojiCatalogue.categories,
             )
             NavHost(
                 navController = categoryNav,
-                startDestination = "search/all",
+                startDestination = "search/$lowerCaseOverview",
             ) {
                 // Categories (All)
                 composable(
-                    "search/all",
+                    "search/$lowerCaseOverview",
                 ) {
                     EmojiCatalogueUi(
                         emojis = emojiCatalogue.byCategory,
-                        maxEmojisPerGrid = 15,
+                        maxEmojisPerGrid = 14,
                     )
                 }
                 // Subcategories (e.g. Activities > Sport)

@@ -17,6 +17,7 @@
 - `./gradlew ktlintFormat` - format your code using ktlint.
 - `./gradlew installDebug` - build and install the app on the emulator or connected device.
 - `./gradlew test` - run the tests.
+- `./gradlew connectedAndroidTest` - run the UI tests on the emulator or connected device.
 - `emulator -avd EMULATOR_NAME` - start the emulator. Replace `EMULATOR_NAME` with the name of the emulator you want to start.
 
 ## How to run with Android Studio

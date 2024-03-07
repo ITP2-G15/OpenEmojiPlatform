@@ -23,7 +23,7 @@ fun EmojiCatalogueUi(
         modifier =
             Modifier
                 .verticalScroll(rememberScrollState())
-                .padding(start = 16.dp, end = 16.dp),
+                .padding(horizontal = 16.dp),
     ) {
         emojis.forEach { (category, emojis) ->
             Text(
