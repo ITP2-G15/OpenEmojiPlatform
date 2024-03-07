@@ -30,9 +30,7 @@ fun SearchScreen() {
     val query = remember { mutableStateOf("") }
 
     Column {
-        SearchField(query = query.value, onQueryChange = { newQuery ->
-            query.value = newQuery
-        })
+        SearchField(query)
 
         val categoryNav = rememberNavController()
 
@@ -44,7 +42,7 @@ fun SearchScreen() {
                         .padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = "Search results for: ${query.value}",
+                    text = "${stringResource(R.string.search_result)} ${query.value}",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
