@@ -47,7 +47,7 @@ fun SearchScreen() {
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             shape = RoundedCornerShape(12.dp),
         )
 
