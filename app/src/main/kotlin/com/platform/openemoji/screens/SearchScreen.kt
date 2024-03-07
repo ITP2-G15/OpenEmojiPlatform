@@ -1,8 +1,10 @@
 package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,11 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
@@ -29,12 +26,11 @@ import com.platform.openemoji.emoji.category.route
 import com.platform.openemoji.search.SearchField
 
 @Composable
-fun SearchScreen(navController: NavController,
-                 emojis : Map<String, List<Emoji>>,
-                 maxEmojisPerGrid: Int?) {
+fun SearchScreen(navController: NavController) {
     val emojiCatalogue = EmojiCatalogue.get()
     // Creates a state for the search text
     val query = remember { mutableStateOf("") }
+    val categorizedEmojis = remember { mutableStateOf(emojiCatalogue.byCategory) }
 
     Column {
         SearchField(query)
@@ -59,13 +55,19 @@ fun SearchScreen(navController: NavController,
             val overview = stringResource(R.string.overview)
             val lowerCaseOverview = overview.lowercase()
             CategoryScrollCarousel(
-                categoryNav,
-                listOf(overview) + emojiCatalogue.categories,
-            )
+                listOf(stringResource(R.string.all)) + emojiCatalogue.categories,
+            ) { newCategory ->
+                categorizedEmojis.value =
+                    if (newCategory == "All") {
+                        emojiCatalogue.byCategory
+                    } else {
+                        emojiCatalogue.bySubCategory(newCategory) ?: emptyMap()
+                    }
+            }
             EmojiCatalogueUi(
-                emojis = emojis,
-                maxEmojisPerGrid = maxEmojisPerGrid,
-                navController = navController
+                emojis = categorizedEmojis.value,
+                maxEmojisPerGrid = 15,
+                navController = navController,
             )
         }
     }
