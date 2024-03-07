@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import AppHeader
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,17 +23,18 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import com.platform.openemoji.emoji.category.route
-import com.platform.openemoji.headerlogo.HeaderLogo
+// import com.platform.openemoji.headerlogo.HeaderLogo
 
 @Composable
 fun SearchScreen() {
     val emojiCatalogue = EmojiCatalogue.get()
     // Creates a state for the search text
     val query = remember { mutableStateOf("") }
-    val HeaderLogo = HeaderLogo()
-
+    // val HeaderLogo = HeaderLogo()
 
     Column {
+        AppHeader()
+
         // Displays a TextField at the top of the screen
         TextField(
             value = query.value,
