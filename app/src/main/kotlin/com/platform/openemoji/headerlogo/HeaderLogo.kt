@@ -1,4 +1,5 @@
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -14,12 +15,13 @@ import com.platform.openemoji.R
 
 @Composable
 fun AppHeader() {
-    Column(
+    Row(
         modifier =
             Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
     ) {
         // App logo
         Image(
