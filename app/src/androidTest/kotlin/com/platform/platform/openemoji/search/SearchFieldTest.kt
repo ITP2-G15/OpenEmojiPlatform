@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.screens
+package com.platform.platform.openemoji.search
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class SearchScreenTest {
+class SearchFieldTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
