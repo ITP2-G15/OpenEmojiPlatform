@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -46,8 +47,12 @@ fun CategoryScrollCarousel(
                     onClick = {
                         navController.navigate("search/${route(category)}")
                     },
-                    modifier = Modifier.padding(horizontal = 4.dp),
+                    modifier =
+                        Modifier.padding(
+                            horizontal = 4.dp,
+                        ),
                     contentPadding = PaddingValues(8.dp),
+                    shape = RoundedCornerShape(8.dp),
                     colors =
                         ButtonDefaults.buttonColors(
                             containerColor =

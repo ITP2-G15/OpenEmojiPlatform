@@ -12,18 +12,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import kotlin.math.min
 
 @Composable
-fun EmojiCatalogueUi(
-    emojis: Map<String, List<Emoji>>,
-    maxEmojisPerGrid: Int? = null,
-) {
+fun EmojiCatalogueUi(emojis: Map<String, List<Emoji>>) {
     Column(
         modifier =
             Modifier
                 .verticalScroll(rememberScrollState())
-                .padding(start = 16.dp, end = 16.dp),
+                .padding(horizontal = 16.dp),
     ) {
         emojis.forEach { (category, emojis) ->
             Text(
@@ -32,15 +28,7 @@ fun EmojiCatalogueUi(
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.testTag("catalogueUiCategoryHeader"),
             )
-            // Limit number of emojis displayed in each grid
-            val emojisToDisplay =
-                if (maxEmojisPerGrid == null) {
-                    emojis
-                } else {
-                    emojis.subList(0, min(emojis.size, maxEmojisPerGrid))
-                }
-
-            EmojiGrid(emojis = emojisToDisplay)
+            EmojiGrid(emojis = emojis)
         }
     }
 }
