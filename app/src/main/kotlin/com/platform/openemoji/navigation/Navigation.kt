@@ -27,7 +27,7 @@ fun Navigation() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = { BottomNavigationBar(navController) },
-    ) {paddingValues->
+    ) { paddingValues ->
         Surface(
             modifier = Modifier.padding(paddingValues),
             color = MaterialTheme.colorScheme.background,
