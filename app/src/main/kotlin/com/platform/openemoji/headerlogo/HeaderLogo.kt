@@ -1,6 +1,8 @@
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,26 +17,29 @@ import com.platform.openemoji.R
 
 @Composable
 fun AppHeader() {
-    Column(
+    Row(
         modifier =
             Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
     ) {
-        // App name
+        val logo = painterResource(R.drawable.header_icon)
+
+        Icon(
+            painter = logo,
+            contentDescription = "Localized description",
+            modifier = Modifier.size(48.dp),
+            tint = Color.Unspecified,
+        )
+
         Text(
             text = "Open Emoji Platform",
             color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
-        )
-
-        val logo = painterResource(R.drawable.ic_launcher_foreground)
-
-        Icon(
-            painter = logo,
-            contentDescription = "Localized description",
+            modifier = Modifier.padding(start = 8.dp),
         )
     }
 }
