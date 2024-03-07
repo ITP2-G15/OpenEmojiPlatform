@@ -12,7 +12,10 @@ import com.platform.openemoji.emoji.IconRoute
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EmojiGrid(emojis: List<Emoji>, navController: NavController) {
+fun EmojiGrid(
+    emojis: List<Emoji>,
+    navController: NavController,
+) {
     FlowRow(
         Modifier.padding(bottom = 20.dp),
     ) {

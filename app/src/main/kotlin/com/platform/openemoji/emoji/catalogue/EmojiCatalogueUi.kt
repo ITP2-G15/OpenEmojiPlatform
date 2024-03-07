@@ -19,7 +19,7 @@ import kotlin.math.min
 fun EmojiCatalogueUi(
     emojis: Map<String, List<Emoji>>,
     maxEmojisPerGrid: Int? = null,
-    navController : NavController,
+    navController: NavController,
 ) {
     Column(
         modifier =

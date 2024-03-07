@@ -9,7 +9,6 @@ easily add support for multiple languages if needed -->
     <string name="search">Search</string>
     <string name="search_icon_description">Click to navigate to the search screen</string>
     <string name="back_arrow">Back</string>
-    <string name="all">All</string>
     <string name="emoji_not_found">Emoji not found.</string>
     <string name="search_for_emoji">Search for emoji.</string>
     <string name="search_label">Search for emoji</string>

@@ -26,13 +26,16 @@ import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 
 @Composable
-fun EmojiDetailScreen(emoji: Emoji, navController: NavController) {
+fun EmojiDetailScreen(
+    emoji: Emoji,
+    navController: NavController,
+) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     Column {
         /**
          * Arrow back button, takes you back to previous location.
          */
-        IconButton(onClick = { navController.popBackStack()}) {
+        IconButton(onClick = { navController.popBackStack() }) {
             Icon(
                 Icons.Filled.ArrowBack,
                 contentDescription = stringResource(R.string.back_arrow),
