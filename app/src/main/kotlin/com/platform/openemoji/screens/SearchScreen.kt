@@ -16,26 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.platform.openemoji.R
-import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
-import com.platform.openemoji.emoji.category.route
 
 @Composable
-fun SearchScreen(navController: NavController,
-                 emojis : Map<String, List<Emoji>>,
-                 maxEmojisPerGrid: Int?) {
+fun SearchScreen(navController: NavController) {
     val emojiCatalogue = EmojiCatalogue.get()
     // Creates a state for the search text
     val query = remember { mutableStateOf("") }
+    val categorizedEmojis = remember { mutableStateOf(emojiCatalogue.byCategory) }
 
     Column {
         // Displays a TextField at the top of the screen
@@ -45,21 +37,21 @@ fun SearchScreen(navController: NavController,
                 query.value = newText
             },
             label = {
-                Text("Search for emoji")
+                Text(stringResource(R.string.search_for_emoji))
             },
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
             shape = RoundedCornerShape(12.dp),
         )
 
         if (query.value.isNotEmpty()) {
             Column(
                 modifier =
-                Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(start = 16.dp, end = 16.dp),
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(start = 16.dp, end = 16.dp),
             ) {
                 Text(
                     text = "Search results for: ${query.value}",
@@ -71,13 +63,19 @@ fun SearchScreen(navController: NavController,
             }
         } else {
             CategoryScrollCarousel(
-                navController,
-                listOf("All") + emojiCatalogue.categories,
-            )
+                listOf(stringResource(R.string.all)) + emojiCatalogue.categories,
+            ) { newCategory ->
+                categorizedEmojis.value =
+                    if (newCategory == "All") {
+                        emojiCatalogue.byCategory
+                    } else {
+                        emojiCatalogue.bySubCategory(newCategory) ?: emptyMap()
+                    }
+            }
             EmojiCatalogueUi(
-                emojis = emojis,
-                maxEmojisPerGrid = maxEmojisPerGrid,
-                navController = navController
+                emojis = categorizedEmojis.value,
+                maxEmojisPerGrid = 15,
+                navController = navController,
             )
         }
     }

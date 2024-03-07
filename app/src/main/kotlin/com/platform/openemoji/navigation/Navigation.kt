@@ -1,14 +1,22 @@
 package com.platform.openemoji.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.navigation.navigation
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.screens.EmojiDetailScreen
+import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
@@ -16,64 +24,59 @@ fun Navigation() {
     val emojiCatalogue = EmojiCatalogue.get()
 
     val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = NavigationItem.SearchScreen.route,
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = { BottomNavigationBar(navController) },
     ) {
-        /**
-         * Nested routing for SearchScreen
-         */
-        navigation(
-            startDestination = NavigationItem.SearchScreen.AllCategories.route,
-            route = NavigationItem.SearchScreen.route
+        Surface(
+            modifier = Modifier.padding(it),
+            color = MaterialTheme.colorScheme.background,
         ) {
-            composable(
-                route = NavigationItem.SearchScreen.AllCategories.route,
+            NavHost(
+                navController = navController,
+                startDestination = NavigationItem.SearchScreen.route,
             ) {
-                SearchScreen(
-                    navController = navController,
-                    emojis = emojiCatalogue.byCategory,
-                    maxEmojisPerGrid = 15,
-                )
-            }
-            emojiCatalogue.categories.forEach { category ->
+                /**
+                 * Routing for SearchScreen
+                 */
                 composable(
-                    route = NavigationItem.SearchScreen.Categories.routeTo(category),
+                    route = NavigationItem.SearchScreen.route,
                 ) {
-                    emojiCatalogue.bySubCategory(category)?.let {
-                        SearchScreen(
-                            navController = navController,
-                            emojis = it,
-                            maxEmojisPerGrid = 15,
+                    SearchScreen(navController = navController)
+                }
+
+                /**
+                 * Routing for EmojiDetailScreen
+                 */
+                composable(
+                    route = NavigationItem.EmojiDetailScreen.route + "/{emojiTitle}",
+                    arguments =
+                        listOf(
+                            navArgument("emojiTitle") {
+                                type = NavType.StringType
+                                nullable = true
+                            },
+                        ),
+                ) { backStackEntry ->
+                    val emojiTitle = backStackEntry.arguments?.getString("emojiTitle")
+                    val emoji = emojiTitle?.let { it1 -> emojiCatalogue.emoji(it1) }
+                    if (emoji != null) {
+                        EmojiDetailScreen(emoji = emoji, navController = navController)
+                    } else {
+                        throw IllegalArgumentException(
+                            stringResource(R.string.emoji_not_found),
                         )
                     }
                 }
+
+                /**
+                 * If more screens are necessary, add them here and also add them to
+                 * navigationItem
+                 */
+                composable(route = NavigationItem.HomeScreen.route) {
+                    HomeScreen(navController = navController)
+                }
             }
         }
-
-        /**
-         * Routing for EmojiDetailScreen
-         */
-        composable(
-            route = NavigationItem.EmojiDetailScreen.route + "/{emojiTitle}",
-            arguments = listOf(navArgument("emojiTitle") {
-                type = NavType.StringType
-                nullable = true
-            })
-        ) { backStackEntry ->
-            val emojiTitle = backStackEntry.arguments?.getString("emojiTitle")
-            val emoji = emojiCatalogue.getEmojiByTitle(emojiTitle)
-            if (emoji != null) {
-                EmojiDetailScreen(emoji = emoji, navController = navController)
-            } else {
-                throw IllegalArgumentException("Emoji not found")
-            }
-        }
-
-        /**
-         * If more screens are necessary, add them under here and also add them to
-         * navigationItem
-         */
     }
 }
