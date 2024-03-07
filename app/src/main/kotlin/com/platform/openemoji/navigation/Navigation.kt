@@ -34,13 +34,13 @@ fun Navigation() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavigationItem.SearchScreen.route,
+                startDestination = Screen.SearchScreen.route,
             ) {
                 /**
                  * Routing for SearchScreen
                  */
                 composable(
-                    route = NavigationItem.SearchScreen.route,
+                    route = Screen.SearchScreen.route,
                 ) {
                     SearchScreen(navController = navController)
                 }
@@ -49,7 +49,7 @@ fun Navigation() {
                  * Routing for EmojiDetailScreen
                  */
                 composable(
-                    route = NavigationItem.EmojiDetailScreen.route + "/{emojiTitle}",
+                    route = Screen.EmojiDetailScreen.route + "/{emojiTitle}",
                     arguments =
                         listOf(
                             navArgument("emojiTitle") {
@@ -73,7 +73,7 @@ fun Navigation() {
                  * If more screens are necessary, add them here and also add them to
                  * navigationItem
                  */
-                composable(route = NavigationItem.HomeScreen.route) {
+                composable(route = Screen.HomeScreen.route) {
                     HomeScreen(navController = navController)
                 }
             }

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.platform.openemoji.R
-import com.platform.openemoji.navigation.NavigationItem
+import com.platform.openemoji.navigation.Screen
 
 // This will only be used for design variants in the emoji icon view if we have time to implement that
 @Composable
@@ -51,7 +51,7 @@ fun IconRoute(
         modifier =
             Modifier.clickable {
                 navController.navigate(
-                    NavigationItem.EmojiDetailScreen.withArgs(emoji.title),
+                    Screen.EmojiDetailScreen.withArgs(emoji.title),
                 )
             }.padding(4.dp).testTag("iconRoute"),
     )

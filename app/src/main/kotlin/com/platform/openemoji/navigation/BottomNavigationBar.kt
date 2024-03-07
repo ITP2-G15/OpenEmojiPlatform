@@ -27,7 +27,7 @@ fun BottomNavigationBar(navController: NavController) {
                     contentDescription = stringResource(R.string.home_icon_description),
                 )
             },
-            onClick = { navController.navigate(NavigationItem.HomeScreen.route) },
+            onClick = { navController.navigate(Screen.HomeScreen.route) },
         )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
@@ -40,7 +40,7 @@ fun BottomNavigationBar(navController: NavController) {
                     contentDescription = stringResource(R.string.search_icon_description),
                 )
             },
-            onClick = { navController.navigate(NavigationItem.SearchScreen.route) },
+            onClick = { navController.navigate(Screen.SearchScreen.route) },
         )
     }
 }

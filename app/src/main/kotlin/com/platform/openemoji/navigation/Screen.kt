@@ -4,13 +4,13 @@ package com.platform.openemoji.navigation
  * Turns string into NavigationItem object, use instead of strings.
  * @param String type of a route.
  */
-sealed class NavigationItem(val route: String) {
+sealed class Screen(val route: String) {
     // Search Screen NavigationItem with nested NavigationItems.
-    object HomeScreen : NavigationItem("HomeScreen")
+    object HomeScreen : Screen("HomeScreen")
 
-    object SearchScreen : NavigationItem("SearchScreen")
+    object SearchScreen : Screen("SearchScreen")
 
-    object EmojiDetailScreen : NavigationItem("emoji")
+    object EmojiDetailScreen : Screen("emoji")
 
     /**
      * Adds arguments to a navigationItem.
