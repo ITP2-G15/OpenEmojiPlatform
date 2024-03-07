@@ -27,9 +27,9 @@ fun Navigation() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = { BottomNavigationBar(navController) },
-    ) {
+    ) {paddingValues->
         Surface(
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(paddingValues),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
@@ -59,7 +59,7 @@ fun Navigation() {
                         ),
                 ) { backStackEntry ->
                     val emojiTitle = backStackEntry.arguments?.getString("emojiTitle")
-                    val emoji = emojiTitle?.let { it1 -> emojiCatalogue.emoji(it1) }
+                    val emoji = emojiTitle?.let { title -> emojiCatalogue.emoji(title) }
                     if (emoji != null) {
                         EmojiDetailScreen(emoji = emoji, navController = navController)
                     } else {
