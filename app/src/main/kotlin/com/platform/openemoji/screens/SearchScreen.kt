@@ -1,14 +1,11 @@
 package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +19,7 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import com.platform.openemoji.emoji.category.route
+import com.platform.openemoji.search.SearchField
 
 @Composable
 fun SearchScreen() {
@@ -30,21 +28,9 @@ fun SearchScreen() {
     val query = remember { mutableStateOf("") }
 
     Column {
-        // Displays a TextField at the top of the screen
-        TextField(
-            value = query.value,
-            onValueChange = { newText ->
-                query.value = newText
-            },
-            label = {
-                Text("Search for emoji")
-            },
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-            shape = RoundedCornerShape(12.dp),
-        )
+        SearchField(query = query.value, onQueryChange = { newQuery ->
+            query.value = newQuery
+        })
 
         val categoryNav = rememberNavController()
 
