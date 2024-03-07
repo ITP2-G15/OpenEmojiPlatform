@@ -27,16 +27,10 @@ fun BottomNavigationBar(navController: NavController) {
                 Icon(
                     Icons.Filled.Home,
                     contentDescription = stringResource(R.string.home_icon_description),
-                    modifier =
-                        Modifier.clickable {
-                            navController.navigate(
-                                NavigationItem.HomeScreen.route,
-                            )
-                        },
                 )
             },
-            onClick = {},
-        )
+            onClick = {navController.navigate(NavigationItem.HomeScreen.route)},
+            )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
             label = {
@@ -46,15 +40,9 @@ fun BottomNavigationBar(navController: NavController) {
                 Icon(
                     Icons.Filled.Search,
                     contentDescription = stringResource(R.string.search_icon_description),
-                    modifier =
-                        Modifier.clickable {
-                            navController.navigate(
-                                NavigationItem.SearchScreen.route,
-                            )
-                        },
                 )
             },
-            onClick = {},
+            onClick = {navController.navigate(NavigationItem.SearchScreen.route)},
         )
     }
 }
