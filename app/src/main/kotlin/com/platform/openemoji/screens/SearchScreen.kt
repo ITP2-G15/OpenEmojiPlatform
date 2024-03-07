@@ -26,6 +26,7 @@ fun SearchScreen(navController: NavController) {
     // Creates a state for the search text
     val query = remember { mutableStateOf("") }
     val categorizedEmojis = remember { mutableStateOf(emojiCatalogue.byCategory) }
+    val maxEmojisPerGrid = remember { mutableStateOf<Int?>(null)}
 
     Column {
         SearchField(query)
@@ -46,10 +47,9 @@ fun SearchScreen(navController: NavController) {
                 EmojiGrid(emojis = filteredEmojis, navController = navController)
             }
         } else {
-            // Remember the string resource here
             val overview = stringResource(R.string.overview)
             CategoryScrollCarousel(
-                listOf(stringResource(R.string.overview)) + emojiCatalogue.categories,
+                listOf(overview) + emojiCatalogue.categories,
             ) { newCategory ->
                 categorizedEmojis.value =
                     if (newCategory == overview) {
@@ -57,10 +57,14 @@ fun SearchScreen(navController: NavController) {
                     } else {
                         emojiCatalogue.bySubCategory(newCategory) ?: emptyMap()
                     }
+                //Update max size per grid only when it is set to overview.
+                if (newCategory == overview) {
+                    maxEmojisPerGrid.value = 15
+                } else maxEmojisPerGrid.value = null
             }
             EmojiCatalogueUi(
                 emojis = categorizedEmojis.value,
-                maxEmojisPerGrid = 15,
+                maxEmojisPerGrid = maxEmojisPerGrid.value,
                 navController = navController,
             )
         }
