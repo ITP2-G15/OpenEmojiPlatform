@@ -23,15 +23,14 @@ import com.platform.openemoji.search.SearchField
 @Composable
 fun SearchScreen(navController: NavController) {
     val emojiCatalogue = EmojiCatalogue.get()
-    // Creates a state for the search text
-    val query = remember { mutableStateOf("") }
-    val categorizedEmojis = remember { mutableStateOf(emojiCatalogue.byCategory) }
-    val maxEmojisPerGrid = remember { mutableStateOf<Int?>(null) }
+    val overview = stringResource(R.string.overview)
+    val searchQuery = remember { mutableStateOf("") }
+    val selectedCategory = remember { mutableStateOf(overview) }
 
     Column {
-        SearchField(query)
+        SearchField(searchQuery.value) { searchQuery.value = it }
 
-        if (query.value.isNotEmpty()) {
+        if (searchQuery.value.isNotEmpty()) {
             Column(
                 modifier =
                     Modifier
@@ -39,34 +38,32 @@ fun SearchScreen(navController: NavController) {
                         .padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = "${stringResource(R.string.search_result)} ${query.value}",
+                    text = "${stringResource(
+                        R.string.search_result,
+                    )} ${searchQuery.value}",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
-                val filteredEmojis = emojiCatalogue.search(query.value)
+                val filteredEmojis = emojiCatalogue.search(searchQuery.value)
                 EmojiGrid(emojis = filteredEmojis, navController = navController)
             }
         } else {
-            val overview = stringResource(R.string.overview)
             CategoryScrollCarousel(
                 listOf(overview) + emojiCatalogue.categories,
-            ) { newCategory ->
-                categorizedEmojis.value =
-                    if (newCategory == overview) {
+            ) { selectedCategory.value = it }
+            EmojiCatalogueUi(
+                emojis =
+                    if (selectedCategory.value == overview) {
                         emojiCatalogue.byCategory
                     } else {
-                        emojiCatalogue.bySubCategory(newCategory) ?: emptyMap()
-                    }
-                // Update max size per grid only when it is set to overview.
-                if (newCategory == overview) {
-                    maxEmojisPerGrid.value = 15
-                } else {
-                    maxEmojisPerGrid.value = null
-                }
-            }
-            EmojiCatalogueUi(
-                emojis = categorizedEmojis.value,
-                maxEmojisPerGrid = maxEmojisPerGrid.value,
+                        emojiCatalogue.bySubCategory(selectedCategory.value) ?: emptyMap()
+                    },
+                maxEmojisPerGrid =
+                    if (selectedCategory.value == overview) {
+                        15
+                    } else {
+                        null
+                    },
                 navController = navController,
             )
         }
