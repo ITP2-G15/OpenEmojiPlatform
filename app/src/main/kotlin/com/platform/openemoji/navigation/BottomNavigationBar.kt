@@ -8,6 +8,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.platform.openemoji.R
@@ -41,6 +43,7 @@ fun BottomNavigationBar(navController: NavController) {
                 )
             },
             onClick = { navController.navigate(Screen.SearchScreen.route) },
+            modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
     }
 }

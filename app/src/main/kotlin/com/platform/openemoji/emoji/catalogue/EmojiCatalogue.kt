@@ -39,9 +39,7 @@ class EmojiCatalogue private constructor() {
 
     fun populate(emojis: List<Emoji>) {
         emojiByTitle = emojis.associateBy { it.title }
-        if (byCategory.isEmpty()) {
-            byCategory = emojis.groupBy { it.category }
-        }
+        byCategory = emojis.groupBy { it.category }
     }
 
     /**
