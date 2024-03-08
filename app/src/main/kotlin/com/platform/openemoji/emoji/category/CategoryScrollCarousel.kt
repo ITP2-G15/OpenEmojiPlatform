@@ -14,38 +14,28 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
-
-/* This could potentially generate the same route from different category names,
-    but this won't realistically happen with our data.
-*/
-fun route(category: String): String =
-    category.lowercase()
-        .replace(Regex("[^a-zA-Z ]"), "")
-        .replace(Regex(" +"), "-")
 
 @Composable
 fun CategoryScrollCarousel(
-    navController: NavController,
     categories: List<String>,
+    onSelectCategory: (String) -> Unit,
 ) {
-    val currentRoute =
-        navController.currentBackStackEntryAsState()
-            .value?.destination?.route
-
+    val selectedCategory = remember { mutableStateOf(categories[0]) }
     Column {
         LazyRow(
             modifier = Modifier.padding(vertical = 8.dp),
         ) {
             items(categories.size) { index ->
                 val category = categories[index]
-                val isSelected = "search/${route(category)}" == currentRoute
+                val isSelected = selectedCategory.value == category
                 Button(
                     onClick = {
-                        navController.navigate("search/${route(category)}")
+                        selectedCategory.value = category
+                        onSelectCategory(category)
                     },
                     modifier =
                         Modifier.padding(

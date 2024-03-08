@@ -1,4 +1,4 @@
-package com.platform.openemoji.nav
+package com.platform.openemoji.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -9,11 +9,12 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
 import com.platform.openemoji.R
 
 @Composable
-fun BottomNavigationBar() {
-    val selectedItem = stringResource(R.string.search)
+fun BottomNavigationBar(navController: NavController) {
+    val selectedItem = navController.currentBackStackEntry?.destination?.route
     NavigationBar {
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.home),
@@ -26,7 +27,7 @@ fun BottomNavigationBar() {
                     contentDescription = stringResource(R.string.home_icon_description),
                 )
             },
-            onClick = {},
+            onClick = { navController.navigate(Screen.HomeScreen.route) },
         )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
@@ -39,7 +40,7 @@ fun BottomNavigationBar() {
                     contentDescription = stringResource(R.string.search_icon_description),
                 )
             },
-            onClick = {},
+            onClick = { navController.navigate(Screen.SearchScreen.route) },
         )
     }
 }

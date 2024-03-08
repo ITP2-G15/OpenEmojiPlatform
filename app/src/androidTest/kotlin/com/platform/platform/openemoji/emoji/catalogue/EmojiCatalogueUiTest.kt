@@ -4,6 +4,8 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
@@ -31,9 +33,12 @@ class EmojiCatalogueUiTest {
 
     @Test
     fun testEmojiCatalogueStructure() {
+        val navController =
+            TestNavHostController(ApplicationProvider.getApplicationContext())
         composeTestRule.setContent {
             EmojiCatalogueUi(
                 emojis = emojiCatalogue.byCategory,
+                navController = navController,
             )
         }
 

@@ -7,6 +7,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.screens.SearchScreen
@@ -34,8 +36,11 @@ class SearchFieldTest {
 
     @Test
     fun testSearch() {
+        val navController =
+            TestNavHostController(ApplicationProvider.getApplicationContext())
+
         composeTestRule.setContent {
-            SearchScreen()
+            SearchScreen(navController)
         }
 
         // Test that there are 4 emoji icons on the screen before search

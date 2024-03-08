@@ -32,11 +32,13 @@ class EmojiCatalogue private constructor() {
     /**
      * Once populated, this is a list of all emojis
      */
-    var allEmojis: List<Emoji> = emptyList()
-        private set
+    val allEmojis: List<Emoji>
+        get() = emojiByTitle.values.toList()
+
+    private var emojiByTitle: Map<String, Emoji> = emptyMap()
 
     fun populate(emojis: List<Emoji>) {
-        allEmojis = emojis
+        emojiByTitle = emojis.associateBy { it.title }
         if (byCategory.isEmpty()) {
             byCategory = emojis.groupBy { it.category }
         }
@@ -71,4 +73,11 @@ class EmojiCatalogue private constructor() {
             it.title.lowercase().contains(queryLowerCase)
         }
     }
+
+    /**
+     * Returns emoji based on title.
+     * @param title title of an emoji.
+     * @return emoji matching title.
+     */
+    fun emoji(title: String): Emoji? = emojiByTitle[title]
 }
