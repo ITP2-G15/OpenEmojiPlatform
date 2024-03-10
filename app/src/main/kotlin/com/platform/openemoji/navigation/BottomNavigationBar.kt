@@ -40,6 +40,7 @@ fun BottomNavigationBar(navController: NavController) {
                     restoreState = true
                 }
             },
+            modifier = Modifier.testTag("bottomNavigationBarHome"),
         )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
