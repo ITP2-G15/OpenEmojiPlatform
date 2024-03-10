@@ -14,4 +14,5 @@ easily add support for multiple languages if needed -->
     <string name="search_label">Search for emoji</string>
     <string name="search_result">Search results for:</string>
     <string name="overview">Overview</string>
+    <string name="most_popular">Most Popular</string>
 </resources>
