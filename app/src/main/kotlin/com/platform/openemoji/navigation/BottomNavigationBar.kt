@@ -30,6 +30,7 @@ fun BottomNavigationBar(navController: NavController) {
                 )
             },
             onClick = { navController.navigate(Screen.HomeScreen.route) },
+            modifier = Modifier.testTag("bottomNavigationBarHome"),
         )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
