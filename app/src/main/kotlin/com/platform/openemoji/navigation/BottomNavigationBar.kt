@@ -29,7 +29,17 @@ fun BottomNavigationBar(navController: NavController) {
                     contentDescription = stringResource(R.string.home_icon_description),
                 )
             },
-            onClick = { navController.navigate(Screen.HomeScreen.route) },
+            onClick = {
+                navController.navigate(Screen.HomeScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
         )
         NavigationBarItem(
             selected = selectedItem == stringResource(R.string.search),
@@ -42,7 +52,17 @@ fun BottomNavigationBar(navController: NavController) {
                     contentDescription = stringResource(R.string.search_icon_description),
                 )
             },
-            onClick = { navController.navigate(Screen.SearchScreen.route) },
+            onClick = {
+                navController.navigate(Screen.SearchScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
     }
