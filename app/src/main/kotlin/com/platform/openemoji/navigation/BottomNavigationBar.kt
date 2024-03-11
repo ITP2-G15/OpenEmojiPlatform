@@ -8,6 +8,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -15,24 +18,42 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
-    val selectedItem = navController.currentBackStackEntry?.destination?.route
+fun BottomNavigationBar(
+    navController: NavController,
+    startDestination: String,
+) {
     NavigationBar {
+        val selectedRootScreen = remember { mutableStateOf(startDestination) }
         NavigationBarItem(
-            selected = selectedItem == stringResource(R.string.home),
+            selected = selectedRootScreen.value == Screen.HomeScreen.route,
             label = {
                 Text(stringResource(R.string.home))
             },
             icon = {
                 Icon(
                     Icons.Filled.Home,
-                    contentDescription = stringResource(R.string.home_icon_description),
+                    contentDescription =
+                        stringResource(
+                            R.string.home_icon_description,
+                        ),
                 )
             },
-            onClick = { navController.navigate(Screen.HomeScreen.route) },
+            onClick = {
+                selectedRootScreen.value = Screen.HomeScreen.route
+                navController.navigate(Screen.HomeScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            modifier = Modifier.testTag("bottomNavigationBarHome"),
         )
         NavigationBarItem(
-            selected = selectedItem == stringResource(R.string.search),
+            selected = selectedRootScreen.value == Screen.SearchScreen.route,
             label = {
                 Text(stringResource(R.string.search))
             },
@@ -42,7 +63,18 @@ fun BottomNavigationBar(navController: NavController) {
                     contentDescription = stringResource(R.string.search_icon_description),
                 )
             },
-            onClick = { navController.navigate(Screen.SearchScreen.route) },
+            onClick = {
+                selectedRootScreen.value = Screen.SearchScreen.route
+                navController.navigate(Screen.SearchScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
     }

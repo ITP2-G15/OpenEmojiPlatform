@@ -14,27 +14,24 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun CategoryScrollCarousel(
+    selectedCategory: String,
     categories: List<String>,
     onSelectCategory: (String) -> Unit,
 ) {
-    val selectedCategory = remember { mutableStateOf(categories[0]) }
     Column {
         LazyRow(
             modifier = Modifier.padding(vertical = 8.dp),
         ) {
             items(categories.size) { index ->
                 val category = categories[index]
-                val isSelected = selectedCategory.value == category
+                val isSelected = selectedCategory == category
                 Button(
                     onClick = {
-                        selectedCategory.value = category
                         onSelectCategory(category)
                     },
                     modifier =

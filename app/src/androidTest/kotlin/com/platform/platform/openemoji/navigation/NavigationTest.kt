@@ -5,6 +5,7 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.navigation.Navigation
@@ -42,6 +43,29 @@ class NavigationTest {
             .performClick()
         composeTestRule.onNodeWithTag("emojiDetailScreen").assertExists()
         // Test that it's the correct emoji details screen.
-        composeTestRule.onNodeWithText("a")
+        composeTestRule.onNodeWithText("a").assertExists()
+    }
+
+    @Test
+    fun testNavigationStatePreservation() {
+        composeTestRule.setContent {
+            Navigation()
+        }
+
+        // Make sure we're in the search screen.
+        composeTestRule.onNodeWithTag("bottomNavigationBarSearch")
+            .performClick()
+
+        // Perform search to bring the screen into a state we can test the preservation of.
+        composeTestRule.onNodeWithTag("searchTextField")
+            .performTextInput("h")
+        composeTestRule.onNodeWithText("Search results for: h").assertExists()
+
+        // Go to home screen and back, and test that it's still in a search state.
+        composeTestRule.onNodeWithTag("bottomNavigationBarHome")
+            .performClick()
+        composeTestRule.onNodeWithTag("bottomNavigationBarSearch")
+            .performClick()
+        composeTestRule.onNodeWithText("Search results for: h").assertExists()
     }
 }
