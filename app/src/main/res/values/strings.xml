@@ -15,4 +15,5 @@ easily add support for multiple languages if needed -->
     <string name="search_result">Search results for:</string>
     <string name="overview">Overview</string>
     <string name="most_popular">Most Popular</string>
+    <string name="open_emoji_platform">Open Emoji Platform</string>
 </resources>

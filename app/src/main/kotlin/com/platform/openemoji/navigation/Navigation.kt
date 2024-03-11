@@ -24,9 +24,10 @@ fun Navigation() {
     val emojiCatalogue = EmojiCatalogue.get()
 
     val navController = rememberNavController()
+    val startDestination = Screen.SearchScreen.route
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = { BottomNavigationBar(navController) },
+        bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
             modifier = Modifier.padding(paddingValues),
@@ -34,7 +35,7 @@ fun Navigation() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = Screen.SearchScreen.route,
+                startDestination = startDestination,
             ) {
                 /**
                  * Routing for SearchScreen

@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -8,8 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,10 +26,13 @@ import com.platform.openemoji.search.SearchField
 fun SearchScreen(navController: NavController) {
     val emojiCatalogue = EmojiCatalogue.get()
     val overview = stringResource(R.string.overview)
-    val searchQuery = remember { mutableStateOf("") }
-    val selectedCategory = remember { mutableStateOf(overview) }
+    val searchQuery = rememberSaveable { mutableStateOf("") }
+    val selectedCategory = rememberSaveable { mutableStateOf(overview) }
 
-    Column {
+    Column(
+        modifier = Modifier.testTag("searchScreen"),
+    ) {
+        HeaderLogo()
         SearchField(searchQuery.value) { searchQuery.value = it }
 
         if (searchQuery.value.isNotEmpty()) {
@@ -49,6 +54,7 @@ fun SearchScreen(navController: NavController) {
             }
         } else {
             CategoryScrollCarousel(
+                selectedCategory.value,
                 listOf(overview) + emojiCatalogue.categories,
             ) { selectedCategory.value = it }
             EmojiCatalogueUi(

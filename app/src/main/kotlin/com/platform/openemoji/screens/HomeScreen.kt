@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier.testTag("homeScreen"),
     ) {
+        HeaderLogo()
         // Most Popular
         // Made using EmojiCatalogueUI with only one category: "Most Popular"
         EmojiCatalogueUi(
