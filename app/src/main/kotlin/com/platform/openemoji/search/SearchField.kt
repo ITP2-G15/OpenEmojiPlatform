@@ -31,7 +31,7 @@ fun SearchField(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp, 0.dp, 8.dp, 8.dp)
                 .testTag("searchTextField"),
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),

@@ -14,4 +14,6 @@ easily add support for multiple languages if needed -->
     <string name="search_label">Search for emoji</string>
     <string name="search_result">Search results for:</string>
     <string name="overview">Overview</string>
+    <string name="open_emoji_platform">Open Emoji Platform</string>
+
 </resources>
