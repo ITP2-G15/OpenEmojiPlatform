@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -27,7 +28,9 @@ fun SearchScreen(navController: NavController) {
     val searchQuery = rememberSaveable { mutableStateOf("") }
     val selectedCategory = rememberSaveable { mutableStateOf(overview) }
 
-    Column {
+    Column(
+        modifier = Modifier.testTag("searchScreen"),
+    ) {
         SearchField(searchQuery.value) { searchQuery.value = it }
 
         if (searchQuery.value.isNotEmpty()) {
