@@ -20,16 +20,14 @@ import com.platform.openemoji.R
 fun HeaderLogo() {
     Row(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        val logo = painterResource(R.drawable.header_icon)
-
         Icon(
-            painter = logo,
+            painter = painterResource(R.drawable.header_icon),
             contentDescription = "Localized description",
             modifier = Modifier.size(48.dp),
             tint = Color.Unspecified,
