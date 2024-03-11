@@ -78,4 +78,17 @@ class EmojiCatalogue private constructor() {
      * @return emoji matching title.
      */
     fun emoji(title: String): Emoji? = emojiByTitle[title]
+
+    /**
+     * The most used emojis.
+     * !!Currently does not actually return the most used emojis - it's a placeholder
+     * implementation.
+     *
+     * @param limit optional limit on the number of emojis to return. A higher limit
+     *      than the number of emojis returns all emojis.
+     */
+    fun mostPopularEmojis(limit: Int? = null): List<Emoji> =
+        limit?.let {
+            allEmojis.take(it)
+        } ?: allEmojis
 }

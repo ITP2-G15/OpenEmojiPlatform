@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import kotlin.math.min
 
 @Composable
 fun EmojiCatalogueUi(
@@ -39,7 +38,7 @@ fun EmojiCatalogueUi(
                 if (maxEmojisPerGrid == null) {
                     emojis
                 } else {
-                    emojis.subList(0, min(emojis.size, maxEmojisPerGrid))
+                    emojis.take(maxEmojisPerGrid)
                 }
 
             EmojiGrid(emojis = emojisToDisplay, navController = navController)
