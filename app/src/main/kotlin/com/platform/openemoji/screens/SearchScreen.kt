@@ -1,81 +1,75 @@
 package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavController
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
+import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.CategoryScrollCarousel
-import com.platform.openemoji.emoji.category.route
+import com.platform.openemoji.search.SearchField
 
 @Composable
-fun SearchScreen() {
+fun SearchScreen(navController: NavController) {
     val emojiCatalogue = EmojiCatalogue.get()
+    val overview = stringResource(R.string.overview)
+    val searchQuery = rememberSaveable { mutableStateOf("") }
+    val selectedCategory = rememberSaveable { mutableStateOf(overview) }
 
-    // Creates a state for the search text
-    val searchText = remember { mutableStateOf("") }
+    Column(
+        modifier = Modifier.testTag("searchScreen"),
+    ) {
+        SearchField(searchQuery.value) { searchQuery.value = it }
 
-    Column {
-        // Displays a TextField at the top of the screen
-        TextField(
-            value = searchText.value,
-            onValueChange = { newText ->
-                searchText.value = newText
-            },
-            label = {
-                Text("Search for emoji")
-            },
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-            shape = RoundedCornerShape(12.dp),
-        )
-
-        val categoryNav = rememberNavController()
-        CategoryScrollCarousel(
-            categoryNav,
-            listOf("All") + emojiCatalogue.categories,
-        )
-        NavHost(
-            navController = categoryNav,
-            startDestination = "search/all",
-        ) {
-            // Categories (All)
-            composable(
-                "search/all",
+        if (searchQuery.value.isNotEmpty()) {
+            Column(
+                modifier =
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 16.dp),
             ) {
-                EmojiCatalogueUi(
-                    emojis = emojiCatalogue.byCategory,
-                    filterText = searchText.value,
-                    maxEmojisPerGrid = 15,
+                Text(
+                    text = "${stringResource(
+                        R.string.search_result,
+                    )} ${searchQuery.value}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
+                val filteredEmojis = emojiCatalogue.search(searchQuery.value)
+                EmojiGrid(emojis = filteredEmojis, navController = navController)
             }
-            // Subcategories (e.g. Activities > Sport)
-            emojiCatalogue.categories.forEach { category ->
-                composable(
-                    "search/${route(category)}",
-                ) {
-                    emojiCatalogue.bySubCategory(category)?.let {
-                        EmojiCatalogueUi(
-                            emojis = it,
-                            filterText = searchText.value,
-                            maxEmojisPerGrid = 15,
-                        )
-                    }
-                }
-            }
+        } else {
+            CategoryScrollCarousel(
+                selectedCategory.value,
+                listOf(overview) + emojiCatalogue.categories,
+            ) { selectedCategory.value = it }
+            EmojiCatalogueUi(
+                emojis =
+                    if (selectedCategory.value == overview) {
+                        emojiCatalogue.byCategory
+                    } else {
+                        emojiCatalogue.bySubCategory(selectedCategory.value) ?: emptyMap()
+                    },
+                maxEmojisPerGrid =
+                    if (selectedCategory.value == overview) {
+                        15
+                    } else {
+                        null
+                    },
+                navController = navController,
+            )
         }
     }
 }

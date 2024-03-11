@@ -88,6 +88,9 @@ dependencies {
     androidTestImplementation(
         "androidx.test.espresso:espresso-core:3.5.1",
     )
+    androidTestImplementation(
+        "androidx.navigation:navigation-testing:2.7.7",
+    )
     implementation("androidx.compose.runtime:runtime:1.6.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))

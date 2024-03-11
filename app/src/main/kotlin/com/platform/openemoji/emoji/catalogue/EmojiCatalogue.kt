@@ -29,10 +29,17 @@ class EmojiCatalogue private constructor() {
     var byCategory: Map<String, List<Emoji>> = emptyMap()
         private set
 
+    /**
+     * Once populated, this is a list of all emojis
+     */
+    val allEmojis: List<Emoji>
+        get() = emojiByTitle.values.toList()
+
+    private var emojiByTitle: Map<String, Emoji> = emptyMap()
+
     fun populate(emojis: List<Emoji>) {
-        if (byCategory.isEmpty()) {
-            byCategory = emojis.groupBy { it.category }
-        }
+        emojiByTitle = emojis.associateBy { it.title }
+        byCategory = emojis.groupBy { it.category }
     }
 
     /**
@@ -52,4 +59,23 @@ class EmojiCatalogue private constructor() {
      */
     fun bySubCategory(category: String): Map<String, List<Emoji>>? =
         byCategory[category]?.groupBy { it.subCategory }
+
+    /**
+     * Search based on emoji.title. Ignores uppercase.
+     * @param query query string to search for emojis.
+     * @return list of emojis matching the query.
+     */
+    fun search(query: String): List<Emoji> {
+        val queryLowerCase = query.lowercase()
+        return allEmojis.filter {
+            it.title.lowercase().contains(queryLowerCase)
+        }
+    }
+
+    /**
+     * Returns emoji based on title.
+     * @param title title of an emoji.
+     * @return emoji matching title.
+     */
+    fun emoji(title: String): Emoji? = emojiByTitle[title]
 }
