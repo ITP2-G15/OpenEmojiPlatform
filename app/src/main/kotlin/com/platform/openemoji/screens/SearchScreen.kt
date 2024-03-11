@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -31,6 +32,7 @@ fun SearchScreen(navController: NavController) {
     Column(
         modifier = Modifier.testTag("searchScreen"),
     ) {
+        HeaderLogo()
         SearchField(searchQuery.value) { searchQuery.value = it }
 
         if (searchQuery.value.isNotEmpty()) {
