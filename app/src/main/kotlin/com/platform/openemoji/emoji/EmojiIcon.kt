@@ -16,13 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.platform.openemoji.R
+import com.platform.openemoji.navigation.Screen
 
 // This will only be used for design variants in the emoji icon view if we have time to implement that
 @Composable
@@ -39,15 +41,19 @@ fun IconDesign(emoji: Emoji) {
 
 // This will be used for the emoji grid since it routes to the emoji icon details view
 @Composable
-fun IconRoute(emoji: Emoji) {
-    val navController = rememberNavController()
+fun IconRoute(
+    emoji: Emoji,
+    navController: NavController,
+) {
     Text(
         emoji.emojiCode,
         style = MaterialTheme.typography.displaySmall,
         modifier =
             Modifier.clickable {
-                // navController.navigate("emoji/${emoji.title}")
-            }.padding(4.dp),
+                navController.navigate(
+                    Screen.EmojiDetailScreen.withArgs(emoji.title),
+                )
+            }.padding(4.dp).testTag("iconRoute"),
     )
 }
 
@@ -76,6 +82,7 @@ fun IconCopy(emoji: Emoji) {
                         MaterialTheme.colorScheme.primary,
                 ),
             shape = RoundedCornerShape(12.dp),
+            modifier = Modifier.testTag("emojiIconCopyButton"),
         ) {
             Icon(
                 Icons.Default.ContentCopy,
