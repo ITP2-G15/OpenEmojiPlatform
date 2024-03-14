@@ -4,11 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Emoji(
-    val id: String,
-    val title: String,
-    val emojiCode: String,
+    val code: String,
+    val unicodeCodePoints: String,
+    val url: String,
+    val name: String,
+    val popularity: String,
     val category: String,
-    val subCategory: String,
     val description: String,
-    val imageUrl: String,
+    val emojiVersion: String,
+    val unicodeVersion: String,
 )
