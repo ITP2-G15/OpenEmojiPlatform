@@ -13,7 +13,7 @@ class CategoryScrollCarouselTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun whenButtonClicked_onSelectCategoryCalledWithCorrectCategory() {
+    fun testSwitchingCategory() {
         // Given
         val categories = listOf("Category1", "Category2", "Category3")
         var selectedCategory: String? = null
