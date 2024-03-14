@@ -1,0 +1,61 @@
+package com.platform.openemoji.events
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.platform.openemoji.navigation.Screen
+
+@Composable
+fun Events(navController: NavController) {
+    val event =
+        Event(
+            "1",
+            "St Patrick's day",
+            "17.03",
+            "https://emojipedia.org/_next/image?url=https%3A%2F%2Fem-content" +
+                ".zobj.net%2Fcontent%2Fevents%2FSt_Patricks_Day_PNG.png&w=1500&q=75",
+        )
+    Column(
+        modifier = Modifier.testTag("Events"),
+    ) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "Events",
+                style = MaterialTheme.typography.titleLarge,
+            )
+
+            Text(
+                text = "Show more",
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline,
+                modifier =
+                    Modifier.clickable {
+                        navController.navigate(
+                            Screen.EventListScreen.route,
+                        )
+                    },
+            )
+        }
+        EventUi(event)
+        EventUi(event)
+    }
+}
