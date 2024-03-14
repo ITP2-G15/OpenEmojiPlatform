@@ -6,6 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.util.concurrent.ConcurrentHashMap
 
 class EmojiRepository(private val context: Context) {
     private val emojisCache = ConcurrentHashMap<String, Emoji>()
@@ -14,7 +15,7 @@ class EmojiRepository(private val context: Context) {
     private var mockdata: List<Emoji>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
-    private suspend fun loadMockdata(simulatedDelay: Int? = null): List<Emoji> {
+    private suspend fun loadMockdata(simulatedDelay: Long? = null): List<Emoji> {
         // Simulate a delay to show the loading state
         delay(simulatedDelay ?: 0)
 
@@ -31,6 +32,11 @@ class EmojiRepository(private val context: Context) {
         }
 
         return mockdata!!
+    }
+
+    suspend fun getCategories(): List<String> {
+        val allEmojis = loadMockdata(1000)
+        return allEmojis.map { it.category }.distinct()
     }
 
     suspend fun getEmojisByCategory(
@@ -64,10 +70,7 @@ class EmojiRepository(private val context: Context) {
         return resultEmojis
     }
 
-    suspend fun getEmojiBySearch(
-        search: String,
-        debounce: Int? = null,
-    ): List<Emoji>? {
+    suspend fun getEmojiBySearch(search: String): List<Emoji>? {
         val cachedEmojis =
             emojisCache.values.filter {
                 it.name.contains(search, ignoreCase = true)

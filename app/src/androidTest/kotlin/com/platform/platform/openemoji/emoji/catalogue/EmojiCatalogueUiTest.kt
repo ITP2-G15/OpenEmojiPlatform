@@ -46,7 +46,7 @@ class EmojiCatalogueUiTest {
         composeTestRule.onAllNodesWithTag("iconRoute")
             .assertCountEquals(4)
         // Test that there are 2 emoji categories: A and B.
-        composeTestRule.onAllNodesWithTag("catalogueUiCategoryHeader")
+        composeTestRule.onAllNodesWithTag("catalogueCategoryHeader")
             .assertCountEquals(2)
         composeTestRule.onNodeWithText("A").assertExists()
         composeTestRule.onNodeWithText("B").assertExists()
