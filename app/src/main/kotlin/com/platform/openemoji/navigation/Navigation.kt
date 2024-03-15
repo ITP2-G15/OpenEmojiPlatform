@@ -14,15 +14,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.platform.openemoji.R
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
 fun Navigation() {
-    val emojiCatalogue = EmojiCatalogue.get()
-
     val navController = rememberNavController()
     val startDestination = Screen.SearchScreen.route
     Scaffold(
@@ -50,17 +47,17 @@ fun Navigation() {
                  * Routing for EmojiDetailScreen
                  */
                 composable(
-                    route = Screen.EmojiDetailScreen.route + "/{emojiTitle}",
+                    route = Screen.EmojiDetailScreen.route + "/{emojiName}",
                     arguments =
                         listOf(
-                            navArgument("emojiTitle") {
+                            navArgument("emojiName") {
                                 type = NavType.StringType
                                 nullable = true
                             },
                         ),
                 ) { backStackEntry ->
-                    val emojiTitle = backStackEntry.arguments?.getString("emojiTitle")
-                    val emoji = emojiTitle?.let { title -> emojiCatalogue.emoji(title) }
+                    val emojiName = backStackEntry.arguments?.getString("emojiName")
+                    val emoji = emojiName?.let { name -> emojiCatalogue.emoji(name) }
                     if (emoji != null) {
                         EmojiDetailScreen(emoji = emoji, navController = navController)
                     } else {

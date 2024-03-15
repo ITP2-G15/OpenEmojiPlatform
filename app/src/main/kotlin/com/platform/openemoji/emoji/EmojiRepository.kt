@@ -7,17 +7,18 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 
 class EmojiRepository(private val context: Context) {
-    private val emojisCache = ConcurrentHashMap<String, Emoji>()
+    private val emojisCache: ConcurrentMap<String, Emoji> = ConcurrentHashMap()
 
     // This is only needed when not using an API
     private var mockdata: List<Emoji>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
-    private suspend fun loadMockdata(simulatedDelay: Long? = null): List<Emoji> {
+    private suspend fun loadMockdata(simulatedDelay: Long = 0): List<Emoji> {
         // Simulate a delay to show the loading state
-        delay(simulatedDelay ?: 0)
+        delay(simulatedDelay)
 
         if (mockdata != null) return mockdata!!
 
@@ -41,39 +42,56 @@ class EmojiRepository(private val context: Context) {
 
     suspend fun getEmojisByCategory(
         category: String,
-        limit: Int? = null,
-    ): List<Emoji>? {
+        limit: Int = Int.MAX_VALUE,
+    ): List<Emoji> {
         val cachedEmojis = emojisCache.values.filter { it.category == category }
-        if (cachedEmojis.size >= limit ?: Int.MAX_VALUE) {
+
+        if (cachedEmojis.size >= limit) {
             return cachedEmojis.take(limit)
         }
 
-        val remainingLimit = limit?.minus(cachedEmojis.size)
-
-        // This will be the remaining emojis that need to be obtained through the API
         val allEmojis = loadMockdata(1000)
-        val lastCachedEmojiIndex = allEmojis.indexOfLast { it in cachedEmojis }
-        val remainingEmojis =
-            allEmojis.drop(lastCachedEmojiIndex + 1)
-                .filter { it.category == category }
-                .take(remainingLimit ?: Int.MAX_VALUE)
+        val remainingEmojis = allEmojis.filter { it.category == category && it !in cachedEmojis }
 
-        val resultEmojis = cachedEmojis + remainingEmojis
-
-        // Only add emojis to the cache that are not already in it
         for (emoji in remainingEmojis) {
-            if (emoji.name !in emojisCache.keys) {
-                emojisCache[emoji.name] = emoji
-            }
+            emojisCache.put(emoji.name, emoji)
         }
 
-        return resultEmojis
+        return (cachedEmojis + remainingEmojis).take(limit)
     }
 
-    suspend fun getEmojiBySearch(search: String): List<Emoji>? {
+    suspend fun getOverviewEmojis(
+        categories: List<String>,
+        limit: Int,
+    ): Map<String, List<Emoji>> {
+        val overviewEmojis = mutableMapOf<String, List<Emoji>>()
+
+        for (category in categories) {
+            val emojisForCategory = getEmojisByCategory(category, limit)
+            overviewEmojis[category] = emojisForCategory
+        }
+
+        return overviewEmojis
+    }
+
+    suspend fun getEmoji(name: String): Emoji {
+        val cachedEmoji = emojisCache[name]
+        if (cachedEmoji != null) return cachedEmoji
+
+        val allEmojis = loadMockdata(1000)
+        val emoji =
+            allEmojis.find { it.name == name }
+                ?: throw IllegalArgumentException("Emoji not found")
+
+        emojisCache.put(emoji.name, emoji)
+
+        return emoji
+    }
+
+    suspend fun searchEmojis(query: String): List<Emoji> {
         val cachedEmojis =
             emojisCache.values.filter {
-                it.name.contains(search, ignoreCase = true)
+                it.name.contains(query, ignoreCase = true)
             }
 
         if (cachedEmojis.isNotEmpty()) {
@@ -81,21 +99,18 @@ class EmojiRepository(private val context: Context) {
         }
 
         val allEmojis = loadMockdata(1000)
-        val filteredEmojis =
+        val matchingEmojis =
             allEmojis.filter {
                 it.name.contains(
-                    search,
+                    query,
                     ignoreCase = true,
                 )
             }
 
-        // Add the new searched emojis to the cache
-        for (emoji in filteredEmojis) {
-            if (emoji !in emojisCache.values) {
-                emojisCache[emoji.name] = emoji
-            }
+        for (emoji in matchingEmojis) {
+            emojisCache.put(emoji.name, emoji)
         }
 
-        return filteredEmojis
+        return matchingEmojis
     }
 }
