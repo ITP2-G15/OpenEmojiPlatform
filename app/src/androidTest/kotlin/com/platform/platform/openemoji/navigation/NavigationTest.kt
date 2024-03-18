@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.navigation.Navigation
@@ -31,6 +32,9 @@ class NavigationTest {
                 ),
             ),
         )
+        // Don't display an ad between navigation
+        AdSettings.get().displayInterstitialAdFromEmojiDetailScreen = false
+
         composeTestRule.setContent {
             Navigation()
         }

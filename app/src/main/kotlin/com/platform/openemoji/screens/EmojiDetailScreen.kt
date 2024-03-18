@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,15 +15,23 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.platform.openemoji.R
+import com.platform.openemoji.ads.AdSettings
+import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 
@@ -32,13 +41,27 @@ fun EmojiDetailScreen(
     navController: NavController,
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val context = LocalContext.current
+
+    // Start loading an interstitial fullscreen ad. Only if this ad is loaded
+    // by the time the user presses the return arrow, will the ad be shown.
+    val interstitialAd = remember { mutableStateOf<InterstitialAd?>(null) }
+    if (AdSettings.get().displayInterstitialAdFromEmojiDetailScreen) {
+        LaunchedEffect(LocalLifecycleOwner.current) {
+            loadInterstitialAd(context) {
+                interstitialAd.value = it
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.testTag("emojiDetailScreen"),
     ) {
-        /**
-         * Arrow back button, takes you back to previous location.
-         */
-        IconButton(onClick = { navController.popBackStack() }) {
+        // Arrow back button, takes you back to previous location.
+        IconButton(onClick = {
+            interstitialAd.value?.show(context as Activity)
+            navController.popBackStack()
+        }) {
             Icon(
                 Icons.Filled.ArrowBack,
                 contentDescription = stringResource(R.string.back_arrow),
