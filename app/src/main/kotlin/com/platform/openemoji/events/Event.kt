@@ -8,4 +8,5 @@ data class Event(
     val title: String,
     val date: String,
     val webView: String,
+    val url: String,
 )

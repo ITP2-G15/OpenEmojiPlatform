@@ -27,6 +27,7 @@ fun EventList(navController: NavController) {
             "St Patrick's day",
             "17.03",
             "https://emojipedia.org/st-patricks-day",
+            "https://emojipedia.org/st-patricks-day",
         )
 
     Column(
@@ -48,13 +49,13 @@ fun EventList(navController: NavController) {
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
-        EventUi(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
+        EventCard(event)
     }
 }
