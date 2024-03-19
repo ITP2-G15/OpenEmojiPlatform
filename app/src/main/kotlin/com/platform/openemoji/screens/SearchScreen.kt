@@ -21,26 +21,26 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.EmojiApplication
-import com.platform.openemoji.EmojiViewModel
 import com.platform.openemoji.R
+import com.platform.openemoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import com.platform.openemoji.emoji.category.CategoryScrollCarousel
+import com.platform.openemoji.emoji.category.EmojiCategoryCarousel
 import com.platform.openemoji.search.SearchField
 
 @Composable
 fun SearchScreen(navController: NavController) {
     val application = LocalContext.current.applicationContext as EmojiApplication
-    val viewModel: EmojiViewModel =
-        viewModel("emojiViewModel") {
-            EmojiViewModel(application.emojiRepository)
+    val emojiCatalogueViewModel: EmojiCatalogueViewModel =
+        emojiCatalogueViewModel("emojiCatalogueViewModel") {
+            EmojiCatalogueViewModel(application.emojiRepository)
         }
-    val overview = stringResource(R.string.overview)
-    val categories by viewModel.categories.observeAsState(emptyList())
-    val overviewEmojisByCategory by viewModel.overviewEmojisByCategory.observeAsState(
-        emptyMap(),
+    val overviewEmojisByCategory by emojiCatalogueViewModel.overviewEmojisByCategory.observeAsState(
+        initial = emptyMap(),
     )
-    val allEmojisByCategory by viewModel.allEmojisByCategory.observeAsState(emptyMap())
+    val emojisByCategory by emojiCatalogueViewModel.emojisByCategory.observeAsState(
+        initial = emptyMap(),
+    )
     val selectedCategory = rememberSaveable { mutableStateOf(overview) }
     val searchQuery = rememberSaveable { mutableStateOf("") }
 
@@ -68,16 +68,15 @@ fun SearchScreen(navController: NavController) {
                 EmojiGrid(emojis = filteredEmojis, navController = navController)
             }
         } else {
-            CategoryScrollCarousel(
+            EmojiCategoryCarousel(
                 selectedCategory.value,
                 listOf(overview) + categories,
             ) { selectedCategory.value = it }
             if (selectedCategory.value == overview) {
                 EmojiCatalogue(emojisByCategory = overviewEmojisByCategory, navController)
+            } else {
+                EmojiGrid(emojis = emojisByCategory, navController)
             }
-            // else {
-            //     EmojiGrid(emojis = , navController)
-            // }
         }
     }
 }
