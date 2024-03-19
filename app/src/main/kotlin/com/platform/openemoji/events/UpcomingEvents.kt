@@ -12,13 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
 
 @Composable
-fun Events(navController: NavController) {
+fun UpcomingEvents(navController: NavController) {
     val event =
         Event(
             "1",
@@ -29,7 +31,7 @@ fun Events(navController: NavController) {
             "https://emojipedia.org/st-patricks-day",
         )
     Column(
-        modifier = Modifier.testTag("Events"),
+        modifier = Modifier.testTag("events"),
     ) {
         Row(
             modifier =
@@ -40,12 +42,12 @@ fun Events(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "Events",
+                text = stringResource(R.string.upcoming_events),
                 style = MaterialTheme.typography.titleLarge,
             )
 
             Text(
-                text = "Show more",
+                text = stringResource(R.string.show_more),
                 color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline,
                 modifier =

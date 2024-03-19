@@ -15,8 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
-import com.platform.openemoji.events.EventList
 import com.platform.openemoji.screens.EmojiDetailScreen
+import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
 
@@ -78,10 +78,10 @@ fun Navigation() {
                     HomeScreen(navController = navController)
                 }
                 /**
-                 * Navigates to EventList.
+                 * Navigates to EventListScreen.
                  */
                 composable(route = Screen.EventListScreen.route) {
-                    EventList(navController = navController)
+                    EventListScreen(navController = navController)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.platform.openemoji.events
+package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,9 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
+import com.platform.openemoji.events.Event
+import com.platform.openemoji.events.EventCard
 
 @Composable
-fun EventList(navController: NavController) {
+fun EventListScreen(navController: NavController) {
     val event =
         Event(
             "1",
@@ -32,7 +34,8 @@ fun EventList(navController: NavController) {
 
     Column(
         modifier =
-            Modifier.verticalScroll(rememberScrollState())
+            Modifier
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 8.dp),
     ) {
         IconButton(onClick = { navController.popBackStack() }) {
@@ -44,7 +47,7 @@ fun EventList(navController: NavController) {
             )
         }
         Text(
-            text = "Upcoming Events",
+            text = stringResource(R.string.upcoming_events),
             modifier = Modifier.padding(12.dp),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,

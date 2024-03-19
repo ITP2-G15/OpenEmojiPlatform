@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
-import com.platform.openemoji.events.Events
+import com.platform.openemoji.events.UpcomingEvents
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -28,6 +28,6 @@ fun HomeScreen(navController: NavController) {
                 ),
             navController = navController,
         )
-        Events(navController)
+        UpcomingEvents(navController)
     }
 }
