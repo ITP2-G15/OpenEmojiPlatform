@@ -25,10 +25,10 @@ import com.platform.openemoji.events.EventCard
 fun EventListScreen(navController: NavController) {
     val event =
         Event(
-            "1",
             "St Patrick's day",
             "17.03",
-            "https://emojipedia.org/st-patricks-day",
+            "https://emojipedia.org/_next/image?url=https%3A%2F%2Fem-content." +
+                "zobj.net%2Fcontent%2Fevents%2FEarth_Day_PNG.png&w=1500&q=75",
             "https://emojipedia.org/st-patricks-day",
         )
 
