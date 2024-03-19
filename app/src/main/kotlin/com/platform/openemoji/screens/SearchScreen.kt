@@ -20,9 +20,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.platform.openemoji.EmojiApplication
+import com.platform.openemoji.Application
 import com.platform.openemoji.R
 import com.platform.openemoji.catalogue.EmojiCatalogueViewModel
+import com.platform.openemoji.category.EmojiCategoryViewModel
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.EmojiCategoryCarousel
@@ -30,7 +31,8 @@ import com.platform.openemoji.search.SearchField
 
 @Composable
 fun SearchScreen(navController: NavController) {
-    val application = LocalContext.current.applicationContext as EmojiApplication
+    val application = LocalContext.current.applicationContext as Application
+
     val emojiCatalogueViewModel: EmojiCatalogueViewModel =
         emojiCatalogueViewModel("emojiCatalogueViewModel") {
             EmojiCatalogueViewModel(application.emojiRepository)
@@ -41,7 +43,20 @@ fun SearchScreen(navController: NavController) {
     val emojisByCategory by emojiCatalogueViewModel.emojisByCategory.observeAsState(
         initial = emptyMap(),
     )
+
+    val emojiCategoryViewModel: EmojiCategoryViewModel =
+        emojiCategoryViewModel("emojiCategoryViewModel") {
+            EmojiCategoryViewModel(application.emojiRepository)
+        }
+    val categories by emojiCategoryViewModel.categories.observeAsState(
+        initial = emptyList(),
+    )
+    LaunchedEffect(key1 = "loadOverviewEmojisForCategories") {
+        emojiCatalogueViewModel.loadOverviewEmojisForCategories(categories)
+    }
+
     val selectedCategory = rememberSaveable { mutableStateOf(overview) }
+
     val searchQuery = rememberSaveable { mutableStateOf("") }
 
     Column(
