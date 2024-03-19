@@ -25,7 +25,7 @@ class EmojiCatalogueViewModel(private val repository: EmojiRepository) : ViewMod
 
     fun loadEmojisByCategory(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val emojis = repository.getEmojisByCategory(category)
+            val emojis = repository.getEmojisFromCategory(category)
             _emojisByCategory.postValue(mapOf(category to emojis))
         }
     }

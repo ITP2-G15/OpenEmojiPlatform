@@ -40,7 +40,7 @@ class EmojiRepository(private val context: Context) {
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisByCategory(
+    suspend fun getEmojisFromCategory(
         category: String,
         limit: Int = Int.MAX_VALUE,
     ): List<Emoji> {
