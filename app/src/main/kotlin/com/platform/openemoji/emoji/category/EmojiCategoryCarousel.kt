@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CategoryScrollCarousel(
+fun EmojiCategoryCarousel(
     selectedCategory: String,
     categories: List<String>,
     onSelectCategory: (String) -> Unit,
