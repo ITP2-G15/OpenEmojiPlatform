@@ -77,6 +77,11 @@ class EmojiRepository(private val context: Context) {
         return overviewEmojis
     }
 
+    suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji> {
+        val allEmojis = loadMockdata(1000)
+        return allEmojis.sortedByDescending { it.popularity }.take(limit)
+    }
+
     suspend fun getEmoji(name: String): Emoji {
         val cachedEmoji = emojisCache[name]
         if (cachedEmoji != null) return cachedEmoji
