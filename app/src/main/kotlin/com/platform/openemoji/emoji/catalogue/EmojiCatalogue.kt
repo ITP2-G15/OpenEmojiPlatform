@@ -7,12 +7,44 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
+import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
+
+@Composable
+fun EmojiCatalogue(
+    catalogueViewModel: EmojiCatalogueViewModel,
+    categoryViewModel: EmojiCategoryViewModel,
+    navController: NavController,
+) {
+    val overviewEmojisByCategory by catalogueViewModel
+        .overviewEmojisByCategory
+        .observeAsState(initial = emptyMap())
+    val emojisByCategory by catalogueViewModel
+        .emojisByCategory
+        .observeAsState(initial = emptyMap())
+    val overview = stringResource(R.string.overview)
+    val selectedCategory by categoryViewModel
+        .selectedCategory
+        .observeAsState(overview)
+    EmojiCatalogue(
+        emojisByCategory =
+            if (selectedCategory == overview) {
+                overviewEmojisByCategory
+            } else {
+                emojisByCategory
+            },
+        navController,
+    )
+}
 
 @Composable
 fun EmojiCatalogue(
@@ -25,7 +57,7 @@ fun EmojiCatalogue(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
     ) {
-        emojis.forEach { (category, emojis) ->
+        emojisByCategory.forEach { (category, emojis) ->
             Text(
                 text = category,
                 style = MaterialTheme.typography.titleMedium,

@@ -7,13 +7,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.platform.openemoji.R
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -57,6 +55,7 @@ fun Navigation() {
                         ),
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
+                    /*
                     val emoji = emojiName?.let { name -> emojiCatalogue.emoji(name) }
                     if (emoji != null) {
                         EmojiDetailScreen(emoji = emoji, navController = navController)
@@ -65,6 +64,7 @@ fun Navigation() {
                             stringResource(R.string.emoji_not_found),
                         )
                     }
+                     */
                 }
 
                 /**

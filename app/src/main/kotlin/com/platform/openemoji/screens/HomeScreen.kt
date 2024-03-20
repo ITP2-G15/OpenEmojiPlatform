@@ -21,6 +21,7 @@ fun HomeScreen(navController: NavController) {
         // Most Popular
         // Made using EmojiCatalogueUI with only one category: "Most Popular"
         EmojiCatalogue(
+            emptyMap(),
             navController = navController,
         )
         AndroidView(

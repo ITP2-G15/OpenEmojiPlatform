@@ -64,7 +64,7 @@ fun EmojiDetailScreen(
                 IconCopy(emoji)
                 // Added padding to hinder Text and IconCopy to collide.
                 Text(
-                    text = emoji.title,
+                    text = emoji.name,
                     modifier = Modifier.padding(12.dp),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,

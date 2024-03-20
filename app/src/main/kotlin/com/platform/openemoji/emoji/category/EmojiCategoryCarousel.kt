@@ -14,8 +14,28 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.platform.openemoji.R
+
+@Composable
+fun EmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
+    val selectedCategory by categoryViewModel.selectedCategory.observeAsState(
+        stringResource(R.string.overview),
+    )
+    val categories by categoryViewModel.categories.observeAsState(
+        initial = emptyList(),
+    )
+    EmojiCategoryCarousel(
+        selectedCategory,
+        categories,
+    ) {
+        categoryViewModel.selectCategory(it)
+    }
+}
 
 @Composable
 fun EmojiCategoryCarousel(

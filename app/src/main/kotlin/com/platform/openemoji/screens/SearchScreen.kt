@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import Application
 import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -8,25 +9,25 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.platform.openemoji.Application
 import com.platform.openemoji.R
-import com.platform.openemoji.catalogue.EmojiCatalogueViewModel
-import com.platform.openemoji.category.EmojiCategoryViewModel
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.EmojiCategoryCarousel
+import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
 import com.platform.openemoji.search.SearchField
 
 @Composable
@@ -34,28 +35,18 @@ fun SearchScreen(navController: NavController) {
     val application = LocalContext.current.applicationContext as Application
 
     val emojiCatalogueViewModel: EmojiCatalogueViewModel =
-        emojiCatalogueViewModel("emojiCatalogueViewModel") {
+        viewModel(key = "emojiCatalogue") {
             EmojiCatalogueViewModel(application.emojiRepository)
         }
-    val overviewEmojisByCategory by emojiCatalogueViewModel.overviewEmojisByCategory.observeAsState(
-        initial = emptyMap(),
-    )
-    val emojisByCategory by emojiCatalogueViewModel.emojisByCategory.observeAsState(
-        initial = emptyMap(),
-    )
 
     val emojiCategoryViewModel: EmojiCategoryViewModel =
-        emojiCategoryViewModel("emojiCategoryViewModel") {
+        viewModel(key = "emojiCategory") {
             EmojiCategoryViewModel(application.emojiRepository)
         }
-    val categories by emojiCategoryViewModel.categories.observeAsState(
-        initial = emptyList(),
-    )
-    LaunchedEffect(key1 = "loadOverviewEmojisForCategories") {
-        emojiCatalogueViewModel.loadOverviewEmojisForCategories(categories)
+    val overview = stringResource(R.string.overview)
+    LaunchedEffect(LocalLifecycleOwner.current) {
+        emojiCategoryViewModel.selectCategory(overview)
     }
-
-    val selectedCategory = rememberSaveable { mutableStateOf(overview) }
 
     val searchQuery = rememberSaveable { mutableStateOf("") }
 
@@ -79,19 +70,16 @@ fun SearchScreen(navController: NavController) {
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
-                val filteredEmojis by viewModel.emojisBySearch.observeAsState(emptyList())
-                EmojiGrid(emojis = filteredEmojis, navController = navController)
+                // val filteredEmojis by viewModel.emojisBySearch.observeAsState(emptyList())
+                EmojiGrid(emojis = emptyList(), navController = navController)
             }
         } else {
-            EmojiCategoryCarousel(
-                selectedCategory.value,
-                listOf(overview) + categories,
-            ) { selectedCategory.value = it }
-            if (selectedCategory.value == overview) {
-                EmojiCatalogue(emojisByCategory = overviewEmojisByCategory, navController)
-            } else {
-                EmojiGrid(emojis = emojisByCategory, navController)
-            }
+            EmojiCategoryCarousel(emojiCategoryViewModel)
+            EmojiCatalogue(
+                emojiCatalogueViewModel,
+                emojiCategoryViewModel,
+                navController,
+            )
         }
     }
 }

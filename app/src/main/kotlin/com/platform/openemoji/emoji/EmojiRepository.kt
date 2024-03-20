@@ -40,7 +40,7 @@ class EmojiRepository(private val context: Context) {
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisByCategory(
+    suspend fun getEmojisFromCategory(
         category: String,
         limit: Int = Int.MAX_VALUE,
     ): List<Emoji> {
@@ -51,10 +51,13 @@ class EmojiRepository(private val context: Context) {
         }
 
         val allEmojis = loadMockdata(1000)
-        val remainingEmojis = allEmojis.filter { it.category == category && it !in cachedEmojis }
+        val remainingEmojis =
+            allEmojis.filter {
+                it.category == category && it !in cachedEmojis
+            }
 
         for (emoji in remainingEmojis) {
-            emojisCache.put(emoji.name, emoji)
+            emojisCache[emoji.name] = emoji
         }
 
         return (cachedEmojis + remainingEmojis).take(limit)
@@ -67,7 +70,7 @@ class EmojiRepository(private val context: Context) {
         val overviewEmojis = mutableMapOf<String, List<Emoji>>()
 
         for (category in categories) {
-            val emojisForCategory = getEmojisByCategory(category, limit)
+            val emojisForCategory = getEmojisFromCategory(category, limit)
             overviewEmojis[category] = emojisForCategory
         }
 
@@ -83,7 +86,7 @@ class EmojiRepository(private val context: Context) {
             allEmojis.find { it.name == name }
                 ?: throw IllegalArgumentException("Emoji not found")
 
-        emojisCache.put(emoji.name, emoji)
+        emojisCache[emoji.name] = emoji
 
         return emoji
     }
@@ -108,7 +111,7 @@ class EmojiRepository(private val context: Context) {
             }
 
         for (emoji in matchingEmojis) {
-            emojisCache.put(emoji.name, emoji)
+            emojisCache[emoji.name] = emoji
         }
 
         return matchingEmojis
