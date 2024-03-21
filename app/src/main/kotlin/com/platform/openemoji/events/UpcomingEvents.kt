@@ -31,7 +31,7 @@ fun UpcomingEvents(navController: NavController) {
         )
 
     Column(
-        modifier = Modifier.testTag("events"),
+        modifier = Modifier.testTag("upcomingEvents"),
     ) {
         Row(
             modifier =
@@ -55,7 +55,7 @@ fun UpcomingEvents(navController: NavController) {
                         navController.navigate(
                             Screen.EventListScreen.route,
                         )
-                    },
+                    }.testTag("showMoreEvents"),
             )
         }
         EventCard(event)

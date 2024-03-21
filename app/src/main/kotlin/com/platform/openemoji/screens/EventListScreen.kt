@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,18 +37,18 @@ fun EventListScreen(navController: NavController) {
         modifier =
             Modifier
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 8.dp),
+                .padding(horizontal = 8.dp).testTag("eventListScreen"),
     ) {
         IconButton(onClick = { navController.popBackStack() }) {
             Icon(
                 Icons.Filled.ArrowBack,
                 contentDescription = stringResource(R.string.back_arrow),
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(48.dp).testTag("eventListBackButton"),
             )
         }
         Text(
-            text = stringResource(R.string.upcoming_events),
+            text = stringResource(R.string.eventsandtopics),
             modifier = Modifier.padding(12.dp),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
