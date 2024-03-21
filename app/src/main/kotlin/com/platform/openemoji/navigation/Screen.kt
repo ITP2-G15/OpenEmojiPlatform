@@ -12,6 +12,8 @@ sealed class Screen(val route: String) {
 
     object EmojiDetailScreen : Screen("emoji")
 
+    object NewsListScreen : Screen("NewsListScreen")
+
     /**
      * Adds arguments to a navigationItem.
      * If you want to use arguments use ".withArgs("args")" instead of ".route".

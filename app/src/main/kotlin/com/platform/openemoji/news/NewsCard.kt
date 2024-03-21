@@ -60,27 +60,27 @@ fun NewsCard(news: News) {
                 Card(
                     modifier =
                         Modifier
-                            .size(width = screenWidth, height = 80.dp)
+                            .size(width = screenWidth, height = 85.dp)
                             .align(Alignment.BottomStart),
                     shape = RoundedCornerShape(2.dp),
                     colors =
                         CardDefaults.cardColors(
                             containerColor =
                                 MaterialTheme.colorScheme.surfaceContainer.copy(
-                                    0.8f,
+                                    0.9f,
                                 ),
                             contentColor = MaterialTheme.colorScheme.onBackground,
                         ),
                 ) {
                     Text(
                         text = news.title,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Medium,
                     )
                     Text(
                         text = news.desc,
-                        modifier = Modifier.padding(horizontal = 12.dp),
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp),
                     )
                 }
             }

@@ -16,4 +16,6 @@ easily add support for multiple languages if needed -->
     <string name="overview">Overview</string>
     <string name="most_popular">Most Popular</string>
     <string name="open_emoji_platform">Open Emoji Platform</string>
+    <string name="latest_news">Latest News</string>
+    <string name="show_more">Show more</string>
 </resources>
