@@ -6,12 +6,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.platform.openemoji.Application
+import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -54,17 +61,24 @@ fun Navigation() {
                             },
                         ),
                 ) { backStackEntry ->
+                    val application =
+                        LocalContext.current
+                            .applicationContext as Application
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
-                    /*
-                    val emoji = emojiName?.let { name -> emojiCatalogue.emoji(name) }
-                    if (emoji != null) {
-                        EmojiDetailScreen(emoji = emoji, navController = navController)
-                    } else {
-                        throw IllegalArgumentException(
-                            stringResource(R.string.emoji_not_found),
+                    val emoji = remember { mutableStateOf<Emoji?>(null) }
+                    LaunchedEffect(LocalLifecycleOwner.current) {
+                        emoji.value =
+                            emojiName?.let { name ->
+                                application.emojiRepository.getEmoji(name)
+                            }
+                    }
+
+                    emoji.value?.let {
+                        EmojiDetailScreen(
+                            emoji = it,
+                            navController = navController,
                         )
                     }
-                     */
                 }
 
                 /**

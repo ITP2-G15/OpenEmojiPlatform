@@ -1,3 +1,5 @@
+package com.platform.openemoji
+
 import android.app.Application
 import com.platform.openemoji.emoji.EmojiRepository
 import com.platform.openemoji.events.EventsRepository

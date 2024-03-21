@@ -8,9 +8,9 @@ data class Emoji(
     val unicodeCodePoints: String,
     val url: String,
     val name: String,
-    val popularity: String,
+    val popularity: Int,
     val category: String,
     val description: String,
-    val emojiVersion: String,
-    val unicodeVersion: String,
+    val emojiVersion: Float,
+    val unicodeVersion: Float?,
 )

@@ -18,8 +18,9 @@ class EmojiCatalogueViewModel(private val repository: EmojiRepository) : ViewMod
     val emojisByCategory: LiveData<Map<String, List<Emoji>>>
         get() = _emojisByCategory
 
-    fun loadOverviewEmojisForCategories(categories: List<String>) {
+    fun loadOverviewEmojisForCategories() {
         viewModelScope.launch(Dispatchers.IO) {
+            val categories = repository.getCategories()
             val overviewEmojis = repository.getOverviewEmojis(categories, 14)
             _overviewEmojisByCategory.postValue(overviewEmojis)
         }

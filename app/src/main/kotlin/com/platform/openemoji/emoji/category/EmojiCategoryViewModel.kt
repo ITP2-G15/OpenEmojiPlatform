@@ -31,8 +31,6 @@ class EmojiCategoryViewModel(
     }
 
     fun selectCategory(category: String) {
-        if (categories.value?.contains(category) == true) {
-            _selectedCategory.postValue(category)
-        }
+        _selectedCategory.postValue(category)
     }
 }

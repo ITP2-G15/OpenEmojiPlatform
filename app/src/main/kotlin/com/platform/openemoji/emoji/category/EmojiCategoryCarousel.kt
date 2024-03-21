@@ -23,15 +23,15 @@ import com.platform.openemoji.R
 
 @Composable
 fun EmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
-    val selectedCategory by categoryViewModel.selectedCategory.observeAsState(
-        stringResource(R.string.overview),
-    )
+    val overview = stringResource(R.string.overview)
+    val selectedCategory by categoryViewModel.selectedCategory
+        .observeAsState(overview)
     val categories by categoryViewModel.categories.observeAsState(
         initial = emptyList(),
     )
     EmojiCategoryCarousel(
         selectedCategory,
-        categories,
+        listOf(overview) + categories,
     ) {
         categoryViewModel.selectCategory(it)
     }
