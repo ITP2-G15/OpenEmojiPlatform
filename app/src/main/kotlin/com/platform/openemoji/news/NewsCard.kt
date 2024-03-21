@@ -60,7 +60,7 @@ fun NewsCard(news: News) {
                 Card(
                     modifier =
                         Modifier
-                            .size(width = screenWidth, height = 85.dp)
+                            .size(width = screenWidth, height = 90.dp)
                             .align(Alignment.BottomStart),
                     shape = RoundedCornerShape(2.dp),
                     colors =
@@ -80,7 +80,8 @@ fun NewsCard(news: News) {
                     )
                     Text(
                         text = news.desc,
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 2.dp),
+                        modifier = Modifier.padding(horizontal = 12.dp),
+                        maxLines = 2,
                     )
                 }
             }
