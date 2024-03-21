@@ -32,7 +32,7 @@ import coil.compose.rememberImagePainter
 fun NewsCard(news: News) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val context = LocalContext.current
-    val eventIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(news.url)) }
+    val newsIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(news.url)) }
     val imagePainter = rememberImagePainter(news.img)
 
     Card(
@@ -42,7 +42,7 @@ fun NewsCard(news: News) {
                 .size(width = screenWidth, height = 200.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .clickable {
-                    context.startActivity(eventIntent)
+                    context.startActivity(newsIntent)
                 },
     ) {
         Column(

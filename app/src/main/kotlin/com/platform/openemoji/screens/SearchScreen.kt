@@ -71,6 +71,7 @@ fun SearchScreen(navController: NavController) {
                         null
                     },
                 navController = navController,
+                modifier = Modifier.verticalScroll(rememberScrollState()),
             )
         }
     }
