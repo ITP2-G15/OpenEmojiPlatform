@@ -23,6 +23,7 @@ import com.platform.openemoji.news.NewsCard
 
 @Composable
 fun NewsListScreen(navController: NavController) {
+    // TODO replace data
     val allNewsData =
         listOf(
             News(
@@ -36,6 +37,12 @@ fun NewsListScreen(navController: NavController) {
                 "https://blog.emojipedia.org/googles-emoji-15-1-support-in-noto-color-emoji/",
                 "https://blog.emojipedia.org/content/images/size/w2000/2023/11/Emojipedia-Google-Emoji-15_1-Header.jpg",
                 "Today Google has officially unveiled its full-color designs for Unicode's latest approved emojis, which include a phoenix, a lime, smileys shaking their heads up and down, and a series of direction-specifying people emojis.",
+            ),
+            News(
+                "Microsoft Windows 11 23H2 Emoji Changelog",
+                "https://blog.emojipedia.org/microsoft-windows-11-23h2-emoji-changelog/",
+                "https://blog.emojipedia.org/content/images/size/w2000/2023/11/Emojipedia-Windows-11-23H2-Header.jpg",
+                "Microsoft have begun to roll out their latest update to Windows 11, adding Emoji 15.0 support and debuting the glossy 3D Fluent designs in select applications.",
             ),
         )
 
