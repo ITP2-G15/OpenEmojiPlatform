@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 
@@ -45,7 +46,7 @@ fun EventCard(event: Event) {
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .clickable {
                     context.startActivity(eventIntent)
-                },
+                }.testTag("eventCard"),
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -53,7 +54,7 @@ fun EventCard(event: Event) {
             // Background image
             Image(
                 painter = painter,
-                contentDescription = null,
+                contentDescription = event.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
             )

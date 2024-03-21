@@ -24,6 +24,7 @@ import com.platform.openemoji.events.EventCard
 
 @Composable
 fun EventListScreen(navController: NavController) {
+    // TODO: Replace with real event data.
     val event =
         Event(
             "St Patrick's day",
@@ -53,6 +54,7 @@ fun EventListScreen(navController: NavController) {
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
+        // TODO: Replace with real event data.
         EventCard(event)
         EventCard(event)
         EventCard(event)

@@ -21,6 +21,7 @@ import com.platform.openemoji.navigation.Screen
 
 @Composable
 fun UpcomingEvents(navController: NavController) {
+    // TODO: Replace with real event data
     val event =
         Event(
             "St Patrick's day",
@@ -58,6 +59,7 @@ fun UpcomingEvents(navController: NavController) {
                     }.testTag("showMoreEvents"),
             )
         }
+        // TODO: Replace with real event data
         EventCard(event)
         EventCard(event)
     }
