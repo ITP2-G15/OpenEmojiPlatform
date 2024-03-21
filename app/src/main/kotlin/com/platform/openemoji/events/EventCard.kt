@@ -66,7 +66,7 @@ fun EventCard(event: Event) {
                                 MaterialTheme.colorScheme.secondary.copy(
                                     alpha = 0.7f,
                                 ),
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                 ) {
                     Text(
@@ -83,7 +83,7 @@ fun EventCard(event: Event) {
                                 MaterialTheme.colorScheme.secondary.copy(
                                     alpha = 0.7f,
                                 ),
-                            contentColor = MaterialTheme.colorScheme.onPrimary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                 ) {
                     Text(
