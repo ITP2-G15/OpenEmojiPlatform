@@ -56,6 +56,9 @@ android {
 
 dependencies {
     implementation(
+        "com.google.android.gms:play-services-ads:21.5.0",
+    )
+    implementation(
         "androidx.core:core-ktx:1.12.0",
     )
     implementation(
