@@ -21,11 +21,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.Application
 import com.platform.openemoji.R
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
+import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import com.platform.openemoji.emoji.category.EmojiCategoryCarousel
 import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
+import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.search.SearchField
 
 @Composable
@@ -72,8 +72,8 @@ fun SearchScreen(navController: NavController) {
                 EmojiGrid(emojis = emptyList(), navController = navController)
             }
         } else {
-            EmojiCategoryCarousel(emojiCategoryViewModel)
-            EmojiCatalogue(
+            SearchScreenEmojiCategoryCarousel(emojiCategoryViewModel)
+            SearchScreenEmojiCatalogue(
                 emojiCatalogueViewModel,
                 emojiCategoryViewModel,
                 navController,

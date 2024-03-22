@@ -10,7 +10,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.screens.SearchScreen
 import org.junit.Before
 import org.junit.Rule
@@ -20,7 +20,7 @@ class SearchFieldTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val emojiCatalogue = EmojiCatalogue.get()
+    private val emojiCatalogue = SearchScreenEmojiCatalogue.get()
 
     @Before
     fun init() {

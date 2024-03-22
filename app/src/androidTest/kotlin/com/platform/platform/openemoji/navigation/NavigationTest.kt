@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
+import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.navigation.Navigation
 import org.junit.Rule
 import org.junit.Test
@@ -18,7 +18,7 @@ class NavigationTest {
 
     @Test
     fun testEmojiIconNavigation() {
-        EmojiCatalogue.get().populate(
+        SearchScreenEmojiCatalogue.get().populate(
             listOf(
                 Emoji(
                     "0",

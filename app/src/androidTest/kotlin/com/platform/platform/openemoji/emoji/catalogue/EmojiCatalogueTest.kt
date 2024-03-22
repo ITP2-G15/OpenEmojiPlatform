@@ -7,8 +7,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
+import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -17,7 +17,7 @@ class EmojiCatalogueTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val emojiCatalogue = EmojiCatalogue.get()
+    private val emojiCatalogue = SearchScreenEmojiCatalogue.get()
 
     @Before
     fun init() {

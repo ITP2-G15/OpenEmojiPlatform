@@ -22,22 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 
 @Composable
-fun EmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
-    val overview = stringResource(R.string.overview)
-    val selectedCategory by categoryViewModel.selectedCategory
-        .observeAsState(overview)
-    val categories by categoryViewModel.categories.observeAsState(
-        initial = emptyList(),
-    )
-    EmojiCategoryCarousel(
-        selectedCategory,
-        listOf(overview) + categories,
-    ) {
-        categoryViewModel.selectCategory(it)
-    }
-}
-
-@Composable
 fun EmojiCategoryCarousel(
     selectedCategory: String,
     categories: List<String>,
@@ -93,5 +77,21 @@ fun EmojiCategoryCarousel(
                             .copy(alpha = 0.25f),
                     ),
         )
+    }
+}
+
+@Composable
+fun SearchScreenEmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
+    val overview = stringResource(R.string.overview)
+    val selectedCategory by categoryViewModel.selectedCategory
+        .observeAsState(overview)
+    val categories by categoryViewModel.categories.observeAsState(
+        initial = emptyList(),
+    )
+    EmojiCategoryCarousel(
+        selectedCategory,
+        listOf(overview) + categories,
+    ) {
+        categoryViewModel.selectCategory(it)
     }
 }

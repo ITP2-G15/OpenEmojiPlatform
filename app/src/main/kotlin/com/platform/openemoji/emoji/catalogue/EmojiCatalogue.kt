@@ -23,6 +23,30 @@ import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
 
 @Composable
 fun EmojiCatalogue(
+    emojisByCategory: Map<String, List<Emoji>>,
+    navController: NavController,
+) {
+    Column(
+        modifier =
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
+    ) {
+        emojisByCategory.forEach { (category, emojis) ->
+            Text(
+                text = category,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.testTag("catalogueCategoryHeader"),
+            )
+
+            EmojiGrid(emojis, navController)
+        }
+    }
+}
+
+@Composable
+fun SearchScreenEmojiCatalogue(
     catalogueViewModel: EmojiCatalogueViewModel,
     categoryViewModel: EmojiCategoryViewModel,
     navController: NavController,
@@ -54,28 +78,4 @@ fun EmojiCatalogue(
             },
         navController,
     )
-}
-
-@Composable
-fun EmojiCatalogue(
-    emojisByCategory: Map<String, List<Emoji>>,
-    navController: NavController,
-) {
-    Column(
-        modifier =
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp),
-    ) {
-        emojisByCategory.forEach { (category, emojis) ->
-            Text(
-                text = category,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.testTag("catalogueCategoryHeader"),
-            )
-
-            EmojiGrid(emojis, navController)
-        }
-    }
 }
