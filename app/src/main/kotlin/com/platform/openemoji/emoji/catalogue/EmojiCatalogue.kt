@@ -32,8 +32,8 @@ fun EmojiCatalogue(
     }
     val overviewEmojisByCategory by catalogueViewModel.overviewEmojisByCategory
         .observeAsState(initial = emptyMap())
-    val emojisByCategory by catalogueViewModel.emojisByCategory
-        .observeAsState(initial = emptyMap())
+    val emojisOfCategory by catalogueViewModel.emojisOfCategory
+        .observeAsState()
     val overview = stringResource(R.string.overview)
     val selectedCategory by categoryViewModel.selectedCategory
         .observeAsState(overview)
@@ -41,7 +41,7 @@ fun EmojiCatalogue(
         LocalLifecycleOwner.current,
     ) {
         if (it != overview) {
-            catalogueViewModel.loadEmojisByCategory(it)
+            catalogueViewModel.loadEmojisOfCategory(it)
         }
     }
 
@@ -50,7 +50,7 @@ fun EmojiCatalogue(
             if (selectedCategory == overview) {
                 overviewEmojisByCategory
             } else {
-                emojisByCategory
+                emojisOfCategory?.let { mapOf(it) } ?: emptyMap()
             },
         navController,
     )

@@ -4,7 +4,6 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
@@ -40,7 +39,7 @@ class EmojiRepository(private val context: Context) {
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisFromCategory(
+    suspend fun getEmojisOfCategory(
         category: String,
         limit: Int = Int.MAX_VALUE,
     ): List<Emoji> {
@@ -70,8 +69,8 @@ class EmojiRepository(private val context: Context) {
         val overviewEmojis = mutableMapOf<String, List<Emoji>>()
 
         for (category in categories) {
-            val emojisForCategory = getEmojisFromCategory(category, limit)
-            overviewEmojis[category] = emojisForCategory
+            val emojisOfCategory = getEmojisOfCategory(category, limit)
+            overviewEmojis[category] = emojisOfCategory
         }
 
         return overviewEmojis

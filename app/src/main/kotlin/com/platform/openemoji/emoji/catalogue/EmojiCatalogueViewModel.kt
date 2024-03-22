@@ -14,9 +14,9 @@ class EmojiCatalogueViewModel(private val repository: EmojiRepository) : ViewMod
     val overviewEmojisByCategory: LiveData<Map<String, List<Emoji>>>
         get() = _overviewEmojisByCategory
 
-    private val _emojisByCategory = MutableLiveData<Map<String, List<Emoji>>>()
-    val emojisByCategory: LiveData<Map<String, List<Emoji>>>
-        get() = _emojisByCategory
+    private val _emojisOfCategory = MutableLiveData<Pair<String, List<Emoji>>>()
+    val emojisOfCategory: LiveData<Pair<String, List<Emoji>>>
+        get() = _emojisOfCategory
 
     private val _mostPopularEmojis = MutableLiveData<List<Emoji>>()
     val mostPopularEmojis: LiveData<List<Emoji>>
@@ -30,10 +30,10 @@ class EmojiCatalogueViewModel(private val repository: EmojiRepository) : ViewMod
         }
     }
 
-    fun loadEmojisByCategory(category: String) {
+    fun loadEmojisOfCategory(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val emojis = repository.getEmojisFromCategory(category)
-            _emojisByCategory.postValue(mapOf(category to emojis))
+            val emojis = repository.getEmojisOfCategory(category)
+            _emojisOfCategory.postValue(category to emojis)
         }
     }
 
