@@ -2,7 +2,6 @@ package com.platform.openemoji.events
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberImagePainter
 
 @Composable
 fun EventCard(event: Event) {
@@ -33,14 +31,14 @@ fun EventCard(event: Event) {
 
     Card(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .size(width = screenWidth, height = 150.dp)
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-            .clickable {
-                context.startActivity(eventIntent)
-            }
-            .testTag("eventCard"),
+            Modifier
+                .fillMaxWidth()
+                .size(width = screenWidth, height = 150.dp)
+                .padding(horizontal = 12.dp, vertical = 8.dp)
+                .clickable {
+                    context.startActivity(eventIntent)
+                }
+                .testTag("eventCard"),
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -49,7 +47,7 @@ fun EventCard(event: Event) {
                 model = event.img,
                 contentDescription = event.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
             Column {
                 Card(
