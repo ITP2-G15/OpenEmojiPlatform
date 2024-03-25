@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
@@ -40,6 +41,7 @@ fun NewsCard(news: News) {
                 .fillMaxWidth()
                 .size(width = screenWidth, height = 200.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
+                .testTag("newsCard")
                 .clickable {
                     context.startActivity(newsIntent)
                 },
