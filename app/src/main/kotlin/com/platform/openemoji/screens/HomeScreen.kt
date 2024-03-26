@@ -4,8 +4,8 @@ import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
@@ -24,7 +24,7 @@ fun HomeScreen(
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
     navController: NavController,
 ) {
-    val mostPopularEmojis by emojiCatalogueViewModel.mostPopularEmojis.observeAsState()
+    val mostPopularEmojis by emojiCatalogueViewModel.mostPopularEmojis.collectAsState()
     LaunchedEffect(LocalLifecycleOwner.current) {
         emojiCatalogueViewModel.loadMostPopularEmojis(14)
     }
@@ -34,16 +34,14 @@ fun HomeScreen(
     ) {
         HeaderLogo()
         // Most Popular
-        // Made using EmojiCatalogueUI with only one category: "Most Popular"
-        mostPopularEmojis?.let {
-            EmojiCatalogue(
-                mapOf(
-                    stringResource(R.string.most_popular) to
-                        it,
-                ),
-                navController = navController,
-            )
-        }
+        // Made using EmojiCatalogue with only one category: "Most Popular"
+        EmojiCatalogue(
+            mapOf(
+                stringResource(R.string.most_popular) to
+                    mostPopularEmojis,
+            ),
+            navController = navController,
+        )
         AndroidView(
             factory = { context ->
                 AdView(context).apply {

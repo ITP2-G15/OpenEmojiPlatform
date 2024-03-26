@@ -14,8 +14,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -82,14 +82,11 @@ fun EmojiCategoryCarousel(
 
 @Composable
 fun SearchScreenEmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
+    val selectedCategory by categoryViewModel.selectedCategory.collectAsState()
+    val categories by categoryViewModel.categories.collectAsState()
     val overview = stringResource(R.string.overview)
-    val selectedCategory by categoryViewModel.selectedCategory
-        .observeAsState(overview)
-    val categories by categoryViewModel.categories.observeAsState(
-        initial = emptyList(),
-    )
     EmojiCategoryCarousel(
-        selectedCategory,
+        selectedCategory ?: overview,
         listOf(overview) + categories,
     ) {
         categoryViewModel.selectCategory(it)

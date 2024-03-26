@@ -7,10 +7,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,17 +51,17 @@ fun SearchScreenEmojiCatalogue(
     navController: NavController,
 ) {
     val overviewEmojisByCategory by catalogueViewModel.overviewEmojisByCategory
-        .observeAsState(initial = emptyMap())
-    val emojisOfCategory by catalogueViewModel.emojisOfCategory
-        .observeAsState()
+        .collectAsState()
+    val emojisOfCategory by catalogueViewModel.emojisOfCategory.collectAsState()
     val overview = stringResource(R.string.overview)
-    val selectedCategory by categoryViewModel.selectedCategory
-        .observeAsState(overview)
-    categoryViewModel.selectedCategory.observe(
-        LocalLifecycleOwner.current,
-    ) {
-        if (it != overview) {
-            catalogueViewModel.loadEmojisOfCategory(it)
+    val selectedCategory by categoryViewModel.selectedCategory.collectAsState(overview)
+
+    // Load emojis of a category when the selected category changes.
+    LaunchedEffect(selectedCategory) {
+        selectedCategory?.let { category ->
+            if (category != overview) {
+                catalogueViewModel.loadEmojisOfCategory(category)
+            }
         }
     }
 

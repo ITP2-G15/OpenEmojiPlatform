@@ -1,23 +1,21 @@
 package com.platform.openemoji.emoji.category
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.platform.openemoji.emoji.EmojiRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class EmojiCategoryViewModel(
     private val repository: EmojiRepository,
 ) : ViewModel() {
-    private val _categories = MutableLiveData<List<String>>()
-    val categories: LiveData<List<String>>
-        get() = _categories
+    private val _categories = MutableStateFlow<List<String>>(emptyList())
+    val categories = _categories.asStateFlow()
 
-    private val _selectedCategory = MutableLiveData<String>()
-    val selectedCategory: LiveData<String>
-        get() = _selectedCategory
+    private val _selectedCategory = MutableStateFlow<String?>(null)
+    val selectedCategory = _selectedCategory.asStateFlow()
 
     init {
         loadCategories()
@@ -25,12 +23,11 @@ class EmojiCategoryViewModel(
 
     private fun loadCategories() {
         viewModelScope.launch(Dispatchers.IO) {
-            val categories = repository.getCategories()
-            _categories.postValue(categories)
+            _categories.value = repository.getCategories()
         }
     }
 
     fun selectCategory(category: String) {
-        _selectedCategory.postValue(category)
+        _selectedCategory.value = category
     }
 }
