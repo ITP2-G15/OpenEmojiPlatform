@@ -81,7 +81,7 @@ class NavigationTest {
         composeTestRule.onNodeWithTag("showMoreEvents")
             .performClick()
         composeTestRule.onNodeWithTag("eventListScreen").assertExists()
-        // Test back button navigation, sleep first in order to load it.
+        // Test back button navigation.
         composeTestRule.onNodeWithTag(
             "eventListBackButton",
             useUnmergedTree = true,
