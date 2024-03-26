@@ -1,6 +1,5 @@
 package com.platform.openemoji.screens
 
-import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +14,7 @@ import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
 import com.platform.openemoji.events.UpcomingEvents
+import com.platform.openemoji.header.HeaderLogo
 
 @Composable
 fun HomeScreen(navController: NavController) {

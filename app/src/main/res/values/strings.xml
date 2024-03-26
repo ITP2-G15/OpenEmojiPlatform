@@ -19,4 +19,5 @@ easily add support for multiple languages if needed -->
     <string name="upcoming_events">Upcoming Events</string>
     <string name="show_more">Show More</string>
     <string name="eventsandtopics">Events &amp; Topics</string>
+    <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
 </resources>
