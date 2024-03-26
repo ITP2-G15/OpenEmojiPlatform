@@ -29,13 +29,11 @@ import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.search.SearchField
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun SearchScreen(
+    emojiCatalogueViewModel: EmojiCatalogueViewModel,
+    navController: NavController,
+) {
     val application = LocalContext.current.applicationContext as Application
-
-    val emojiCatalogueViewModel: EmojiCatalogueViewModel =
-        viewModel(key = "emojiCatalogue") {
-            EmojiCatalogueViewModel(application.emojiRepository)
-        }
 
     val emojiCategoryViewModel: EmojiCategoryViewModel =
         viewModel(key = "emojiCategory") {

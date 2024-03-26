@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,12 +20,22 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.platform.openemoji.Application
 import com.platform.openemoji.emoji.Emoji
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
 fun Navigation() {
+    val application = LocalContext.current.applicationContext as Application
+    val emojiCatalogueViewModel =
+        viewModel(key = "emojiCatalogue") {
+            EmojiCatalogueViewModel(application.emojiRepository)
+        }
+    LaunchedEffect(LocalLifecycleOwner.current) {
+        emojiCatalogueViewModel.loadOverviewEmojisByCategory()
+    }
+
     val navController = rememberNavController()
     val startDestination = Screen.SearchScreen.route
     Scaffold(
@@ -45,7 +56,7 @@ fun Navigation() {
                 composable(
                     route = Screen.SearchScreen.route,
                 ) {
-                    SearchScreen(navController = navController)
+                    SearchScreen(emojiCatalogueViewModel, navController)
                 }
 
                 /**
@@ -61,9 +72,6 @@ fun Navigation() {
                             },
                         ),
                 ) { backStackEntry ->
-                    val application =
-                        LocalContext.current
-                            .applicationContext as Application
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
                     val emoji = remember { mutableStateOf<Emoji?>(null) }
                     LaunchedEffect(LocalLifecycleOwner.current) {
@@ -86,7 +94,7 @@ fun Navigation() {
                  * navigationItem
                  */
                 composable(route = Screen.HomeScreen.route) {
-                    HomeScreen(navController = navController)
+                    HomeScreen(emojiCatalogueViewModel, navController)
                 }
             }
         }

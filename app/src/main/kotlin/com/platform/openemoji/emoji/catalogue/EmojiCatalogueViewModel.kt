@@ -22,10 +22,9 @@ class EmojiCatalogueViewModel(private val repository: EmojiRepository) : ViewMod
     val mostPopularEmojis: LiveData<List<Emoji>>
         get() = _mostPopularEmojis
 
-    fun loadOverviewEmojisForCategories() {
+    fun loadOverviewEmojisByCategory() {
         viewModelScope.launch(Dispatchers.IO) {
-            val categories = repository.getCategories()
-            val overviewEmojis = repository.getOverviewEmojis(categories, 14)
+            val overviewEmojis = repository.getOverviewEmojis(14)
             _overviewEmojisByCategory.postValue(overviewEmojis)
         }
     }

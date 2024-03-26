@@ -9,16 +9,13 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
 class EmojiRepository(private val context: Context) {
-    private val emojisCache: ConcurrentMap<String, Emoji> = ConcurrentHashMap()
+    private val simulatedDelay: Long = 1000
+    private val emojisByCategory: ConcurrentMap<String, List<Emoji>> = ConcurrentHashMap()
 
-    // This is only needed when not using an API
     private var mockdata: List<Emoji>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
-    private suspend fun loadMockdata(simulatedDelay: Long = 0): List<Emoji> {
-        // Simulate a delay to show the loading state
-        delay(simulatedDelay)
-
+    private suspend fun loadMockdata(): List<Emoji> {
         if (mockdata != null) return mockdata!!
 
         withContext(Dispatchers.IO) {
@@ -35,89 +32,53 @@ class EmojiRepository(private val context: Context) {
     }
 
     suspend fun getCategories(): List<String> {
-        val allEmojis = loadMockdata(1000)
+        delay(simulatedDelay)
+        val allEmojis = loadMockdata()
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisOfCategory(
-        category: String,
-        limit: Int = Int.MAX_VALUE,
-    ): List<Emoji> {
-        val cachedEmojis = emojisCache.values.filter { it.category == category }
-
-        if (cachedEmojis.size >= limit) {
-            return cachedEmojis.take(limit)
+    suspend fun getEmojisOfCategory(category: String): List<Emoji> {
+        var emojisOfCategory = emojisByCategory[category]
+        if (emojisOfCategory != null) {
+            return emojisOfCategory
         }
 
-        val allEmojis = loadMockdata(1000)
-        val remainingEmojis =
-            allEmojis.filter {
-                it.category == category && it !in cachedEmojis
-            }
-
-        for (emoji in remainingEmojis) {
-            emojisCache[emoji.name] = emoji
-        }
-
-        return (cachedEmojis + remainingEmojis).take(limit)
+        delay(simulatedDelay)
+        val allEmojis = loadMockdata()
+        emojisOfCategory = allEmojis.filter { it.category == category }
+        emojisByCategory[category] = emojisOfCategory
+        return emojisOfCategory
     }
 
-    suspend fun getOverviewEmojis(
-        categories: List<String>,
-        limit: Int,
-    ): Map<String, List<Emoji>> {
-        val overviewEmojis = mutableMapOf<String, List<Emoji>>()
-
-        for (category in categories) {
-            val emojisOfCategory = getEmojisOfCategory(category, limit)
-            overviewEmojis[category] = emojisOfCategory
-        }
-
-        return overviewEmojis
+    suspend fun getOverviewEmojis(limitPerCategory: Int): Map<String, List<Emoji>> {
+        delay(simulatedDelay)
+        return loadMockdata()
+            .groupBy { it.category }
+            .map { (category, emojis) ->
+                category to emojis.take(limitPerCategory)
+            }
+            .toMap()
     }
 
     suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji> {
-        val allEmojis = loadMockdata(1000)
+        delay(simulatedDelay)
+        val allEmojis = loadMockdata()
         return allEmojis.sortedByDescending { it.popularity }.take(limit)
     }
 
-    suspend fun getEmoji(name: String): Emoji {
-        val cachedEmoji = emojisCache[name]
-        if (cachedEmoji != null) return cachedEmoji
-
-        val allEmojis = loadMockdata(1000)
-        val emoji =
-            allEmojis.find { it.name == name }
-                ?: throw IllegalArgumentException("Emoji not found")
-
-        emojisCache[emoji.name] = emoji
-
-        return emoji
+    suspend fun getEmoji(name: String): Emoji? {
+        delay(simulatedDelay)
+        return loadMockdata().find { it.name == name }
     }
 
     suspend fun searchEmojis(query: String): List<Emoji> {
-        val cachedEmojis =
-            emojisCache.values.filter {
-                it.name.contains(query, ignoreCase = true)
-            }
+        delay(simulatedDelay)
 
-        if (cachedEmojis.isNotEmpty()) {
-            return cachedEmojis
+        return loadMockdata().filter {
+            it.name.contains(
+                query,
+                ignoreCase = true,
+            )
         }
-
-        val allEmojis = loadMockdata(1000)
-        val matchingEmojis =
-            allEmojis.filter {
-                it.name.contains(
-                    query,
-                    ignoreCase = true,
-                )
-            }
-
-        for (emoji in matchingEmojis) {
-            emojisCache[emoji.name] = emoji
-        }
-
-        return matchingEmojis
     }
 }

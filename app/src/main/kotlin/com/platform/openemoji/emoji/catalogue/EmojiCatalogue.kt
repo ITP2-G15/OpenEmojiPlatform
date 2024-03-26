@@ -7,7 +7,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -51,9 +50,6 @@ fun SearchScreenEmojiCatalogue(
     categoryViewModel: EmojiCategoryViewModel,
     navController: NavController,
 ) {
-    LaunchedEffect(LocalLifecycleOwner.current) {
-        catalogueViewModel.loadOverviewEmojisForCategories()
-    }
     val overviewEmojisByCategory by catalogueViewModel.overviewEmojisByCategory
         .observeAsState(initial = emptyMap())
     val emojisOfCategory by catalogueViewModel.emojisOfCategory
@@ -71,10 +67,15 @@ fun SearchScreenEmojiCatalogue(
 
     EmojiCatalogue(
         emojisByCategory =
-            if (selectedCategory == overview) {
-                overviewEmojisByCategory
-            } else {
-                emojisOfCategory?.let { mapOf(it) } ?: emptyMap()
+            when (selectedCategory) {
+                overview -> overviewEmojisByCategory
+                emojisOfCategory?.first ->
+                    emojisOfCategory?.let {
+                        mapOf(
+                            it,
+                        )
+                    } ?: emptyMap()
+                else -> emptyMap()
             },
         navController,
     )

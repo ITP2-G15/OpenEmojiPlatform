@@ -7,28 +7,23 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import com.platform.openemoji.Application
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    val application = LocalContext.current.applicationContext as Application
-    val emojiCatalogueViewModel: EmojiCatalogueViewModel =
-        viewModel(key = "emojiCatalogue") {
-            EmojiCatalogueViewModel(application.emojiRepository)
-        }
+fun HomeScreen(
+    emojiCatalogueViewModel: EmojiCatalogueViewModel,
+    navController: NavController,
+) {
     val mostPopularEmojis by emojiCatalogueViewModel.mostPopularEmojis.observeAsState()
     LaunchedEffect(LocalLifecycleOwner.current) {
         emojiCatalogueViewModel.loadMostPopularEmojis(14)
