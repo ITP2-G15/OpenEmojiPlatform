@@ -18,6 +18,7 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.HomeScreen
+import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
@@ -76,6 +77,12 @@ fun Navigation() {
                  */
                 composable(route = Screen.HomeScreen.route) {
                     HomeScreen(navController = navController)
+                }
+                /**
+                 * Navigates to NewsListScreen.
+                 */
+                composable(route = Screen.NewsListScreen.route) {
+                    NewsListScreen(navController = navController)
                 }
                 /**
                  * Navigates to EventListScreen.

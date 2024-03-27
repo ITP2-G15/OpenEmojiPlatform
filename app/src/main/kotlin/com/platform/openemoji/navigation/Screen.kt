@@ -12,6 +12,8 @@ sealed class Screen(val route: String) {
 
     object EmojiDetailScreen : Screen("emoji")
 
+    object NewsListScreen : Screen("NewsListScreen")
+
     object EventListScreen : Screen("EventListScreen")
 
     /**
