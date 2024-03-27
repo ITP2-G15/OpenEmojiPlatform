@@ -33,7 +33,10 @@ fun EmojiDetailScreen(
         /**
          * Arrow back button, takes you back to previous location.
          */
-        BackButtonNavigation(navController)
+        BackButtonNavigation(
+            navController = navController,
+            modifier = Modifier.testTag("emojiDetailBackButton"),
+        )
 
         Card(
             modifier =

@@ -15,13 +15,16 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 
 @Composable
-fun BackButtonNavigation(navController: NavController) {
+fun BackButtonNavigation(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+) {
     IconButton(onClick = { navController.popBackStack() }) {
         Icon(
             Icons.Filled.ArrowBack,
             contentDescription = stringResource(R.string.back_arrow),
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(48.dp).testTag("eventListBackButton"),
+            modifier = modifier.size(48.dp).testTag("eventListBackButton"),
         )
     }
 }

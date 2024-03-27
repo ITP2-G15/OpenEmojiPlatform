@@ -39,8 +39,10 @@ fun EventListScreen(navController: NavController) {
         /**
          * Arrow back button, takes you back to previous location.
          */
-        BackButtonNavigation(navController)
-
+        BackButtonNavigation(
+            navController = navController,
+            modifier = Modifier.testTag("eventListBackButton"),
+        )
         Text(
             text = stringResource(R.string.eventsandtopics),
             modifier = Modifier.padding(12.dp),

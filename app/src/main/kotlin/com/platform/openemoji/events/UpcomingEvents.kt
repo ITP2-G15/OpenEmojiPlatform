@@ -45,7 +45,11 @@ fun UpcomingEvents(navController: NavController) {
                 text = stringResource(R.string.upcoming_events),
                 style = MaterialTheme.typography.titleLarge,
             )
-            ShowMoreNavigation(navController, Screen.EventListScreen)
+            ShowMoreNavigation(
+                navController = navController,
+                screen = Screen.EventListScreen,
+                modifier = Modifier.testTag("showMoreEvents"),
+            )
         }
         // TODO: Replace with real event data
         EventCard(event)

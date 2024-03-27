@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,8 +64,10 @@ fun NewsListScreen(navController: NavController) {
         /**
          * Arrow back button, takes you back to previous location.
          */
-        BackButtonNavigation(navController)
-
+        BackButtonNavigation(
+            navController = navController,
+            modifier = Modifier.testTag("newsListBackButton"),
+        )
         Text(
             text = stringResource(R.string.latest_news),
             modifier = Modifier.padding(12.dp),

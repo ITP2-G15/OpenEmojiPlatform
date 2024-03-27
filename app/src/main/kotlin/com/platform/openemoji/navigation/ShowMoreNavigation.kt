@@ -14,13 +14,14 @@ import com.platform.openemoji.R
 fun ShowMoreNavigation(
     navController: NavController,
     screen: Screen,
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = stringResource(R.string.show_more),
         color = MaterialTheme.colorScheme.primary,
         textDecoration = TextDecoration.Underline,
         modifier =
-            Modifier.clickable {
+            modifier.clickable {
                 navController.navigate(
                     screen.route,
                 )
