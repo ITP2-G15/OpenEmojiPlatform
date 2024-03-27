@@ -2,7 +2,6 @@ package com.platform.openemoji.news
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,14 +25,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
 
 @Composable
 fun NewsCard(news: News) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val context = LocalContext.current
     val newsIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(news.url)) }
-    val imagePainter = rememberImagePainter(news.img)
 
     Card(
         modifier =
@@ -51,9 +49,9 @@ fun NewsCard(news: News) {
             verticalArrangement = Arrangement.Center,
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(
-                    painter = imagePainter,
-                    contentDescription = null,
+                AsyncImage(
+                    model = news.img,
+                    contentDescription = news.title,
                     modifier = Modifier.fillMaxSize(),
                     alignment = Alignment.Center,
                     contentScale = ContentScale.Crop,
