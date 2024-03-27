@@ -1,6 +1,5 @@
 package com.platform.openemoji.screens
 
-import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,6 +15,8 @@ import com.google.android.gms.ads.AdView
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
+import com.platform.openemoji.events.UpcomingEvents
+import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.news.LatestNews
 
 @Composable
@@ -34,7 +35,7 @@ fun HomeScreen(navController: NavController) {
                 ),
             navController = navController,
         )
-        LatestNews(navController)
+        UpcomingEvents(navController)
         AndroidView(
             factory = { context ->
                 AdView(context).apply {
@@ -44,5 +45,6 @@ fun HomeScreen(navController: NavController) {
                 }
             },
         )
+        LatestNews(navController)
     }
 }
