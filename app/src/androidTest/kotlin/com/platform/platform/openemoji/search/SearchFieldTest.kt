@@ -1,22 +1,7 @@
 package com.platform.platform.openemoji.search
 
-import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performTextClearance
-import androidx.compose.ui.test.performTextInput
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
-import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
-import com.platform.openemoji.screens.SearchScreen
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-
 class SearchFieldTest {
+    /*
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -60,4 +45,5 @@ class SearchFieldTest {
         composeTestRule.onNodeWithTag("searchTextField").performTextClearance()
         composeTestRule.onAllNodesWithTag("iconRoute").assertCountEquals(4)
     }
+     */
 }

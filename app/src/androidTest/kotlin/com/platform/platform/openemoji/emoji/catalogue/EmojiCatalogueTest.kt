@@ -7,9 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
-import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
-import org.junit.Before
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,28 +15,21 @@ class EmojiCatalogueTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val emojiCatalogue = SearchScreenEmojiCatalogue.get()
-
-    @Before
-    fun init() {
-        emojiCatalogue.populate(
-            listOf(
-                Emoji("1", "a", "", "A", "AA", "", ""),
-                Emoji("2", "b", "", "A", "AA", "", ""),
-                Emoji("3", "c", "", "A", "AB", "", ""),
-                Emoji("4", "d", "", "B", "BA", "", ""),
-            ),
-        )
-    }
-
     @Test
     fun testEmojiCatalogueStructure() {
         val navController =
             TestNavHostController(ApplicationProvider.getApplicationContext())
+        val emojisByCategory =
+            listOf(
+                Emoji("1", "a", "", "", 0, "A", "", 1f, 1f),
+                Emoji("2", "b", "", "", 0, "A", "", 1f, 1f),
+                Emoji("3", "c", "", "", 0, "A", "", 1f, 1f),
+                Emoji("4", "d", "", "", 0, "B", "", 1f, 1f),
+            ).groupBy { it.category }
         composeTestRule.setContent {
-            EmojiCatalogueUi(
-                emojis = emojiCatalogue.byCategory,
-                navController = navController,
+            EmojiCatalogue(
+                emojisByCategory,
+                navController,
             )
         }
 

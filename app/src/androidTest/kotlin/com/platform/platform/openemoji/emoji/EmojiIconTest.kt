@@ -25,13 +25,15 @@ class EmojiIconTest {
                     emoji =
                         Emoji(
                             "1",
-                            "a",
                             // This should be copied to clipboard
                             "emoji code",
+                            "a",
+                            "",
+                            0,
                             "",
                             "",
-                            "",
-                            "",
+                            1f,
+                            1f,
                         ),
                 )
             }
