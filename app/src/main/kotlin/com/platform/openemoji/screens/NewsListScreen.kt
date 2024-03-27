@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
+import com.platform.openemoji.navigation.BackButtonNavigation
 import com.platform.openemoji.news.News
 import com.platform.openemoji.news.NewsCard
 
@@ -64,14 +65,11 @@ fun NewsListScreen(navController: NavController) {
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 8.dp),
     ) {
-        IconButton(onClick = { navController.popBackStack() }) {
-            Icon(
-                Icons.Filled.ArrowBack,
-                contentDescription = stringResource(R.string.back_arrow),
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp),
-            )
-        }
+        /**
+         * Arrow back button, takes you back to previous location.
+         */
+        BackButtonNavigation(navController)
+
         Text(
             text = stringResource(R.string.latest_news),
             modifier = Modifier.padding(12.dp),
