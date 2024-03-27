@@ -8,12 +8,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,7 +22,6 @@ import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
 import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.search.EmojiSearchViewModel
 import com.platform.openemoji.search.SearchField
@@ -35,15 +32,6 @@ fun SearchScreen(
     navController: NavController,
 ) {
     val application = LocalContext.current.applicationContext as Application
-
-    val emojiCategoryViewModel: EmojiCategoryViewModel =
-        viewModel(key = "emojiCategory") {
-            EmojiCategoryViewModel(application.emojiRepository)
-        }
-    val overview = stringResource(R.string.overview)
-    LaunchedEffect(LocalLifecycleOwner.current) {
-        emojiCategoryViewModel.selectCategory(overview)
-    }
 
     val emojiSearchViewModel: EmojiSearchViewModel =
         viewModel(key = "emojiSearch") {
@@ -75,10 +63,9 @@ fun SearchScreen(
                 EmojiGrid(emojis = searchResults, navController = navController)
             }
         } else {
-            SearchScreenEmojiCategoryCarousel(emojiCategoryViewModel)
+            SearchScreenEmojiCategoryCarousel(emojiCatalogueViewModel)
             SearchScreenEmojiCatalogue(
                 emojiCatalogueViewModel,
-                emojiCategoryViewModel,
                 navController,
             )
         }

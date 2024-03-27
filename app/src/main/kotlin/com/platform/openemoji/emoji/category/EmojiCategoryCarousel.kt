@@ -17,9 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.platform.openemoji.R
+import com.platform.openemoji.emoji.OVERVIEW
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 
 @Composable
 fun EmojiCategoryCarousel(
@@ -81,14 +81,13 @@ fun EmojiCategoryCarousel(
 }
 
 @Composable
-fun SearchScreenEmojiCategoryCarousel(categoryViewModel: EmojiCategoryViewModel) {
-    val selectedCategory by categoryViewModel.selectedCategory.collectAsState()
-    val categories by categoryViewModel.categories.collectAsState()
-    val overview = stringResource(R.string.overview)
+fun SearchScreenEmojiCategoryCarousel(catalogueViewModel: EmojiCatalogueViewModel) {
+    val selectedCategory by catalogueViewModel.selectedCategory.collectAsState()
+    val categories by catalogueViewModel.categories.collectAsState()
     EmojiCategoryCarousel(
-        selectedCategory ?: overview,
-        listOf(overview) + categories,
+        selectedCategory,
+        listOf(OVERVIEW) + categories,
     ) {
-        categoryViewModel.selectCategory(it)
+        catalogueViewModel.selectCategory(it)
     }
 }

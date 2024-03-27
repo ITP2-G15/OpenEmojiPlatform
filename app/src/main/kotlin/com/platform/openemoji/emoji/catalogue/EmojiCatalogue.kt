@@ -7,18 +7,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
-import com.platform.openemoji.emoji.category.EmojiCategoryViewModel
 
 @Composable
 fun EmojiCatalogue(
@@ -47,36 +43,13 @@ fun EmojiCatalogue(
 @Composable
 fun SearchScreenEmojiCatalogue(
     catalogueViewModel: EmojiCatalogueViewModel,
-    categoryViewModel: EmojiCategoryViewModel,
     navController: NavController,
 ) {
-    val overviewEmojisByCategory by catalogueViewModel.overviewEmojisByCategory
+    val selectedCategoryEmojis by catalogueViewModel.selectedCategoryEmojis
         .collectAsState()
-    val emojisOfCategory by catalogueViewModel.emojisOfCategory.collectAsState()
-    val overview = stringResource(R.string.overview)
-    val selectedCategory by categoryViewModel.selectedCategory.collectAsState(overview)
-
-    // Load emojis of a category when the selected category changes.
-    LaunchedEffect(selectedCategory) {
-        selectedCategory?.let { category ->
-            if (category != overview) {
-                catalogueViewModel.loadEmojisOfCategory(category)
-            }
-        }
-    }
 
     EmojiCatalogue(
-        emojisByCategory =
-            when (selectedCategory) {
-                overview -> overviewEmojisByCategory
-                emojisOfCategory?.first ->
-                    emojisOfCategory?.let {
-                        mapOf(
-                            it,
-                        )
-                    } ?: emptyMap()
-                else -> emptyMap()
-            },
+        emojisByCategory = selectedCategoryEmojis ?: emptyMap(),
         navController,
     )
 }

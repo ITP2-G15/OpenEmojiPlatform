@@ -18,6 +18,7 @@ class EmojiSearchViewModel(
     private val _searchResults = MutableStateFlow<List<Emoji>>(emptyList())
     val searchResults = _searchResults.asStateFlow()
 
+    // Cancel previous search job when new search starts before the previous was finished.
     private var searchResultJob: Job? = null
 
     fun search(query: String) {

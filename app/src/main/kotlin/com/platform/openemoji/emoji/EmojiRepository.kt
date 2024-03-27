@@ -8,9 +8,17 @@ import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-class EmojiRepository(private val context: Context) {
+const val OVERVIEW = "Overview"
+
+// If this needs to be dynamic, it should be a state flow in EmojiCatalogueViewModel.
+const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
+
+class EmojiRepository(
+    private val context: Context,
+) {
     private val simulatedDelay: Long = 1000
-    private val emojisByCategory: ConcurrentMap<String, List<Emoji>> = ConcurrentHashMap()
+    private val catalogueCache: ConcurrentMap<String, Map<String, List<Emoji>>> =
+        ConcurrentHashMap()
 
     private var mockdata: List<Emoji>? = null
 
@@ -37,27 +45,40 @@ class EmojiRepository(private val context: Context) {
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisOfCategory(category: String): List<Emoji> {
-        var emojisOfCategory = emojisByCategory[category]
-        if (emojisOfCategory != null) {
-            return emojisOfCategory
+    suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> {
+        val categoryEmojis = catalogueCache[category]
+        if (categoryEmojis != null) {
+            return categoryEmojis
         }
 
         delay(simulatedDelay)
         val allEmojis = loadMockdata()
-        emojisOfCategory = allEmojis.filter { it.category == category }
-        emojisByCategory[category] = emojisOfCategory
+        val emojisOfCategory =
+            mapOf(
+                category to
+                    allEmojis.filter { it.category == category },
+            )
+        catalogueCache[category] = emojisOfCategory
         return emojisOfCategory
     }
 
-    suspend fun getOverviewEmojis(limitPerCategory: Int): Map<String, List<Emoji>> {
+    suspend fun getOverviewEmojis(): Map<String, List<Emoji>> {
+        val cachedOverviewEmojis = catalogueCache[OVERVIEW]
+        if (cachedOverviewEmojis != null) {
+            return cachedOverviewEmojis
+        }
+
         delay(simulatedDelay)
-        return loadMockdata()
-            .groupBy { it.category }
-            .map { (category, emojis) ->
-                category to emojis.take(limitPerCategory)
-            }
-            .toMap()
+        val overviewEmojis =
+            loadMockdata()
+                .groupBy { it.category }
+                .map { (category, emojis) ->
+                    category to emojis.take(OVERVIEW_MAX_EMOJIS_PER_CATEGORY)
+                }
+                .toMap()
+
+        catalogueCache[OVERVIEW] = overviewEmojis
+        return overviewEmojis
     }
 
     suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji> {
