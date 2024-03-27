@@ -23,6 +23,7 @@ fun testEmojiIconNavigation() {
     composeTestRule.setContent {
         Navigation()
     }
+<<<<<<< HEAD
     // Make sure we're in the search screen.
     composeTestRule.onNodeWithTag("bottomNavigationBarSearch")
         .performClick()
@@ -58,4 +59,26 @@ fun testNavigationStatePreservation() {
     composeTestRule.onNodeWithText("Search results for: h").assertExists()
 }
      */
+=======
+
+    @Test
+    fun testHomePageNavigation() {
+        composeTestRule.setContent {
+            Navigation()
+        }
+        // Make sure we're in the home screen.
+        composeTestRule.onNodeWithTag("bottomNavigationBarHome")
+            .performClick()
+        // Test that clicking on show more, will navigate to the event list screen.
+        composeTestRule.onNodeWithTag("showMoreEvents")
+            .performClick()
+        composeTestRule.onNodeWithTag("eventListScreen").assertExists()
+        // Test back button navigation.
+        composeTestRule.onNodeWithTag(
+            "eventListBackButton",
+            useUnmergedTree = true,
+        ).performClick()
+        composeTestRule.onNodeWithTag("homeScreen").assertExists()
+    }
+>>>>>>> dev
 }

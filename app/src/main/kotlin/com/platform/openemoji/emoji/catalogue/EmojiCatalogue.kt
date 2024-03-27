@@ -20,12 +20,10 @@ import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 fun EmojiCatalogue(
     emojisByCategory: Map<String, List<Emoji>>,
     navController: NavController,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier =
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp),
+        modifier = modifier.padding(horizontal = 16.dp),
     ) {
         emojisByCategory.forEach { (category, emojis) ->
             Text(
@@ -51,5 +49,6 @@ fun SearchScreenEmojiCatalogue(
     EmojiCatalogue(
         emojisByCategory = selectedCategoryEmojis ?: emptyMap(),
         navController,
+        modifier = Modifier.verticalScroll(rememberScrollState()),
     )
 }

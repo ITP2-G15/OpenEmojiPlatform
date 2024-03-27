@@ -22,7 +22,9 @@ import com.platform.openemoji.Application
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
+import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.HomeScreen
+import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
@@ -35,7 +37,7 @@ fun Navigation() {
         }
 
     val navController = rememberNavController()
-    val startDestination = Screen.SearchScreen.route
+    val startDestination = Screen.HomeScreen.route
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = { BottomNavigationBar(navController, startDestination) },
@@ -88,11 +90,22 @@ fun Navigation() {
                 }
 
                 /**
-                 * If more screens are necessary, add them here and also add them to
-                 * navigationItem
+                 * Navigates to HomeScreen.
                  */
                 composable(route = Screen.HomeScreen.route) {
                     HomeScreen(emojiCatalogueViewModel, navController)
+                }
+                /**
+                 * Navigates to NewsListScreen.
+                 */
+                composable(route = Screen.NewsListScreen.route) {
+                    NewsListScreen(navController = navController)
+                }
+                /**
+                 * Navigates to EventListScreen.
+                 */
+                composable(route = Screen.EventListScreen.route) {
+                    EventListScreen(navController = navController)
                 }
             }
         }

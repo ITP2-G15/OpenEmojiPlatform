@@ -1,6 +1,5 @@
 package com.platform.openemoji.screens
 
-import HeaderLogo
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -23,6 +22,7 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
+import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.search.EmojiSearchViewModel
 import com.platform.openemoji.search.SearchField
 
