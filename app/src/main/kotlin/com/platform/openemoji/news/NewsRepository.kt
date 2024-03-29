@@ -13,10 +13,10 @@ class NewsRepository(private val context: Context) {
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
     private suspend fun loadMockdata(simulatedDelay: Long = 0): List<News> {
+        if (mockdata != null) return mockdata!!
+
         // Simulate a delay to show the loading state
         delay(simulatedDelay)
-
-        if (mockdata != null) return mockdata!!
 
         withContext(Dispatchers.IO) {
             val inputStream = context.assets.open("news.json")

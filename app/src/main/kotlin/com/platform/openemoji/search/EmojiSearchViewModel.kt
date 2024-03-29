@@ -15,16 +15,21 @@ class EmojiSearchViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
+    val searchResultsAreLoading = MutableStateFlow(false)
+
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val searchResults =
         searchQuery
             .debounce(250)
             .mapLatest {
                 if (it.isNotEmpty()) {
-                    emojiRepository.searchEmojis(it)
+                    searchResultsAreLoading.value = true
+                    val searchResults = emojiRepository.searchEmojis(it)
+                    searchResultsAreLoading.value = false
+                    return@mapLatest searchResults
                 } else {
-                    emptyList()
-                }
+                    return@mapLatest emptyList()
+                } 
             }
 
     fun search(query: String) {

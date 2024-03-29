@@ -16,7 +16,7 @@ class EmojiCatalogueViewModel(
     private val _mostPopularEmojis = MutableStateFlow<List<Emoji>>(emptyList())
     val mostPopularEmojis = _mostPopularEmojis.asStateFlow()
 
-    private val _categories = MutableStateFlow<List<String>>(emptyList())
+    private val _categories = MutableStateFlow<List<String>?>(null)
     val categories = _categories.asStateFlow()
 
     private val _selectedCategory = MutableStateFlow(OVERVIEW)
@@ -27,14 +27,10 @@ class EmojiCatalogueViewModel(
         MutableStateFlow<Map<String, List<Emoji>>?>(null)
     val selectedCategoryEmojis = _selectedCategoryEmojis.asStateFlow()
 
-    init {
+    fun loadCatalogue() {
         // Load category names.
         viewModelScope.launch(Dispatchers.IO) {
-            _categories.value = repository.getCategories()
-        }
-
-        // Load the initially selected overview category.
-        viewModelScope.launch(Dispatchers.IO) {
+            _categories.value = listOf(OVERVIEW) + repository.getCategories()
             _selectedCategoryEmojis.value = repository.getOverviewEmojis()
         }
     }

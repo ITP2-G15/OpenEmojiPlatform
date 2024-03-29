@@ -7,10 +7,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,13 @@ fun SearchScreen(
     val searchQuery by emojiSearchViewModel.searchQuery.collectAsState()
     val searchResults by emojiSearchViewModel.searchResults
         .collectAsState(emptyList())
+    val searchResultsAreLoading by emojiSearchViewModel.searchResultsAreLoading
+        .collectAsState()
+
+    // Load category names and the initial overview emojis.
+    LaunchedEffect(LocalLifecycleOwner.current) {
+        emojiCatalogueViewModel.loadCatalogue()
+    }
 
     Column(
         modifier = Modifier.testTag("searchScreen"),
@@ -61,7 +70,9 @@ fun SearchScreen(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
-                EmojiGrid(emojis = searchResults, navController = navController)
+                if (!searchResultsAreLoading) {
+                    EmojiGrid(emojis = searchResults, navController = navController)
+                }
             }
         } else {
             SearchScreenEmojiCategoryCarousel(emojiCatalogueViewModel)
