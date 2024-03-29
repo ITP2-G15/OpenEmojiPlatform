@@ -28,9 +28,14 @@ class EmojiCatalogueViewModel(
     val selectedCategoryEmojis = _selectedCategoryEmojis.asStateFlow()
 
     fun loadCatalogue() {
-        // Load category names.
+        // Only load once
+        if (_categories.value != null || _selectedCategoryEmojis.value != null) {
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
+            // Load category names.
             _categories.value = listOf(OVERVIEW) + repository.getCategories()
+            // Load initial overview category emojis.
             _selectedCategoryEmojis.value = repository.getOverviewEmojis()
         }
     }
