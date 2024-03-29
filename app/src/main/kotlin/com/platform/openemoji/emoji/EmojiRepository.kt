@@ -16,7 +16,7 @@ const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
 class EmojiRepository(
     private val context: Context,
 ) {
-    private val simulatedDelay: Long = 1000
+    private val simulatedDelay: Long = 500
     private val catalogueCache: ConcurrentMap<String, Map<String, List<Emoji>>> =
         ConcurrentHashMap()
 

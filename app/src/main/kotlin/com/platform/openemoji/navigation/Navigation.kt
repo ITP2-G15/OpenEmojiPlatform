@@ -32,7 +32,6 @@ import com.platform.openemoji.screens.SearchScreen
 @Composable
 fun Navigation() {
     val application = LocalContext.current.applicationContext as Application
-
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {
             EmojiCatalogueViewModel(application.emojiRepository)
@@ -109,7 +108,7 @@ fun Navigation() {
                         emojiCatalogueViewModel,
                         eventViewModel,
                         newsViewModel,
-                        navController
+                        navController,
                     )
                 }
                 /**

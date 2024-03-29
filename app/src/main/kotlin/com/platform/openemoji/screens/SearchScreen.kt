@@ -38,7 +38,8 @@ fun SearchScreen(
             EmojiSearchViewModel(application.emojiRepository)
         }
     val searchQuery by emojiSearchViewModel.searchQuery.collectAsState()
-    val searchResults by emojiSearchViewModel.searchResults.collectAsState()
+    val searchResults by emojiSearchViewModel.searchResults
+        .collectAsState(emptyList())
 
     Column(
         modifier = Modifier.testTag("searchScreen"),

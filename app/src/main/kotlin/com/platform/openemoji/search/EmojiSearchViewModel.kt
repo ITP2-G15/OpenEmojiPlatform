@@ -1,13 +1,13 @@
 package com.platform.openemoji.search
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.EmojiRepository
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.mapLatest
 
 class EmojiSearchViewModel(
     private val emojiRepository: EmojiRepository,
@@ -15,19 +15,19 @@ class EmojiSearchViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
-    private val _searchResults = MutableStateFlow<List<Emoji>>(emptyList())
-    val searchResults = _searchResults.asStateFlow()
-
-    // Cancel previous search job when new search starts before the previous was finished.
-    private var searchResultJob: Job? = null
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    val searchResults =
+        searchQuery
+            .debounce(250)
+            .mapLatest {
+                if (it.isNotEmpty()) {
+                    emojiRepository.searchEmojis(it)
+                } else {
+                    emptyList()
+                }
+            }
 
     fun search(query: String) {
         _searchQuery.value = query
-        searchResultJob?.cancel()
-        searchResultJob =
-            viewModelScope.launch {
-                _searchResults.value =
-                    emojiRepository.searchEmojis(query)
-            }
     }
 }
