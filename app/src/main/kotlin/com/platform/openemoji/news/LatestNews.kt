@@ -20,7 +20,8 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
 
-const val NEWS_IN_HOMEPAGE = 2
+const val NEWS_IN_LATEST_NEWS = 2
+
 @Composable
 fun LatestNews(
     newsViewModel: NewsViewModel,
@@ -31,9 +32,9 @@ fun LatestNews(
     Column {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -55,7 +56,7 @@ fun LatestNews(
             )
         }
         latestNews?.let {
-            for (news in it.take(NEWS_IN_HOMEPAGE)) {
+            for (news in it.take(NEWS_IN_LATEST_NEWS)) {
                 NewsCard(news)
             }
         }

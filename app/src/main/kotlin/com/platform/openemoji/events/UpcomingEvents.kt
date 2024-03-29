@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -19,26 +21,23 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
 
+const val EVENTS_IN_UPCOMING_EVENTS = 2
+
 @Composable
-fun UpcomingEvents(navController: NavController) {
-    // TODO: Replace with real event data
-    val event =
-        Event(
-            "St Patrick's day",
-            "17.03",
-            "https://emojipedia.org/_next/image?url=https%3A%2F%2Fem-content." +
-                "zobj.net%2Fcontent%2Fevents%2FEarth_Day_PNG.png&w=1500&q=75",
-            "https://emojipedia.org/st-patricks-day",
-        )
+fun UpcomingEvents(
+    eventViewModel: EventViewModel,
+    navController: NavController,
+) {
+    val events by eventViewModel.events.collectAsState()
 
     Column(
         modifier = Modifier.testTag("upcomingEvents"),
     ) {
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -52,15 +51,19 @@ fun UpcomingEvents(navController: NavController) {
                 color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline,
                 modifier =
-                    Modifier.clickable {
+                Modifier
+                    .clickable {
                         navController.navigate(
                             Screen.EventListScreen.route,
                         )
-                    }.testTag("showMoreEvents"),
+                    }
+                    .testTag("showMoreEvents"),
             )
         }
-        // TODO: Replace with real event data
-        EventCard(event)
-        EventCard(event)
+        events?.let {
+            for (event in it.take(EVENTS_IN_UPCOMING_EVENTS)) {
+                EventCard(event)
+            }
+        }
     }
 }

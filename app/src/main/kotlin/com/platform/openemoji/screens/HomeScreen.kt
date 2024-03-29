@@ -19,6 +19,7 @@ import com.google.android.gms.ads.AdView
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
+import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.events.UpcomingEvents
 import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.news.LatestNews
@@ -27,6 +28,7 @@ import com.platform.openemoji.news.NewsViewModel
 @Composable
 fun HomeScreen(
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
+    eventViewModel: EventViewModel,
     newsViewModel: NewsViewModel,
     navController: NavController,
 ) {
@@ -51,7 +53,7 @@ fun HomeScreen(
             ),
             navController = navController,
         )
-        UpcomingEvents(navController)
+        UpcomingEvents(eventViewModel, navController)
         AndroidView(
             factory = { context ->
                 AdView(context).apply {

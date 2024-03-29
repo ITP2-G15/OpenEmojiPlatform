@@ -21,6 +21,7 @@ import androidx.navigation.navArgument
 import com.platform.openemoji.Application
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
+import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
@@ -40,6 +41,11 @@ fun Navigation() {
     val newsViewModel =
         viewModel(key = "news") {
             NewsViewModel(application.newsRepository)
+        }
+
+    val eventViewModel =
+        viewModel(key = "event") {
+            EventViewModel(application.eventsRepository)
         }
 
     val navController = rememberNavController()
@@ -99,7 +105,12 @@ fun Navigation() {
                  * Navigates to HomeScreen.
                  */
                 composable(route = Screen.HomeScreen.route) {
-                    HomeScreen(emojiCatalogueViewModel, newsViewModel, navController)
+                    HomeScreen(
+                        emojiCatalogueViewModel,
+                        eventViewModel,
+                        newsViewModel,
+                        navController
+                    )
                 }
                 /**
                  * Navigates to NewsListScreen.
@@ -111,7 +122,7 @@ fun Navigation() {
                  * Navigates to EventListScreen.
                  */
                 composable(route = Screen.EventListScreen.route) {
-                    EventListScreen(navController = navController)
+                    EventListScreen(eventViewModel, navController)
                 }
             }
         }
