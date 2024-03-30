@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.search
+package com.platform.openemoji.search
 
 class SearchFieldTest {
     /*

@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.emoji.catalogue
+package com.platform.openemoji.emoji.catalogue
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -7,7 +7,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import org.junit.Rule
 import org.junit.Test
 

@@ -7,7 +7,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class EventsRepository(private val context: Context) {
+class EventsRepository(
+    private val context: Context?,
+    private val testEvents: List<Event>? = null,
+) {
     // This is only needed when not using an API
     private var mockdata: List<Event>? = null
 
@@ -18,15 +21,20 @@ class EventsRepository(private val context: Context) {
         // Simulate a delay to show the loading state
         delay(simulatedDelay)
 
-        withContext(Dispatchers.IO) {
-            val inputStream = context.assets.open("events.json")
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val json = String(buffer, Charsets.UTF_8)
-            mockdata = Json.decodeFromString<List<Event>>(json)
-        }
+        mockdata =
+            if (context != null) {
+                withContext(Dispatchers.IO) {
+                    val inputStream = context.assets.open("events.json")
+                    val size = inputStream.available()
+                    val buffer = ByteArray(size)
+                    inputStream.read(buffer)
+                    inputStream.close()
+                    val json = String(buffer, Charsets.UTF_8)
+                    Json.decodeFromString<List<Event>>(json)
+                }
+            } else {
+                testEvents ?: emptyList()
+            }
 
         return mockdata!!
     }

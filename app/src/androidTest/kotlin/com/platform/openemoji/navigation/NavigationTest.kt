@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.navigation
+package com.platform.openemoji.navigation
 
 class NavigationTest {
     /*

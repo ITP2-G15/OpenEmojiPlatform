@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.events
+package com.platform.openemoji.events
 
 import android.content.Intent
 import android.net.Uri
@@ -9,8 +9,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
-import com.platform.openemoji.events.Event
-import com.platform.openemoji.events.EventCard
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

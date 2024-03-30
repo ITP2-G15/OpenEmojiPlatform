@@ -1,9 +1,8 @@
-package com.platform.platform.openemoji.emoji.category
+package com.platform.openemoji.emoji.category
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.platform.openemoji.emoji.category.EmojiCategoryCarousel
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
