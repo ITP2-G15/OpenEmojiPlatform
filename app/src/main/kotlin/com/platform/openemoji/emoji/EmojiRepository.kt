@@ -75,7 +75,9 @@ class EmojiRepository(
             loadMockdata()
                 .groupBy { it.category }
                 .map { (category, emojis) ->
-                    category to emojis.take(OVERVIEW_MAX_EMOJIS_PER_CATEGORY)
+                    category to
+                        emojis.sortedByDescending { it.popularity }
+                            .take(OVERVIEW_MAX_EMOJIS_PER_CATEGORY)
                 }
                 .toMap()
 
