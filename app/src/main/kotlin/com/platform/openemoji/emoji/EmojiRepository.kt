@@ -16,7 +16,8 @@ const val OVERVIEW = "Overview"
 const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
 
 class EmojiRepository(
-    private val context: Context,
+    private val context: Context?,
+    private val testEmojis: List<Emoji>? = null,
 ) {
     private val simulatedDelay: Long = 500
     private val catalogueCache: ConcurrentMap<String, Map<String, List<Emoji>>> =
@@ -28,15 +29,20 @@ class EmojiRepository(
     private suspend fun loadMockdata(): List<Emoji> {
         if (mockdata != null) return mockdata!!
 
-        withContext(Dispatchers.IO) {
-            val inputStream = context.assets.open("emojis.json")
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val json = String(buffer, Charsets.UTF_8)
-            mockdata = Json.decodeFromString<List<Emoji>>(json)
-        }
+        mockdata =
+            if (context != null) {
+                withContext(Dispatchers.IO) {
+                    val inputStream = context.assets.open("emojis.json")
+                    val size = inputStream.available()
+                    val buffer = ByteArray(size)
+                    inputStream.read(buffer)
+                    inputStream.close()
+                    val json = String(buffer, Charsets.UTF_8)
+                    Json.decodeFromString<List<Emoji>>(json)
+                }
+            } else {
+                testEmojis ?: emptyList()
+            }
 
         return mockdata!!
     }
