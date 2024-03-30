@@ -7,7 +7,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class CategoryScrollCarouselTest {
+class EmojiCategoryCarouselTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

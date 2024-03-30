@@ -7,7 +7,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class NewsRepository(private val context: Context) {
+class NewsRepository(
+    private val context: Context?,
+    private val testNews: List<News>? = null,
+) {
     // This is only needed when not using an API
     private var mockdata: List<News>? = null
 
@@ -18,15 +21,20 @@ class NewsRepository(private val context: Context) {
         // Simulate a delay to show the loading state
         delay(simulatedDelay)
 
-        withContext(Dispatchers.IO) {
-            val inputStream = context.assets.open("news.json")
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val json = String(buffer, Charsets.UTF_8)
-            mockdata = Json.decodeFromString<List<News>>(json)
-        }
+        mockdata =
+            if (context != null) {
+                withContext(Dispatchers.IO) {
+                    val inputStream = context.assets.open("news.json")
+                    val size = inputStream.available()
+                    val buffer = ByteArray(size)
+                    inputStream.read(buffer)
+                    inputStream.close()
+                    val json = String(buffer, Charsets.UTF_8)
+                    Json.decodeFromString<List<News>>(json)
+                }
+            } else {
+                testNews ?: emptyList()
+            }
 
         return mockdata!!
     }
