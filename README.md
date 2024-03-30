@@ -125,7 +125,7 @@ Now for building and formatting with ktlint we need to create a `tasks.json` fil
     {
       "label": "build",
       "type": "shell",
-      "command": "./gradlew installDebug && adb shell am start -n com.platform.openemoji/.EmojiActivity",
+      "command": "./gradlew installDebug && adb shell am start -n com.platform.openemoji/.Activity",
       "dependsOn": "ktlintFormat",
       "group": {
         "kind": "build",

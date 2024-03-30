@@ -35,9 +35,9 @@ fun UpcomingEvents(
     ) {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -51,13 +51,13 @@ fun UpcomingEvents(
                 color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline,
                 modifier =
-                Modifier
-                    .clickable {
-                        navController.navigate(
-                            Screen.EventListScreen.route,
-                        )
-                    }
-                    .testTag("showMoreEvents"),
+                    Modifier
+                        .clickable {
+                            navController.navigate(
+                                Screen.EventListScreen.route,
+                            )
+                        }
+                        .testTag("showMoreEvents"),
             )
         }
         events?.let {

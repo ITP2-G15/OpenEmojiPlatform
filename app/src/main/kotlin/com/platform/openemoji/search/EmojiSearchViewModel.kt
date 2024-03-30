@@ -29,7 +29,7 @@ class EmojiSearchViewModel(
                     return@mapLatest searchResults
                 } else {
                     return@mapLatest emptyList()
-                } 
+                }
             }
 
     fun search(query: String) {
