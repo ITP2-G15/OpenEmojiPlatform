@@ -18,6 +18,6 @@ easily add support for multiple languages if needed -->
     <string name="latest_news">Latest News</string>
     <string name="upcoming_events">Upcoming Events</string>
     <string name="show_more">Show More</string>
-    <string name="eventsandtopics">Events &amp; Topics</string>
+    <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
 </resources>

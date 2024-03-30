@@ -2,13 +2,8 @@ package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +18,7 @@ import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.events.EventCard
 import com.platform.openemoji.events.EventViewModel
+import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
 fun EventListScreen(
@@ -38,19 +34,12 @@ fun EventListScreen(
                 .padding(horizontal = 8.dp)
                 .testTag("eventListScreen"),
     ) {
-        IconButton(onClick = { navController.popBackStack() }) {
-            Icon(
-                Icons.AutoMirrored.Default.ArrowBack,
-                contentDescription = stringResource(R.string.back_arrow),
-                tint = MaterialTheme.colorScheme.primary,
-                modifier =
-                    Modifier
-                        .size(48.dp)
-                        .testTag("eventListBackButton"),
-            )
-        }
+        BackButtonNavigation(
+            navController = navController,
+            modifier = Modifier.testTag("eventListBackButton"),
+        )
         Text(
-            text = stringResource(R.string.eventsandtopics),
+            text = stringResource(R.string.events_and_topics),
             modifier = Modifier.padding(12.dp),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
