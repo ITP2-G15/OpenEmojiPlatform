@@ -8,6 +8,8 @@ import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
+// The overview category is a special category that contains a limited number of emojis from each category
+// This can also be retrieved from the API or changed to a different view
 const val OVERVIEW = "Overview"
 
 // If this needs to be dynamic, it should be a state flow in EmojiCatalogueViewModel.
