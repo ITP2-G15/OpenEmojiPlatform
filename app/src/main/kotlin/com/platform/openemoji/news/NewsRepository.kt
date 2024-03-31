@@ -8,7 +8,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 interface NewsRepository {
-    suspend fun getNews(limit: Int = Int.MAX_VALUE): List<News>
+    suspend fun getNews(limit: Int = Int.MAX_VALUE): List<News> = emptyList()
 }
 
 class NewsMockDataRepository(

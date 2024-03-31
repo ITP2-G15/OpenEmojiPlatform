@@ -22,9 +22,9 @@ class EmojiIconTest {
                 IconCopy(
                     emoji =
                         Emoji(
-                            "1",
                             // This should be copied to clipboard
                             "emoji code",
+                            "",
                             "a",
                             "",
                             0,

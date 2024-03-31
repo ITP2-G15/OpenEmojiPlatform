@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.Application
 import com.platform.openemoji.R
+import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
@@ -32,12 +33,13 @@ import com.platform.openemoji.search.SearchField
 fun SearchScreen(
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
     navController: NavController,
+    // Allows tests to use custom repositories
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as Application,
 ) {
-    val application = LocalContext.current.applicationContext as Application
-
     val emojiSearchViewModel: EmojiSearchViewModel =
         viewModel(key = "emojiSearch") {
-            EmojiSearchViewModel(application.emojiRepository)
+            EmojiSearchViewModel(repositories.emojiRepository)
         }
     val searchQuery by emojiSearchViewModel.searchQuery.collectAsState()
     val searchResults by emojiSearchViewModel.searchResults

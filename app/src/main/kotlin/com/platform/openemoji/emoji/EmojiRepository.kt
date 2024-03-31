@@ -16,17 +16,18 @@ const val OVERVIEW = "Overview"
 const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
 
 interface EmojiRepository {
-    suspend fun getCategories(): List<String>
+    suspend fun getCategories(): List<String> = emptyList()
 
-    suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>>
+    suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> =
+        emptyMap()
 
-    suspend fun getOverviewEmojis(): Map<String, List<Emoji>>
+    suspend fun getOverviewEmojis(): Map<String, List<Emoji>> = emptyMap()
 
-    suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji>
+    suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji> = emptyList()
 
-    suspend fun getEmoji(name: String): Emoji?
+    suspend fun getEmoji(name: String): Emoji? = null
 
-    suspend fun searchEmojis(query: String): List<Emoji>
+    suspend fun searchEmojis(query: String): List<Emoji> = emptyList()
 }
 
 class EmojiMockDataRepository(

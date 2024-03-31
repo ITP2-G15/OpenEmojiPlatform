@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.platform.openemoji.Application
+import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
@@ -30,21 +31,23 @@ import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
 
 @Composable
-fun Navigation() {
-    val application = LocalContext.current.applicationContext as Application
+fun Navigation(
+    // Allows tests to use custom repositories
+    repositories: RepositoryStore = LocalContext.current.applicationContext as Application,
+) {
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {
-            EmojiCatalogueViewModel(application.emojiRepository)
+            EmojiCatalogueViewModel(repositories.emojiRepository)
         }
 
     val newsViewModel =
         viewModel(key = "news") {
-            NewsViewModel(application.newsRepository)
+            NewsViewModel(repositories.newsRepository)
         }
 
     val eventViewModel =
         viewModel(key = "event") {
-            EventViewModel(application.eventsRepository)
+            EventViewModel(repositories.eventsRepository)
         }
 
     val navController = rememberNavController()
@@ -88,7 +91,7 @@ fun Navigation() {
                     LaunchedEffect(LocalLifecycleOwner.current) {
                         emoji.value =
                             emojiName?.let { name ->
-                                application.emojiRepository.getEmoji(name)
+                                repositories.emojiRepository.getEmoji(name)
                             }
                     }
 

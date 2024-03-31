@@ -8,7 +8,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 interface EventsRepository {
-    suspend fun getEvents(limit: Int = Int.MAX_VALUE): List<Event>
+    suspend fun getEvents(limit: Int = Int.MAX_VALUE): List<Event> = emptyList()
 }
 
 class EventsMockDataRepository(
