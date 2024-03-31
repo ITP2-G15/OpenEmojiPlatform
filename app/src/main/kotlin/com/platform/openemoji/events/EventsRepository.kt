@@ -7,15 +7,20 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class EventsRepository(
+interface EventsRepository {
+    suspend fun getEvents(limit: Int = Int.MAX_VALUE): List<Event>
+}
+
+class EventsMockDataRepository(
     private val context: Context?,
     private val testEvents: List<Event>? = null,
-) {
+    private val simulatedDelay: Long = 0,
+) : EventsRepository {
     // This is only needed when not using an API
     private var mockdata: List<Event>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
-    private suspend fun loadMockdata(simulatedDelay: Long = 0): List<Event> {
+    private suspend fun loadMockdata(): List<Event> {
         if (mockdata != null) return mockdata!!
 
         // Simulate a delay to show the loading state
@@ -39,8 +44,8 @@ class EventsRepository(
         return mockdata!!
     }
 
-    suspend fun getEvents(limit: Int = Int.MAX_VALUE): List<Event> {
-        val allNews = loadMockdata(1000)
+    override suspend fun getEvents(limit: Int): List<Event> {
+        val allNews = loadMockdata()
         return allNews.take(limit)
     }
 }

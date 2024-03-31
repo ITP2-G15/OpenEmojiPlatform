@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 
 class NewsRepositoryTest {
-    private lateinit var repository: NewsRepository
+    private lateinit var repository: NewsMockDataRepository
 
     @Before
     fun setup() {
@@ -31,7 +31,7 @@ class NewsRepositoryTest {
                     "description3",
                 ),
             )
-        repository = NewsRepository(null, testNews)
+        repository = NewsMockDataRepository(null, testNews)
     }
 
     @Test

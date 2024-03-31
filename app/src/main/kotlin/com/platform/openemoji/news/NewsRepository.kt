@@ -7,15 +7,20 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class NewsRepository(
+interface NewsRepository {
+    suspend fun getNews(limit: Int = Int.MAX_VALUE): List<News>
+}
+
+class NewsMockDataRepository(
     private val context: Context?,
     private val testNews: List<News>? = null,
-) {
+    private val simulatedDelay: Long = 0,
+) : NewsRepository {
     // This is only needed when not using an API
     private var mockdata: List<News>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
-    private suspend fun loadMockdata(simulatedDelay: Long = 0): List<News> {
+    private suspend fun loadMockdata(): List<News> {
         if (mockdata != null) return mockdata!!
 
         // Simulate a delay to show the loading state
@@ -39,8 +44,8 @@ class NewsRepository(
         return mockdata!!
     }
 
-    suspend fun getNews(limit: Int = Int.MAX_VALUE): List<News> {
-        val allNews = loadMockdata(1000)
+    override suspend fun getNews(limit: Int): List<News> {
+        val allNews = loadMockdata()
         return allNews.take(limit)
     }
 }

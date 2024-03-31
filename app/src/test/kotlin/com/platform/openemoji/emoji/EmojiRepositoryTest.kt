@@ -7,7 +7,7 @@ import org.junit.Before
 import org.junit.Test
 
 class EmojiRepositoryTest {
-    private lateinit var repository: EmojiRepository
+    private lateinit var repository: EmojiMockDataRepository
 
     @Before
     fun setup() {
@@ -26,7 +26,7 @@ class EmojiRepositoryTest {
                     20, "category2", "description3", 3.0f, 3.0f,
                 ),
             )
-        repository = EmojiRepository(null, testEmojis)
+        repository = EmojiMockDataRepository(null, testEmojis)
     }
 
     @Test

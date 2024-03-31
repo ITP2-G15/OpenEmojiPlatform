@@ -15,11 +15,25 @@ const val OVERVIEW = "Overview"
 // If this needs to be dynamic, it should be a state flow in EmojiCatalogueViewModel.
 const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
 
-class EmojiRepository(
+interface EmojiRepository {
+    suspend fun getCategories(): List<String>
+
+    suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>>
+
+    suspend fun getOverviewEmojis(): Map<String, List<Emoji>>
+
+    suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji>
+
+    suspend fun getEmoji(name: String): Emoji?
+
+    suspend fun searchEmojis(query: String): List<Emoji>
+}
+
+class EmojiMockDataRepository(
     private val context: Context?,
     private val testEmojis: List<Emoji>? = null,
-) {
-    private val simulatedDelay: Long = 500
+    private val simulatedDelay: Long = 0,
+) : EmojiRepository {
     private val catalogueCache: ConcurrentMap<String, Map<String, List<Emoji>>> =
         ConcurrentHashMap()
 
@@ -47,13 +61,13 @@ class EmojiRepository(
         return mockdata!!
     }
 
-    suspend fun getCategories(): List<String> {
+    override suspend fun getCategories(): List<String> {
         delay(simulatedDelay)
         val allEmojis = loadMockdata()
         return allEmojis.map { it.category }.distinct()
     }
 
-    suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> {
+    override suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> {
         val categoryEmojis = catalogueCache[category]
         if (categoryEmojis != null) {
             return categoryEmojis
@@ -70,7 +84,7 @@ class EmojiRepository(
         return emojisOfCategory
     }
 
-    suspend fun getOverviewEmojis(): Map<String, List<Emoji>> {
+    override suspend fun getOverviewEmojis(): Map<String, List<Emoji>> {
         val cachedOverviewEmojis = catalogueCache[OVERVIEW]
         if (cachedOverviewEmojis != null) {
             return cachedOverviewEmojis
@@ -91,18 +105,18 @@ class EmojiRepository(
         return overviewEmojis
     }
 
-    suspend fun getPopularEmojis(limit: Int = Int.MAX_VALUE): List<Emoji> {
+    override suspend fun getPopularEmojis(limit: Int): List<Emoji> {
         delay(simulatedDelay)
         val allEmojis = loadMockdata()
         return allEmojis.sortedByDescending { it.popularity }.take(limit)
     }
 
-    suspend fun getEmoji(name: String): Emoji? {
+    override suspend fun getEmoji(name: String): Emoji? {
         delay(simulatedDelay)
         return loadMockdata().find { it.name == name }
     }
 
-    suspend fun searchEmojis(query: String): List<Emoji> {
+    override suspend fun searchEmojis(query: String): List<Emoji> {
         delay(simulatedDelay)
 
         return loadMockdata().filter {

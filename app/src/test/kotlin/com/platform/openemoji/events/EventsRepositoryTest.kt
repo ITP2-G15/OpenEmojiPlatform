@@ -6,7 +6,7 @@ import org.junit.Before
 import org.junit.Test
 
 class EventsRepositoryTest {
-    private lateinit var repository: EventsRepository
+    private lateinit var repository: EventsMockDataRepository
 
     @Before
     fun setup() {
@@ -31,7 +31,7 @@ class EventsRepositoryTest {
                     "url3",
                 ),
             )
-        repository = EventsRepository(null, testEvents)
+        repository = EventsMockDataRepository(null, testEvents)
     }
 
     @Test
