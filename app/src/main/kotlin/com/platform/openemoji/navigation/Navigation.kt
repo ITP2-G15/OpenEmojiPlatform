@@ -33,7 +33,8 @@ import com.platform.openemoji.screens.SearchScreen
 @Composable
 fun Navigation(
     // Allows tests to use custom repositories
-    repositories: RepositoryStore = LocalContext.current.applicationContext as Application,
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as Application,
 ) {
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {

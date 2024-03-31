@@ -78,7 +78,7 @@ fun NewsCard(news: News) {
                         fontWeight = FontWeight.Medium,
                     )
                     Text(
-                        text = news.name,
+                        text = news.description,
                         modifier = Modifier.padding(horizontal = 12.dp),
                         maxLines = 2,
                     )
