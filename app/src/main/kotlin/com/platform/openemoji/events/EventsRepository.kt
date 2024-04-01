@@ -45,7 +45,7 @@ class EventsMockDataRepository(
     }
 
     override suspend fun getEvents(limit: Int): List<Event> {
-        val allNews = loadMockdata()
-        return allNews.take(limit)
+        val allEvents = loadMockdata()
+        return allEvents.take(limit)
     }
 }
