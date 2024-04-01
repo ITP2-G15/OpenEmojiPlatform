@@ -8,16 +8,16 @@ import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-// The overview category is a special category that contains a limited number of emojis from each category
-// This can also be retrieved from the API or changed to a different view
-const val OVERVIEW = "Overview"
-
 // If this needs to be dynamic, it should be a state flow in EmojiCatalogueViewModel.
 const val OVERVIEW_MAX_EMOJIS_PER_CATEGORY = 14
 
 interface EmojiRepository {
     suspend fun getCategories(): List<String> = emptyList()
 
+    /**
+     * @param category
+     * @return a map with only one key, the category, along with a list of all the emojis of that category.
+     */
     suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> =
         emptyMap()
 
@@ -37,6 +37,7 @@ class EmojiMockDataRepository(
 ) : EmojiRepository {
     private val catalogueCache: ConcurrentMap<String, Map<String, List<Emoji>>> =
         ConcurrentHashMap()
+    private var overviewEmojisCache: Map<String, List<Emoji>>? = null
 
     private var mockdata: List<Emoji>? = null
 
@@ -68,6 +69,10 @@ class EmojiMockDataRepository(
         return allEmojis.map { it.category }.distinct()
     }
 
+    /**
+     * @param category
+     * @return a map with only one key, the category, along with a list of all the emojis of that category.
+     */
     override suspend fun getEmojisOfCategory(category: String): Map<String, List<Emoji>> {
         val categoryEmojis = catalogueCache[category]
         if (categoryEmojis != null) {
@@ -86,9 +91,10 @@ class EmojiMockDataRepository(
     }
 
     override suspend fun getOverviewEmojis(): Map<String, List<Emoji>> {
-        val cachedOverviewEmojis = catalogueCache[OVERVIEW]
-        if (cachedOverviewEmojis != null) {
-            return cachedOverviewEmojis
+        if (overviewEmojisCache != null) {
+            // It's safe to use !! as long as overviewEmojisCache is never changed
+            // after it's been set, which it never should.
+            return overviewEmojisCache!!
         }
 
         delay(simulatedDelay)
@@ -102,7 +108,7 @@ class EmojiMockDataRepository(
                 }
                 .toMap()
 
-        catalogueCache[OVERVIEW] = overviewEmojis
+        overviewEmojisCache = overviewEmojis
         return overviewEmojis
     }
 

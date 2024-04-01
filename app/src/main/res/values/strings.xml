@@ -21,4 +21,5 @@ easily add support for multiple languages if needed -->
     <string name="show_more">Show More</string>
     <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
+    <string name="overview">Overview</string>
 </resources>

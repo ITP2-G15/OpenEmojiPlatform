@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.EmojiRepository
-import com.platform.openemoji.emoji.OVERVIEW
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class EmojiCatalogueViewModel(
     private val repository: EmojiRepository,
+    private val overview: String,
 ) : ViewModel() {
     private val _mostPopularEmojis = MutableStateFlow<List<Emoji>>(emptyList())
     val mostPopularEmojis = _mostPopularEmojis.asStateFlow()
@@ -19,7 +19,7 @@ class EmojiCatalogueViewModel(
     private val _categories = MutableStateFlow<List<String>?>(null)
     val categories = _categories.asStateFlow()
 
-    private val _selectedCategory = MutableStateFlow(OVERVIEW)
+    private val _selectedCategory = MutableStateFlow(overview)
     val selectedCategory = _selectedCategory.asStateFlow()
 
     // Overview categories or a single category, null if it's loading.
@@ -34,7 +34,7 @@ class EmojiCatalogueViewModel(
         }
         viewModelScope.launch(Dispatchers.IO) {
             // Load category names.
-            _categories.value = listOf(OVERVIEW) + repository.getCategories()
+            _categories.value = listOf(overview) + repository.getCategories()
             // Load initial overview category emojis.
             _selectedCategoryEmojis.value = repository.getOverviewEmojis()
         }
@@ -48,7 +48,7 @@ class EmojiCatalogueViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             _selectedCategoryEmojis.value =
                 when (category) {
-                    OVERVIEW -> repository.getOverviewEmojis()
+                    overview -> repository.getOverviewEmojis()
                     else -> repository.getEmojisOfCategory(category)
                 }
         }

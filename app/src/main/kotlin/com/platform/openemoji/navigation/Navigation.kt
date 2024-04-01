@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.platform.openemoji.Application
+import com.platform.openemoji.R
 import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
@@ -36,9 +38,10 @@ fun Navigation(
     repositories: RepositoryStore =
         LocalContext.current.applicationContext as Application,
 ) {
+    val overview = stringResource(R.string.overview)
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {
-            EmojiCatalogueViewModel(repositories.emojiRepository)
+            EmojiCatalogueViewModel(repositories.emojiRepository, overview)
         }
 
     val newsViewModel =
