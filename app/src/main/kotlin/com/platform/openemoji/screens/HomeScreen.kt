@@ -51,6 +51,7 @@ fun HomeScreen(
                 stringResource(R.string.most_popular) to
                     mostPopularEmojis,
             ),
+            emojisOfCategoryAreLoading = { mostPopularEmojis.isEmpty() },
             navController = navController,
         )
         UpcomingEvents(eventViewModel, navController)

@@ -28,6 +28,7 @@ class EmojiSearchViewModel(
                     searchResultsAreLoading.value = false
                     return@mapLatest searchResults
                 } else {
+                    searchResultsAreLoading.value = true
                     return@mapLatest emptyList()
                 }
             }
