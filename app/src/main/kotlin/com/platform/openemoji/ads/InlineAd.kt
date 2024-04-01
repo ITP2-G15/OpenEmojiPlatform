@@ -14,7 +14,7 @@ fun InlineAd() {
         modifier = Modifier.fillMaxWidth(),
         factory = { context ->
             AdView(context).apply {
-                setAdSize(AdSize.BANNER)
+                setAdSize(AdSize.LARGE_BANNER)
                 adUnitId = "ca-app-pub-3940256099942544/9214589741"
                 loadAd(AdRequest.Builder().build())
             }
