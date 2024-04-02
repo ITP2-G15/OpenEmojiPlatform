@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-const val NEWS_IN_EVENT_LIST_SCREEN = 15
+const val EVENTS_IN_EVENT_LIST_SCREEN = 15
 
 class EventViewModel(
     private val eventsRepository: EventsRepository,
@@ -17,7 +17,7 @@ class EventViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _events.value = eventsRepository.getEvents(NEWS_IN_EVENT_LIST_SCREEN)
+            _events.value = eventsRepository.getEvents(EVENTS_IN_EVENT_LIST_SCREEN)
         }
     }
 }
