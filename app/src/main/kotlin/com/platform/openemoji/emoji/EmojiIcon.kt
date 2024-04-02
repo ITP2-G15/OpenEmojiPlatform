@@ -22,22 +22,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
-
-// This will only be used for design variants in the emoji icon view if we have time to implement that
-@Composable
-fun IconDesign(emoji: Emoji) {
-    AsyncImage(
-        model = emoji.imageUrl,
-        contentDescription = emoji.title,
-        modifier =
-            Modifier
-                .size(65.dp)
-                .padding(top = 10.dp),
-    )
-}
 
 // This will be used for the emoji grid since it routes to the emoji icon details view
 @Composable
@@ -46,12 +32,12 @@ fun IconRoute(
     navController: NavController,
 ) {
     Text(
-        emoji.emojiCode,
+        emoji.code,
         style = MaterialTheme.typography.displaySmall,
         modifier =
             Modifier.clickable {
                 navController.navigate(
-                    Screen.EmojiDetailScreen.withArgs(emoji.title),
+                    Screen.EmojiDetailScreen.withArgs(emoji.name),
                 )
             }.padding(4.dp).testTag("iconRoute"),
     )
@@ -65,16 +51,16 @@ fun IconCopy(emoji: Emoji) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            emoji.emojiCode,
+            emoji.code,
             style = MaterialTheme.typography.displayLarge,
             modifier =
                 Modifier.clickable {
-                    clipboardManager.setText(AnnotatedString(emoji.emojiCode))
+                    clipboardManager.setText(AnnotatedString(emoji.code))
                 },
         )
         Button(
             onClick = {
-                clipboardManager.setText(AnnotatedString(emoji.emojiCode))
+                clipboardManager.setText(AnnotatedString(emoji.code))
             },
             colors =
                 ButtonDefaults.buttonColors(
