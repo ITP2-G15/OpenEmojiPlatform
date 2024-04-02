@@ -44,8 +44,8 @@ fun EventCard(event: Event) {
             modifier = Modifier.fillMaxSize(),
         ) {
             AsyncImage(
-                model = event.img,
-                contentDescription = event.title,
+                model = event.image,
+                contentDescription = event.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -62,7 +62,7 @@ fun EventCard(event: Event) {
                         ),
                 ) {
                     Text(
-                        text = event.title,
+                        text = event.name,
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                     )
                 }

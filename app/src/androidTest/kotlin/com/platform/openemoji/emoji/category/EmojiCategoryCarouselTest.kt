@@ -1,14 +1,13 @@
-package com.platform.platform.openemoji.emoji.category
+package com.platform.openemoji.emoji.category
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.platform.openemoji.emoji.category.CategoryScrollCarousel
 import junit.framework.TestCase.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class CategoryScrollCarouselTest {
+class EmojiCategoryCarouselTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -21,7 +20,7 @@ class CategoryScrollCarouselTest {
             selectedCategory = category
         }
         composeTestRule.setContent {
-            CategoryScrollCarousel(
+            EmojiCategoryCarousel(
                 selectedCategory = "Category1",
                 categories = categories,
                 onSelectCategory = onSelectCategory,

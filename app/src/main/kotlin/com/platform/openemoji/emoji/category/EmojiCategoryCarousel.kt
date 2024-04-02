@@ -14,11 +14,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 
 @Composable
-fun CategoryScrollCarousel(
+fun EmojiCategoryCarousel(
     selectedCategory: String,
     categories: List<String>,
     onSelectCategory: (String) -> Unit,
@@ -73,5 +76,19 @@ fun CategoryScrollCarousel(
                             .copy(alpha = 0.25f),
                     ),
         )
+    }
+}
+
+@Composable
+fun SearchScreenEmojiCategoryCarousel(catalogueViewModel: EmojiCatalogueViewModel) {
+    val selectedCategory by catalogueViewModel.selectedCategory.collectAsState()
+    val maybeCategories by catalogueViewModel.categories.collectAsState()
+    maybeCategories?.let { categories ->
+        EmojiCategoryCarousel(
+            selectedCategory,
+            categories,
+        ) {
+            catalogueViewModel.selectCategory(it)
+        }
     }
 }

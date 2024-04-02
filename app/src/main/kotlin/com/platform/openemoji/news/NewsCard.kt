@@ -50,8 +50,8 @@ fun NewsCard(news: News) {
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 AsyncImage(
-                    model = news.img,
-                    contentDescription = news.title,
+                    model = news.image,
+                    contentDescription = news.name,
                     modifier = Modifier.fillMaxSize(),
                     alignment = Alignment.Center,
                     contentScale = ContentScale.Crop,
@@ -72,13 +72,13 @@ fun NewsCard(news: News) {
                         ),
                 ) {
                     Text(
-                        text = news.title,
+                        text = news.name,
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 3.dp),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Medium,
                     )
                     Text(
-                        text = news.desc,
+                        text = news.description,
                         modifier = Modifier.padding(horizontal = 12.dp),
                         maxLines = 2,
                     )

@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.news
+package com.platform.openemoji.news
 
 import android.content.Intent
 import android.net.Uri
@@ -8,8 +8,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
-import com.platform.openemoji.news.News
-import com.platform.openemoji.news.NewsCard
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

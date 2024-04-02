@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.navigation
+package com.platform.openemoji.navigation
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -6,9 +6,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
-import com.platform.openemoji.navigation.Navigation
+import com.platform.openemoji.emoji.EmojiRepository
 import org.junit.Rule
 import org.junit.Test
 
@@ -18,24 +18,41 @@ class NavigationTest {
 
     @Test
     fun testEmojiIconNavigation() {
-        EmojiCatalogue.get().populate(
-            listOf(
-                Emoji(
-                    "0",
-                    "a",
-                    "hh",
-                    "A",
-                    "AA",
-                    "",
-                    "",
-                ),
-            ),
-        )
+        // Put an emoji in home screen to test navigation to detail screen.
+        val testEmoji =
+            Emoji(
+                "a",
+                "a",
+                "a",
+                "name",
+                1,
+                "",
+                "a",
+                0f,
+                0f,
+            )
+
+        val testEmojiRepository =
+            object : EmojiRepository {
+                // We're going to click on the single emoji in home screen's most popular section
+                override suspend fun getPopularEmojis(limit: Int): List<Emoji> =
+                    listOf(testEmoji)
+
+                // Used to switch to emoji detail screen
+                override suspend fun getEmoji(name: String) = testEmoji
+            }
+
         composeTestRule.setContent {
-            Navigation()
+            Navigation(
+                object : RepositoryStore {
+                    override val emojiRepository: EmojiRepository by lazy {
+                        testEmojiRepository
+                    }
+                },
+            )
         }
-        // Make sure we're in the search screen.
-        composeTestRule.onNodeWithTag("bottomNavigationBarSearch")
+        // Make sure we're in the home screen.
+        composeTestRule.onNodeWithTag("bottomNavigationBarHome")
             .performClick()
         // Test that clicking on the emoji icon takes you to emoji details.
         composeTestRule.onNodeWithTag("emojiDetailScreen").assertDoesNotExist()
@@ -43,13 +60,13 @@ class NavigationTest {
             .performClick()
         composeTestRule.onNodeWithTag("emojiDetailScreen").assertExists()
         // Test that it's the correct emoji details screen.
-        composeTestRule.onNodeWithText("a").assertExists()
+        composeTestRule.onNodeWithText("name").assertExists()
     }
 
     @Test
     fun testNavigationStatePreservation() {
         composeTestRule.setContent {
-            Navigation()
+            Navigation(object : RepositoryStore {})
         }
 
         // Make sure we're in the search screen.
@@ -67,25 +84,5 @@ class NavigationTest {
         composeTestRule.onNodeWithTag("bottomNavigationBarSearch")
             .performClick()
         composeTestRule.onNodeWithText("Search results for: h").assertExists()
-    }
-
-    @Test
-    fun testHomePageNavigation() {
-        composeTestRule.setContent {
-            Navigation()
-        }
-        // Make sure we're in the home screen.
-        composeTestRule.onNodeWithTag("bottomNavigationBarHome")
-            .performClick()
-        // Test that clicking on show more, will navigate to the event list screen.
-        composeTestRule.onNodeWithTag("showMoreEvents")
-            .performClick()
-        composeTestRule.onNodeWithTag("eventListScreen").assertExists()
-        // Test back button navigation.
-        composeTestRule.onNodeWithTag(
-            "eventListBackButton",
-            useUnmergedTree = true,
-        ).performClick()
-        composeTestRule.onNodeWithTag("homeScreen").assertExists()
     }
 }

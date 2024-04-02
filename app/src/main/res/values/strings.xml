@@ -13,12 +13,13 @@ easily add support for multiple languages if needed -->
     <string name="search_for_emoji">Search for emoji.</string>
     <string name="search_label">Search for emoji</string>
     <string name="search_result">Search results for:</string>
-    <string name="overview">Overview</string>
+    <string name="no_search_results">No results for:</string>
     <string name="most_popular">Most Popular</string>
     <string name="open_emoji_platform">Open Emoji Platform</string>
     <string name="latest_news">Latest News</string>
     <string name="upcoming_events">Upcoming Events</string>
     <string name="show_more">Show More</string>
-    <string name="eventsandtopics">Events &amp; Topics</string>
+    <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
+    <string name="overview">Overview</string>
 </resources>

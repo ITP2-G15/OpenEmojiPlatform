@@ -1,94 +1,99 @@
 package com.platform.openemoji.emoji.catalogue
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.platform.openemoji.emoji.Emoji
+import com.platform.openemoji.emoji.catalogue.grid.EmojiGrid
 
-/* This is the class to extend with other ways to access emojis, such as search,
-    so that emojis are only loaded once - by the single instance of this class.
- */
-
-/**
- * A singleton data structure to hold and categorize all the emojis.
- * It needs to be populated with emojis using ".populate(...)".
- */
-class EmojiCatalogue private constructor() {
-    // Singleton instance provider
-    companion object {
-        @Volatile
-        private var instance: EmojiCatalogue? = null
-
-        fun get() =
-            instance ?: synchronized(this) {
-                instance ?: EmojiCatalogue().also { instance = it }
+@Composable
+fun EmojiCatalogue(
+    emojisByCategory: Map<String, List<Emoji>>,
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    emojisOfCategoryAreLoading: (String) -> Boolean = { false },
+) {
+    Column(
+        modifier = modifier.padding(horizontal = 16.dp),
+    ) {
+        emojisByCategory.forEach { (category, emojis) ->
+            Text(
+                text = category,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.testTag("catalogueCategoryHeader"),
+            )
+            if (emojisOfCategoryAreLoading(category)) {
+                SpinLoader()
+            } else {
+                EmojiGrid(emojis, navController)
             }
-    }
-
-    /**
-     * Once populated, this is a map from emoji.category to all the emojis
-     * that belong to that category.
-     */
-    var byCategory: Map<String, List<Emoji>> = emptyMap()
-        private set
-
-    /**
-     * Once populated, this is a list of all emojis
-     */
-    val allEmojis: List<Emoji>
-        get() = emojiByTitle.values.toList()
-
-    private var emojiByTitle: Map<String, Emoji> = emptyMap()
-
-    fun populate(emojis: List<Emoji>) {
-        emojiByTitle = emojis.associateBy { it.title }
-        byCategory = emojis.groupBy { it.category }
-    }
-
-    /**
-     * Once populated, this list contains all the categories that were present
-     * in the populating list of emojis.
-     */
-    val categories: List<String>
-        get() = byCategory.keys.toList()
-
-    /**
-     * Once populated, generates a map from emoji.subCategory to all the emojis
-     * that are under both the category and the subCategory, e.g. that are under
-     * Activities > Sport.
-     *
-     * @param category the parent of the subcategories.
-     * @return the categorized emojis by subcategory or null if the category does not exist.
-     */
-    fun bySubCategory(category: String): Map<String, List<Emoji>>? =
-        byCategory[category]?.groupBy { it.subCategory }
-
-    /**
-     * Search based on emoji.title. Ignores uppercase.
-     * @param query query string to search for emojis.
-     * @return list of emojis matching the query.
-     */
-    fun search(query: String): List<Emoji> {
-        val queryLowerCase = query.lowercase()
-        return allEmojis.filter {
-            it.title.lowercase().contains(queryLowerCase)
         }
     }
+}
 
-    /**
-     * Returns emoji based on title.
-     * @param title title of an emoji.
-     * @return emoji matching title.
-     */
-    fun emoji(title: String): Emoji? = emojiByTitle[title]
+// Version that supports the whole catalogue loading, not just the individual categories' emojis.
+@Composable
+fun EmojiCatalogue(
+    emojisByCategory: Map<String, List<Emoji>>,
+    navController: NavController,
+    catalogueIsLoading: Boolean,
+    modifier: Modifier = Modifier,
+    emojisOfCategoryAreLoading: (String) -> Boolean = { false },
+) {
+    if (catalogueIsLoading) {
+        SpinLoader()
+    } else {
+        EmojiCatalogue(
+            emojisByCategory,
+            navController,
+            emojisOfCategoryAreLoading = emojisOfCategoryAreLoading,
+            modifier = modifier,
+        )
+    }
+}
 
-    /**
-     * The most used emojis.
-     * !!Currently does not actually return the most used emojis - it's a placeholder
-     * implementation.
-     *
-     * @param limit optional limit on the number of emojis to return. A higher limit
-     *      than the number of emojis returns all emojis.
-     */
-    fun mostPopularEmojis(limit: Int? = null): List<Emoji> =
-        limit?.let {
-            allEmojis.take(it)
-        } ?: allEmojis
+@Composable
+fun SearchScreenEmojiCatalogue(
+    catalogueViewModel: EmojiCatalogueViewModel,
+    navController: NavController,
+) {
+    val selectedCategoryEmojis by catalogueViewModel.selectedCategoryEmojis
+        .collectAsState()
+
+    EmojiCatalogue(
+        emojisByCategory = selectedCategoryEmojis ?: emptyMap(),
+        navController,
+        catalogueIsLoading = selectedCategoryEmojis == null,
+        modifier =
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(top = 10.dp),
+    )
+}
+
+@Composable
+private fun SpinLoader() {
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        CircularProgressIndicator()
+    }
 }

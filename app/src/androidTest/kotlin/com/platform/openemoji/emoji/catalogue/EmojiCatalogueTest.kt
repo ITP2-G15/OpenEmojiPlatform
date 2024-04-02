@@ -1,4 +1,4 @@
-package com.platform.platform.openemoji.emoji.catalogue
+package com.platform.openemoji.emoji.catalogue
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -7,38 +7,28 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import com.platform.openemoji.emoji.Emoji
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
-import com.platform.openemoji.emoji.catalogue.EmojiCatalogueUi
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class EmojiCatalogueUiTest {
+class EmojiCatalogueTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-
-    private val emojiCatalogue = EmojiCatalogue.get()
-
-    @Before
-    fun init() {
-        emojiCatalogue.populate(
-            listOf(
-                Emoji("1", "a", "", "A", "AA", "", ""),
-                Emoji("2", "b", "", "A", "AA", "", ""),
-                Emoji("3", "c", "", "A", "AB", "", ""),
-                Emoji("4", "d", "", "B", "BA", "", ""),
-            ),
-        )
-    }
 
     @Test
     fun testEmojiCatalogueStructure() {
         val navController =
             TestNavHostController(ApplicationProvider.getApplicationContext())
+        val emojisByCategory =
+            listOf(
+                Emoji("1", "a", "", "", 0, "A", "", 1f, 1f),
+                Emoji("2", "b", "", "", 0, "A", "", 1f, 1f),
+                Emoji("3", "c", "", "", 0, "A", "", 1f, 1f),
+                Emoji("4", "d", "", "", 0, "B", "", 1f, 1f),
+            ).groupBy { it.category }
         composeTestRule.setContent {
-            EmojiCatalogueUi(
-                emojis = emojiCatalogue.byCategory,
-                navController = navController,
+            EmojiCatalogue(
+                emojisByCategory,
+                navController,
             )
         }
 
@@ -46,7 +36,7 @@ class EmojiCatalogueUiTest {
         composeTestRule.onAllNodesWithTag("iconRoute")
             .assertCountEquals(4)
         // Test that there are 2 emoji categories: A and B.
-        composeTestRule.onAllNodesWithTag("catalogueUiCategoryHeader")
+        composeTestRule.onAllNodesWithTag("catalogueCategoryHeader")
             .assertCountEquals(2)
         composeTestRule.onNodeWithText("A").assertExists()
         composeTestRule.onNodeWithText("B").assertExists()

@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Event(
-    val title: String,
+    val name: String,
     val date: String,
-    val img: String,
+    val image: String,
     val url: String,
 )
