@@ -1,5 +1,14 @@
 package com.platform.openemoji.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -67,6 +76,8 @@ fun Navigation(
             NavHost(
                 navController = navController,
                 startDestination = startDestination,
+                enterTransition = { EnterTransition.None },
+                exitTransition = { ExitTransition.None },
             ) {
                 /**
                  * Routing for SearchScreen
@@ -89,6 +100,34 @@ fun Navigation(
                                 nullable = true
                             },
                         ),
+                    enterTransition = {
+                        fadeIn(
+                            animationSpec =
+                                tween(
+                                    300,
+                                    easing = LinearEasing,
+                                ),
+                        ) +
+                            slideIntoContainer(
+                                animationSpec = tween(300, easing = EaseIn),
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.Start,
+                            )
+                    },
+                    exitTransition = {
+                        fadeOut(
+                            animationSpec =
+                                tween(
+                                    300,
+                                    easing = LinearEasing,
+                                ),
+                        ) +
+                            slideOutOfContainer(
+                                animationSpec = tween(300, easing = EaseOut),
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.End,
+                            )
+                    },
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
                     val emoji = remember { mutableStateOf<Emoji?>(null) }
