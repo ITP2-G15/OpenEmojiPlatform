@@ -111,7 +111,7 @@ fun Navigation(
                             slideIntoContainer(
                                 animationSpec = tween(300, easing = EaseIn),
                                 towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Start,
+                                    AnimatedContentTransitionScope.SlideDirection.Left,
                             )
                     },
                     exitTransition = {
@@ -125,7 +125,7 @@ fun Navigation(
                             slideOutOfContainer(
                                 animationSpec = tween(300, easing = EaseOut),
                                 towards =
-                                    AnimatedContentTransitionScope.SlideDirection.End,
+                                    AnimatedContentTransitionScope.SlideDirection.Right,
                             )
                     },
                 ) { backStackEntry ->
