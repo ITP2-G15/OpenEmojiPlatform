@@ -18,8 +18,12 @@ import com.platform.openemoji.R
 fun BackButtonNavigation(
     navController: NavController,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
 ) {
-    IconButton(onClick = { navController.popBackStack() }) {
+    IconButton(onClick = {
+        navController.popBackStack()
+        onClick()
+    }) {
         Icon(
             Icons.AutoMirrored.Default.ArrowBack,
             contentDescription = stringResource(R.string.back_arrow),

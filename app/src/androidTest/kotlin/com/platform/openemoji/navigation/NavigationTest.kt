@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import com.platform.openemoji.RepositoryStore
+import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.EmojiRepository
 import org.junit.Rule
@@ -18,6 +19,9 @@ class NavigationTest {
 
     @Test
     fun testEmojiIconNavigation() {
+        // Don't display an ad between navigation
+        AdSettings.get().displayInterstitialAdFromEmojiDetailScreen = false
+
         // Put an emoji in home screen to test navigation to detail screen.
         val testEmoji =
             Emoji(
