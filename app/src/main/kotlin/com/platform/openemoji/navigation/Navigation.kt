@@ -78,19 +78,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.SearchScreen.route,
-                    enterTransition =
-                        {
-                            slideIntoContainer(
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Left,
-                            )
-                        },
-                    exitTransition = {
-                        slideOutOfContainer(
-                            towards =
-                                AnimatedContentTransitionScope.SlideDirection.Right,
-                        )
-                    },
+                    enterTransition = slideEnterTransition(),
+                    exitTransition = slideExitTransition(),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
                 }
@@ -107,20 +96,8 @@ fun Navigation(
                                 nullable = true
                             },
                         ),
-                    enterTransition =
-                        {
-                            slideIntoContainer(
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Left,
-                            )
-                        },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards =
-                                AnimatedContentTransitionScope.SlideDirection.Right,
-                        )
-                        // ExitTransition.KeepUntilTransitionsFinished
-                    },
+                    enterTransition = slideEnterTransition(),
+                    popExitTransition = slideExitTransition(),
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
                     val emoji = remember { mutableStateOf<Emoji?>(null) }
@@ -145,18 +122,13 @@ fun Navigation(
                 composable(
                     route = Screen.HomeScreen.route,
                     enterTransition =
-                        {
-                            slideIntoContainer(
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Right,
-                            )
-                        },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards =
-                                AnimatedContentTransitionScope.SlideDirection.Left,
-                        )
-                    },
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                        ),
                 ) {
                     HomeScreen(
                         emojiCatalogueViewModel,
@@ -170,19 +142,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.NewsListScreen.route,
-                    enterTransition =
-                        {
-                            slideIntoContainer(
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Left,
-                            )
-                        },
-                    popExitTransition = {
-                        slideOutOfContainer(
-                            towards =
-                                AnimatedContentTransitionScope.SlideDirection.Right,
-                        )
-                    },
+                    enterTransition = slideEnterTransition(),
+                    popExitTransition = slideExitTransition(),
                 ) {
                     NewsListScreen(newsViewModel, navController)
                 }
@@ -191,19 +152,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.EventListScreen.route,
-                    enterTransition =
-                        {
-                            slideIntoContainer(
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Left,
-                            )
-                        },
-                    exitTransition = {
-                        slideOutOfContainer(
-                            towards =
-                                AnimatedContentTransitionScope.SlideDirection.Right,
-                        )
-                    },
+                    enterTransition = slideEnterTransition(),
+                    exitTransition = slideExitTransition(),
                 ) {
                     EventListScreen(eventViewModel, navController)
                 }
