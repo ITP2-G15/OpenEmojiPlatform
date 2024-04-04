@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import com.platform.openemoji.favorites.Favorite
 import com.platform.openemoji.favorites.Sequence
 import com.platform.openemoji.header.HeaderLogo
-import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
 fun FavoritesScreen(navController: NavController) {
@@ -35,13 +34,6 @@ fun FavoritesScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item { HeaderLogo() }
-
-        item {
-            BackButtonNavigation(
-                navController = navController,
-                modifier = Modifier.testTag("favouritesBackButton"),
-            )
-        }
 
         // Loop through the list of favorites and display each one
         items(favorites) { favorite ->

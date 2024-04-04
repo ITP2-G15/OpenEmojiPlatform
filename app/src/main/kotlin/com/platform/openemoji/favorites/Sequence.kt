@@ -9,11 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.DeleteOutline
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -29,6 +34,8 @@ import com.platform.openemoji.R
 fun Sequence(favorite: Favorite) {
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
+
+    var showDialog by remember { mutableStateOf(false) }
 
     Card(
         modifier =
@@ -73,15 +80,15 @@ fun Sequence(favorite: Favorite) {
                         clipboardManager.setText(AnnotatedString(favorite.emojiSequence))
                         Toast.makeText(
                             context,
-                            "Emoji sequence copied to clipboard",
+                            R.string.copy_to_clipboard,
                             Toast.LENGTH_SHORT,
                         ).show()
                     }) {
                         Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Icon")
-                        Text(text = stringResource(R.string.copy_sequence))
+                        Text(text = stringResource(R.string.copy))
                     }
                     Button(onClick = {
-                        // HANDLE DELETE HERE
+                        showDialog = true
                     }) {
                         Icon(
                             Icons.Filled.DeleteOutline,
@@ -92,5 +99,30 @@ fun Sequence(favorite: Favorite) {
                 }
             }
         }
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(text = context.getString(R.string.delete_confirmation)) },
+            text = {
+                Text(
+                    text = context.getString(R.string.delete_confirmation_message),
+                )
+            },
+            confirmButton = {
+                Button(onClick = {
+                    // Handle delete action here
+                    showDialog = false
+                }) {
+                    Text("Yes")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { showDialog = false }) {
+                    Text("No")
+                }
+            },
+        )
     }
 }
