@@ -140,4 +140,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     // coil
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
