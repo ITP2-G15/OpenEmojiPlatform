@@ -16,7 +16,7 @@ import kotlinx.serialization.json.Json
 interface FavoritesRepository {
     fun getFavorites(): Flow<List<Favorite>> = flowOf(emptyList())
 
-    suspend fun addFavorite(favorite: Favorite) = Unit
+    suspend fun addFavorite(favorite: Favorite) = {}
 }
 
 class FavoritesDataRepository(
