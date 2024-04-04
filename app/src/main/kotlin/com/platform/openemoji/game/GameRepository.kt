@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 interface GameRepository {
     suspend fun getLevels(): List<Level> = emptyList()
 
-    suspend fun getLevel(index: Int): Level?
+    suspend fun getLevel(currentLevel: Int): Level? = null
 }
 
 class GameMockDataRepository(
