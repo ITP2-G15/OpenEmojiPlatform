@@ -3,12 +3,6 @@ package com.platform.openemoji.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -85,6 +79,19 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.SearchScreen.route,
+                    enterTransition =
+                        {
+                            slideIntoContainer(
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.Left,
+                            )
+                        },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards =
+                                AnimatedContentTransitionScope.SlideDirection.Right,
+                        )
+                    },
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
                 }
@@ -107,33 +114,19 @@ fun Navigation(
                                 nullable = true
                             },
                         ),
-                    enterTransition = {
-                        fadeIn(
-                            animationSpec =
-                                tween(
-                                    300,
-                                    easing = LinearEasing,
-                                ),
-                        ) +
+                    enterTransition =
+                        {
                             slideIntoContainer(
-                                animationSpec = tween(300, easing = EaseIn),
                                 towards =
                                     AnimatedContentTransitionScope.SlideDirection.Left,
                             )
-                    },
-                    exitTransition = {
-                        fadeOut(
-                            animationSpec =
-                                tween(
-                                    300,
-                                    easing = LinearEasing,
-                                ),
-                        ) +
-                            slideOutOfContainer(
-                                animationSpec = tween(300, easing = EaseOut),
-                                towards =
-                                    AnimatedContentTransitionScope.SlideDirection.Right,
-                            )
+                        },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards =
+                                AnimatedContentTransitionScope.SlideDirection.Right,
+                        )
+                        // ExitTransition.KeepUntilTransitionsFinished
                     },
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
@@ -156,7 +149,22 @@ fun Navigation(
                 /**
                  * Navigates to HomeScreen.
                  */
-                composable(route = Screen.HomeScreen.route) {
+                composable(
+                    route = Screen.HomeScreen.route,
+                    enterTransition =
+                        {
+                            slideIntoContainer(
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.Right,
+                            )
+                        },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards =
+                                AnimatedContentTransitionScope.SlideDirection.Left,
+                        )
+                    },
+                ) {
                     HomeScreen(
                         emojiCatalogueViewModel,
                         eventViewModel,
@@ -167,13 +175,43 @@ fun Navigation(
                 /**
                  * Navigates to NewsListScreen.
                  */
-                composable(route = Screen.NewsListScreen.route) {
+                composable(
+                    route = Screen.NewsListScreen.route,
+                    enterTransition =
+                        {
+                            slideIntoContainer(
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.Left,
+                            )
+                        },
+                    popExitTransition = {
+                        slideOutOfContainer(
+                            towards =
+                                AnimatedContentTransitionScope.SlideDirection.Right,
+                        )
+                    },
+                ) {
                     NewsListScreen(newsViewModel, navController)
                 }
                 /**
                  * Navigates to EventListScreen.
                  */
-                composable(route = Screen.EventListScreen.route) {
+                composable(
+                    route = Screen.EventListScreen.route,
+                    enterTransition =
+                        {
+                            slideIntoContainer(
+                                towards =
+                                    AnimatedContentTransitionScope.SlideDirection.Left,
+                            )
+                        },
+                    exitTransition = {
+                        slideOutOfContainer(
+                            towards =
+                                AnimatedContentTransitionScope.SlideDirection.Right,
+                        )
+                    },
+                ) {
                     EventListScreen(eventViewModel, navController)
                 }
             }
