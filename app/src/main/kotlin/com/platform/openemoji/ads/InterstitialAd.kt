@@ -3,6 +3,7 @@ package com.platform.openemoji.ads
 import android.content.Context
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAd.load
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 /**
@@ -17,7 +18,7 @@ fun loadInterstitialAd(
     context: Context,
     onLoaded: (loadedAd: InterstitialAd) -> Unit,
 ) {
-    InterstitialAd.load(
+    load(
         context,
         "ca-app-pub-3940256099942544/1033173712",
         AdRequest.Builder().build(),
