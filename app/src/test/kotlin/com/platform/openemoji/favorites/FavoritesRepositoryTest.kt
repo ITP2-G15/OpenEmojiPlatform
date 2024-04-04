@@ -48,4 +48,15 @@ class FavoritesRepositoryTest {
 
             assertTrue(actualFavorites.contains(favorite))
         }
+
+    @Test
+    fun testDeleteFavorite() =
+        runBlocking {
+            val favorite = testFavorites[1]
+            favoritesRepository.deleteFavorite(favorite)
+
+            val actualFavorites = favoritesRepository.getFavorites().first()
+
+            assertTrue(!actualFavorites.contains(favorite))
+        }
 }

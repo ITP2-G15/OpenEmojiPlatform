@@ -17,6 +17,8 @@ interface FavoritesRepository {
     fun getFavorites(): Flow<List<Favorite>> = flowOf(emptyList())
 
     suspend fun addFavorite(favorite: Favorite) = Unit
+
+    suspend fun deleteFavorite(favorite: Favorite) = Unit
 }
 
 class FavoritesDataRepository(
@@ -52,6 +54,21 @@ class FavoritesDataRepository(
             }
         } else {
             testFavorites?.add(favorite)
+        }
+    }
+
+    override suspend fun deleteFavorite(favorite: Favorite) {
+        if (context != null) {
+            context.dataStore.edit { settings ->
+                val currentFavoritesString = settings[favoritesPreferencesKey] ?: ""
+                settings[favoritesPreferencesKey] =
+                    favoritesToString(
+                        stringToFavorites(currentFavoritesString)
+                            .filterNot { it == favorite },
+                    )
+            }
+        } else {
+            testFavorites?.remove(favorite)
         }
     }
 

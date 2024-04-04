@@ -36,6 +36,11 @@ class FavoritesViewModel(
         }
     }
 
+    suspend fun deleteFavorite(favorite: Favorite) {
+        favoritesRepository.deleteFavorite(favorite)
+        getFavorites()
+    }
+
     fun setCurrentFavoriteName(name: String) {
         val favorite = _currentFavorite.value ?: Favorite("", "")
         _currentFavorite.value = favorite.copy(name = name)
