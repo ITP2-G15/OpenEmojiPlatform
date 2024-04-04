@@ -64,7 +64,7 @@ fun Navigation(
         bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues).fillMaxSize(),
+            modifier = Modifier.padding(paddingValues),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
@@ -78,13 +78,11 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.SearchScreen.route,
-                    enterTransition =
+                    enterTransition = slideEnterTransition(),
+                    exitTransition = slideExitTransition(),
+                    popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
-                        ),
-                    exitTransition =
-                        slideExitTransition(
-                            AnimatedContentTransitionScope.SlideDirection.Left,
                         ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
@@ -131,9 +129,13 @@ fun Navigation(
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
-                    popExitTransition =
+                    exitTransition =
                         slideExitTransition(
                             AnimatedContentTransitionScope.SlideDirection.Left,
+                        ),
+                    popEnterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) {
                     HomeScreen(
@@ -159,7 +161,7 @@ fun Navigation(
                 composable(
                     route = Screen.EventListScreen.route,
                     enterTransition = slideEnterTransition(),
-                    exitTransition = slideExitTransition(),
+                    popExitTransition = slideExitTransition(),
                 ) {
                     EventListScreen(eventViewModel, navController)
                 }
