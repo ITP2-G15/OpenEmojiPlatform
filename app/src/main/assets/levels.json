@@ -1,0 +1,182 @@
+[
+  {
+    "emojiQuestion": "🗽🦅💵",
+    "alternatives": ["USA", "Italy", "France", "UK"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiquestion": "🧝‍♂️👑🐉",
+    "alternatives": ["The Witcher", "Skyrim", "The Lord of the Rings", "Game of Thrones"],
+    "correctAlternative": 3
+  },
+  {
+    "emojiquestion": "🏰🍄👸🐢",
+    "alternatives": ["Mario", "Zelda", "Minecraft", "Assassin's Creed"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiquestion": "👨‍🚀🌌👽🛸",
+    "alternatives": ["Interstellar", "Star Wars", "Alien", "Gravity"],
+    "correctAlternative": 2
+  },
+  {
+    "emojiquestion": "🎮🔫🧟‍♂️💣",
+    "alternatives": ["Call of Duty", "Fortnite", "Resident Evil", "Minecraft"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🗿🏝️🌋🌺",
+    "alternatives": ["Australia", "Hawaii", "Fiji", "New Zealand"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🕌🐘🍛🌴",
+    "alternatives": ["India", "Thailand", "Indonesia", "Malaysia"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🗿🦁🌍🐘",
+    "alternatives": ["South Africa", "Kenya", "Tanzania", "Ethiopia"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🌞🍷🍝⛵",
+    "alternatives": ["Greece", "Italy", "Spain", "Portugal"],
+    "correctAlternative": 2
+  },
+  {
+    "emojiQuestion": "🏰🎻🍺🍫",
+    "alternatives": ["Austria", "Switzerland", "Germany", "Belgium"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🏔️🍫🧀🕰️",
+    "alternatives": ["Sweden", "Switzerland", "Norway", "Denmark"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🌵🏜️🐍🌶️",
+    "alternatives": ["Mexico", "Egypt", "Saudi Arabia", "Morocco"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🎎🏯🍣🌸",
+    "alternatives": ["China", "Japan", "South Korea", "Vietnam"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🎩🌂🕰️🏰",
+    "alternatives": ["France", "England", "Italy", "Spain"],
+    "correctAlternative": 3
+  },
+  {
+    "emojiQuestion": "🌳🏔️🐄🍫",
+    "alternatives": ["Netherlands", "Switzerland", "Austria", "Belgium"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🧟‍♂️🔫🏃‍♂️💀",
+    "alternatives": ["Left 4 Dead", "Resident Evil", "Dead Space", "The Last of Us"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🔫🎮🤖🌎",
+    "alternatives": ["Halo", "Call of Duty", "Destiny", "Titanfall"],
+    "correctAlternative": 2
+  },
+  {
+    "emojiQuestion": "🧙‍♂️🐉🏰⚔️",
+    "alternatives": ["The Witcher", "Dragon Age", "Dark Souls", "Elder Scrolls"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🔫🚗🎮🏙️",
+    "alternatives": ["Grand Theft Auto", "Saints Row", "Watch Dogs", "Sleeping Dogs"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "👨‍🚀🌌🔫👾",
+    "alternatives": ["Mass Effect", "Halo", "Destiny", "StarCraft"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🏹🛡️🧝‍♂️🐉",
+    "alternatives": ["The Elder Scrolls", "Dark Souls", "Dragon Age", "The Legend of Zelda"],
+    "correctAlternative": 3
+  },
+  {
+    "emojiQuestion": "🧟‍♂️🔫🏹🏰",
+    "alternatives": ["The Witcher", "Resident Evil", "Dark Souls", "Dead Rising"],
+    "correctAlternative": 3
+  },
+  {
+    "emojiQuestion": "🍏💻📱⌚",
+    "alternatives": ["Microsoft", "Google", "Samsung", "Apple"],
+    "correctAlternative": 3
+  },
+  {
+    "emojiQuestion": "🔶️💼🤝💻",
+    "alternatives": ["Microsoft", "IBM", "Oracle", "SAP"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "📦🛒🌐💻",
+    "alternatives": ["eBay", "Amazon", "Alibaba", "Walmart"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🔍🌐📚💼",
+    "alternatives": ["Facebook", "Google", "LinkedIn", "Twitter"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🏀👟",
+    "alternatives": ["Basketball", "Football", "Tennis", "Running"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "⚽🥅🏃‍♂️",
+    "alternatives": ["Basketball", "Soccer", "Running", "Golf"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🎾👟",
+    "alternatives": ["Tennis", "Golf", "Basketball", "Running"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🏉👟",
+    "alternatives": ["Soccer", "Rugby", "Tennis", "Running"],
+    "correctAlternative": 1
+  },
+  {
+    "emojiQuestion": "🏒👟",
+    "alternatives": ["Hockey", "Football", "Tennis", "Golf"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🏈🏃‍♂️",
+    "alternatives": ["Baseball", "Rugby", "American Football", "Soccer"],
+    "correctAlternative": 2
+  },
+  {
+    "emojiQuestion": "🏸👟",
+    "alternatives": ["Badminton", "Golf", "Basketball", "Running"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🎱🎱",
+    "alternatives": ["Snooker", "Soccer", "Basketball", "Running"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "⛳🏌️",
+    "alternatives": ["Golf", "Tennis", "Basketball", "Running"],
+    "correctAlternative": 0
+  },
+  {
+    "emojiQuestion": "🥊🥊",
+    "alternatives": ["Boxing", "Wrestling", "Karate", "Judo"],
+    "correctAlternative": 0
+  }
+]
