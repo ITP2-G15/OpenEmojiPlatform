@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
-fun FavouritesScreen(navController: NavController) {
+fun FavoritesScreen(navController: NavController) {
     Column(
         modifier =
             Modifier

@@ -78,22 +78,22 @@ fun BottomNavigationBar(
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
         NavigationBarItem(
-            selected = selectedRootScreen.value == Screen.FavouritesScreen.route,
+            selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
             label = {
-                Text(stringResource(R.string.favourite))
+                Text(stringResource(R.string.favorite))
             },
             icon = {
                 Icon(
                     Icons.Filled.Favorite,
                     contentDescription =
                         stringResource(
-                            R.string.favourite_icon_description,
+                            R.string.favorite_icon_description,
                         ),
                 )
             },
             onClick = {
-                selectedRootScreen.value = Screen.FavouritesScreen.route
-                navController.navigate(Screen.FavouritesScreen.route) {
+                selectedRootScreen.value = Screen.FavoritesScreen.route
+                navController.navigate(Screen.FavoritesScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
                             saveState = true

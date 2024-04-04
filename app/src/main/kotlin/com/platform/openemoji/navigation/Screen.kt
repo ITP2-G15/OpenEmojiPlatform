@@ -16,7 +16,7 @@ sealed class Screen(val route: String) {
 
     object EventListScreen : Screen("EventListScreen")
 
-    object FavouritesScreen : Screen("FavouritesScreen")
+    object FavoritesScreen : Screen("FavoritesScreen")
 
     /**
      * Adds arguments to a navigationItem.
