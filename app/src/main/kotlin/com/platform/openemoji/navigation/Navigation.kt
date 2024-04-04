@@ -64,7 +64,7 @@ fun Navigation(
         bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier.padding(paddingValues).fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
@@ -78,8 +78,14 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.SearchScreen.route,
-                    enterTransition = slideEnterTransition(),
-                    exitTransition = slideExitTransition(),
+                    enterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                    exitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Left,
+                        ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
                 }
