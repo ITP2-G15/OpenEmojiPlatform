@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -41,7 +42,8 @@ fun Sequence(favorite: Favorite) {
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(horizontal = 12.dp, vertical = 8.dp)
+                .testTag("SequenceCard"),
     ) {
         Column(
             modifier =
@@ -54,7 +56,7 @@ fun Sequence(favorite: Favorite) {
                 text = favorite.name,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp),
+                modifier = Modifier.padding(bottom = 8.dp).testTag("SequenceName"),
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -65,11 +67,18 @@ fun Sequence(favorite: Favorite) {
                     emojiRegex.findAll(
                         favorite.emojiSequence,
                     ).map { it.value }.toList()
-                emojis.chunked(5).forEach { chunk ->
+                /**
+                 * Chunk the emojis into groups of 5 to display them in rows
+                 * This is done to prevent the emojis from overflowing the screen
+                 */
+                emojis.chunked(5).forEachIndexed { index, chunk ->
                     Text(
                         text = chunk.joinToString(""),
                         fontSize = 22.sp,
-                        modifier = Modifier.padding(bottom = 8.dp),
+                        modifier =
+                            Modifier.padding(
+                                bottom = 8.dp,
+                            ).testTag("EmojiChunk$index"),
                     )
                 }
                 Row(
@@ -83,13 +92,13 @@ fun Sequence(favorite: Favorite) {
                             R.string.copy_to_clipboard,
                             Toast.LENGTH_SHORT,
                         ).show()
-                    }) {
+                    }, modifier = Modifier.testTag("CopyButton")) {
                         Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Icon")
                         Text(text = stringResource(R.string.copy))
                     }
                     Button(onClick = {
                         showDialog = true
-                    }) {
+                    }, modifier = Modifier.testTag("DeleteButton")) {
                         Icon(
                             Icons.Filled.DeleteOutline,
                             contentDescription = "Delete Icon",
@@ -112,14 +121,16 @@ fun Sequence(favorite: Favorite) {
             },
             confirmButton = {
                 Button(onClick = {
-                    // Handle delete action here
+                    // HANDLE DELETE ACTION HERE
                     showDialog = false
-                }) {
+                }, modifier = Modifier.testTag("ConfirmDeleteButton")) {
                     Text("Yes")
                 }
             },
             dismissButton = {
-                Button(onClick = { showDialog = false }) {
+                Button(onClick = {
+                    showDialog = false
+                }, modifier = Modifier.testTag("DismissDeleteButton")) {
                     Text("No")
                 }
             },
