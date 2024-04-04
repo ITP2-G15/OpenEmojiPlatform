@@ -140,7 +140,4 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     // coil
     implementation("io.coil-kt:coil-compose:2.5.0")
-
-    // Amplitude analytics
-    implementation("com.amplitude:analytics-android:1.16.7")
 }
