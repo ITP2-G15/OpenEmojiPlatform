@@ -18,6 +18,7 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.events.UpcomingEvents
+import com.platform.openemoji.game.GameScreen
 import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.news.LatestNews
 import com.platform.openemoji.news.NewsViewModel
@@ -56,5 +57,7 @@ fun HomeScreen(
         InlineAd()
 
         LatestNews(newsViewModel, navController)
+
+        GameScreen()
     }
 }
