@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
@@ -20,14 +21,15 @@ interface GameRepository {
 
     suspend fun getCurrentLevel(): Level? = null
 
-    suspend fun getLevelCounter(): Int
+    suspend fun getLevelCounter(): Flow<Int> = flowOf(0)
 
-    suspend fun incrementLevelCounter()
+    suspend fun incrementLevelCounter() = Unit
 }
 
 class GameMockDataRepository(
     private val context: Context?,
     private val testLevels: List<Level>? = null,
+    private var testLevelCounter: Int = 0,
     private val simulatedDelay: Long = 0,
 ) : GameRepository {
     // This is only needed when not using an API
@@ -65,15 +67,12 @@ class GameMockDataRepository(
     // Preferences key used to store the current level counter
     private val levelCounter = intPreferencesKey("currentLevel")
 
-    private val levelCounterFlow: Flow<Int> =
-        context!!.dataStore.data
-            .map { gameData ->
-                // Retrieve the current level counter or default to 0
-                gameData[levelCounter] ?: 0
-            }
-
-    override suspend fun getLevelCounter(): Int {
-        return levelCounterFlow.first()
+    override suspend fun getLevelCounter(): Flow<Int> {
+        return context?.dataStore?.data?.map { gameData ->
+            // Retrieve the current level counter or default to 0
+            gameData[levelCounter] ?: 0
+        }
+            ?: flowOf(testLevelCounter)
     }
 
     override suspend fun getAllLevels(): List<Level> {
@@ -82,15 +81,19 @@ class GameMockDataRepository(
 
     override suspend fun getCurrentLevel(): Level? {
         val levels = loadMockdata()
-        val levelCounter = levelCounterFlow.first()
+        val levelCounter = getLevelCounter().first()
 
         return levels.getOrNull(levelCounter)
     }
 
     override suspend fun incrementLevelCounter() {
-        context!!.dataStore.edit { gameData ->
-            val currentLevel = gameData[levelCounter] ?: 0
-            gameData[levelCounter] = currentLevel + 1
+        if (context != null) {
+            context.dataStore.edit { gameData ->
+                val currentLevel = gameData[levelCounter] ?: 0
+                gameData[levelCounter] = currentLevel + 1
+            }
+        } else {
+            testLevelCounter += 1
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.platform.openemoji.game
 
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -10,44 +11,63 @@ class GameRepositoryTest {
 
     @Before
     fun setup() {
-        val testNews =
+        val testLevels =
             listOf(
                 Level(
-                    "🤓",
+                    "🤓🤓",
                     listOf("Nerd", "Clown", "Ole Andreas", "Andreas Li"),
                     0,
                 ),
                 Level(
-                    "👍",
+                    "👍👍",
                     listOf("Smiley", "Nerd", "Whole Milk", "Thumbs Up"),
                     3,
                 ),
                 Level(
-                    "⚽",
-                    listOf("Basketball", "Soccer", "Tennis", "Suzy Bae"),
+                    "⚽⚽",
+                    listOf("Basketball", "Soccer", "Tennis", "Bae Suzy"),
                     1,
                 ),
             )
-        repository = GameMockDataRepository(null, testNews)
+        repository = GameMockDataRepository(null, testLevels)
     }
 
     @Test
-    fun testGetLevels() =
+    fun testGetAllLevels() =
         runBlocking {
-            val levels = repository.getLevels()
+            val levels = repository.getAllLevels()
             Assert.assertEquals(3, levels.size)
         }
 
     @Test
-    fun getLevel() =
+    fun testGetCurrentLevel() =
         runBlocking {
             val expectedLevel =
                 Level(
-                    "🤓",
+                    "🤓🤓",
                     listOf("Nerd", "Clown", "Ole Andreas", "Andreas Li"),
                     0,
                 )
-            val level = repository.getLevel(0)
+            val level = repository.getCurrentLevel()
             Assert.assertEquals(expectedLevel, level)
+        }
+
+    @Test
+    fun testGetLevelCounter() =
+        runBlocking {
+            val levelCounter = repository.getLevelCounter().first()
+            Assert.assertEquals(0, levelCounter)
+        }
+
+    @Test
+    fun testIncrementLevelCounter() =
+        runBlocking {
+            val initialCounter = repository.getLevelCounter().first()
+            Assert.assertEquals(0, initialCounter)
+
+            repository.incrementLevelCounter()
+
+            val updatedCounter = repository.getLevelCounter().first()
+            Assert.assertEquals(1, updatedCounter)
         }
 }
