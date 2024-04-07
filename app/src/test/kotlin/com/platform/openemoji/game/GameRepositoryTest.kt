@@ -1,6 +1,5 @@
 package com.platform.openemoji.game
 
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -55,19 +54,19 @@ class GameRepositoryTest {
     @Test
     fun testGetLevelCounter() =
         runBlocking {
-            val levelCounter = repository.getLevelCounter().first()
+            val levelCounter = repository.getLevelCounter()
             Assert.assertEquals(0, levelCounter)
         }
 
     @Test
     fun testIncrementLevelCounter() =
         runBlocking {
-            val initialCounter = repository.getLevelCounter().first()
+            val initialCounter = repository.getLevelCounter()
             Assert.assertEquals(0, initialCounter)
 
             repository.incrementLevelCounter()
 
-            val updatedCounter = repository.getLevelCounter().first()
+            val updatedCounter = repository.getLevelCounter()
             Assert.assertEquals(1, updatedCounter)
         }
 }

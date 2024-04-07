@@ -8,9 +8,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
@@ -21,7 +19,7 @@ interface GameRepository {
 
     suspend fun getCurrentLevel(): Level? = null
 
-    suspend fun getLevelCounter(): Flow<Int> = flowOf(0)
+    suspend fun getLevelCounter(): Int = 0
 
     suspend fun incrementLevelCounter() = Unit
 }
@@ -67,12 +65,13 @@ class GameMockDataRepository(
     // Preferences key used to store the current level counter
     private val levelCounter = intPreferencesKey("currentLevel")
 
-    override suspend fun getLevelCounter(): Flow<Int> {
-        return context?.dataStore?.data?.map { gameData ->
-            // Retrieve the current level counter or default to 0
-            gameData[levelCounter] ?: 0
-        }
-            ?: flowOf(testLevelCounter)
+    override suspend fun getLevelCounter(): Int {
+        return context?.dataStore?.data
+            ?.map { gameData ->
+                // Retrieve the current level counter or default to 0
+                gameData[levelCounter] ?: 0
+            }
+            ?.first() ?: testLevelCounter
     }
 
     override suspend fun getAllLevels(): List<Level> {
@@ -81,7 +80,7 @@ class GameMockDataRepository(
 
     override suspend fun getCurrentLevel(): Level? {
         val levels = loadMockdata()
-        val levelCounter = getLevelCounter().first()
+        val levelCounter = getLevelCounter()
 
         return levels.getOrNull(levelCounter)
     }

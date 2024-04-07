@@ -25,9 +25,7 @@ class GameViewModel(
         }
 
         viewModelScope.launch {
-            gameRepository.getLevelCounter().collect { counter ->
-                _levelCounter.value = counter
-            }
+            _levelCounter.value = gameRepository.getLevelCounter()
         }
 
         viewModelScope.launch {
