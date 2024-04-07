@@ -3,6 +3,7 @@ package com.platform.openemoji.favorites
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -57,6 +58,6 @@ class FavoritesRepositoryTest {
 
             val actualFavorites = favoritesRepository.getFavorites().first()
 
-            assertTrue(!actualFavorites.contains(favorite))
+            assertFalse(actualFavorites.contains(favorite))
         }
 }

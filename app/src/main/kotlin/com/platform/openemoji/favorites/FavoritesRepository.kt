@@ -32,15 +32,11 @@ class FavoritesDataRepository(
     val favoritesPreferencesKey = stringPreferencesKey("favorites")
 
     override fun getFavorites(): Flow<List<Favorite>> {
-        return if (context != null) {
-            context.dataStore.data
-                .map { preferences ->
-                    val favoritesString = preferences[favoritesPreferencesKey] ?: ""
-                    stringToFavorites(favoritesString)
-                }
-        } else {
-            flowOf(testFavorites ?: emptyList())
-        }
+        return context?.dataStore?.data
+            ?.map { preferences ->
+                val favoritesString = preferences[favoritesPreferencesKey] ?: ""
+                stringToFavorites(favoritesString)
+            } ?: flowOf(testFavorites ?: emptyList())
     }
 
     override suspend fun addFavorite(favorite: Favorite) {
