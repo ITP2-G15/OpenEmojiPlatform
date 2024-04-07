@@ -26,6 +26,7 @@ class Activity : ComponentActivity() {
                     flushIntervalMillis = 2000,
                 ),
             )
+
         MobileAds.initialize(this) {}
         setContent {
             OpenEmojiPlatformTheme {
