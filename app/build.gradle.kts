@@ -143,4 +143,6 @@ dependencies {
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    // Amplitude analytics
+    implementation("com.amplitude:analytics-android:1.16.7")
 }
