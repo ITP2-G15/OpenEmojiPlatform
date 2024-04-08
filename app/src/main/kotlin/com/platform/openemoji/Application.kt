@@ -5,6 +5,8 @@ import com.platform.openemoji.emoji.EmojiMockDataRepository
 import com.platform.openemoji.emoji.EmojiRepository
 import com.platform.openemoji.events.EventsMockDataRepository
 import com.platform.openemoji.events.EventsRepository
+import com.platform.openemoji.favorites.FavoritesDataRepository
+import com.platform.openemoji.favorites.FavoritesRepository
 import com.platform.openemoji.game.GameMockDataRepository
 import com.platform.openemoji.game.GameRepository
 import com.platform.openemoji.news.NewsMockDataRepository
@@ -14,6 +16,7 @@ interface RepositoryStore {
     val emojiRepository: EmojiRepository get() = object : EmojiRepository {}
     val newsRepository: NewsRepository get() = object : NewsRepository {}
     val eventsRepository: EventsRepository get() = object : EventsRepository {}
+    val favoritesRepository: FavoritesRepository get() = object : FavoritesRepository {}
     val gameRepository: GameRepository get() = object : GameRepository {}
 }
 
@@ -26,6 +29,9 @@ class Application : Application(), RepositoryStore {
     }
     override val eventsRepository by lazy {
         EventsMockDataRepository(this, simulatedDelay = 500)
+    }
+    override val favoritesRepository by lazy {
+        FavoritesDataRepository(this)
     }
     override val gameRepository by lazy {
         GameMockDataRepository(this, simulatedDelay = 500)
