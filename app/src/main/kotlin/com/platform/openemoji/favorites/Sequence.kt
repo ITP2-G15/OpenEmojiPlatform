@@ -13,6 +13,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,9 +27,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.platform.openemoji.R
 
 @Composable
@@ -54,8 +54,7 @@ fun Sequence(favorite: Favorite) {
         ) {
             Text(
                 text = favorite.name,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(bottom = 8.dp).testTag("SequenceName"),
             )
             Column(
@@ -67,20 +66,15 @@ fun Sequence(favorite: Favorite) {
                     emojiRegex.findAll(
                         favorite.emojiSequence,
                     ).map { it.value }.toList()
-                /**
-                 * Chunk the emojis into groups of 5 to display them in rows
-                 * This is done to prevent the emojis from overflowing the screen
-                 */
-                emojis.chunked(5).forEachIndexed { index, chunk ->
-                    Text(
-                        text = chunk.joinToString(""),
-                        fontSize = 22.sp,
-                        modifier =
-                            Modifier.padding(
-                                bottom = 8.dp,
-                            ).testTag("EmojiChunk$index"),
-                    )
-                }
+
+                Text(
+                    text = emojis.joinToString(""),
+                    style = MaterialTheme.typography.displaySmall,
+                    // Set the maximum number of lines before overflow
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(bottom = 8.dp).testTag("EmojiSequence"),
+                )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -93,7 +87,10 @@ fun Sequence(favorite: Favorite) {
                             Toast.LENGTH_SHORT,
                         ).show()
                     }, modifier = Modifier.testTag("CopyButton")) {
-                        Icon(Icons.Filled.ContentCopy, contentDescription = "Copy Icon")
+                        Icon(
+                            Icons.Filled.ContentCopy,
+                            contentDescription = stringResource(R.string.copy),
+                        )
                         Text(text = stringResource(R.string.copy))
                     }
                     Button(onClick = {
@@ -101,9 +98,9 @@ fun Sequence(favorite: Favorite) {
                     }, modifier = Modifier.testTag("DeleteButton")) {
                         Icon(
                             Icons.Filled.DeleteOutline,
-                            contentDescription = "Delete Icon",
+                            contentDescription = stringResource(R.string.delete),
                         )
-                        Text(text = context.getString(R.string.delete_sequence))
+                        Text(text = stringResource(R.string.delete))
                     }
                 }
             }
@@ -113,10 +110,10 @@ fun Sequence(favorite: Favorite) {
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(text = context.getString(R.string.delete_confirmation)) },
+            title = { Text(text = stringResource(R.string.delete_confirmation)) },
             text = {
                 Text(
-                    text = context.getString(R.string.delete_confirmation_message),
+                    text = stringResource(R.string.delete_confirmation_message_sequence),
                 )
             },
             confirmButton = {
