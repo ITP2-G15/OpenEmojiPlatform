@@ -9,8 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GamesScreen() {
-    Scaffold(
+fun GameScreen() {
+   /* Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Games") }
@@ -20,11 +20,13 @@ fun GamesScreen() {
         Text(text = "Welcome to Games",
             modifier = Modifier.padding(innerPadding)
         )
-    }
+    }*/
+    Text("This is the Game Screen")
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GamesScreenPreview() {
-    GamesScreen()
+    GameScreen()
 }
