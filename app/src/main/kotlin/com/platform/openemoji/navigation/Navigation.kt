@@ -28,6 +28,7 @@ import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
+import com.platform.openemoji.screens.FavoritesScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -75,6 +76,12 @@ fun Navigation(
                     route = Screen.SearchScreen.route,
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
+                }
+                /**
+                 * Routing for FavoritesScreen
+                 */
+                composable(route = Screen.FavoritesScreen.route) {
+                    FavoritesScreen(navController = navController)
                 }
 
                 /**
