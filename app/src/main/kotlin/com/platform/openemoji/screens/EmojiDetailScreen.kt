@@ -82,7 +82,7 @@ fun EmojiDetailScreen(
             }
         }
 
-        FavoriteMaker()
+        FavoriteMaker(emoji)
 
         Text(
             text =
@@ -90,7 +90,7 @@ fun EmojiDetailScreen(
                     emoji.description,
                     HtmlCompat.FROM_HTML_MODE_COMPACT,
                 ).toString(),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
         )
     }

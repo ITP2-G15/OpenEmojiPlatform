@@ -8,7 +8,8 @@ easily add support for multiple languages if needed -->
     <string name="copy_to_clipboard">Copied to clipboard</string>
     <string name="delete_sequence">Delete</string>
     <string name="delete_confirmation">Delete Confirmation</string>
-    <string name="delete_confirmation_message_sequence">Are you sure you want to delete this emoji sequence?</string>
+    <string name="delete_confirmation_message_sequence">Are you sure you want to delete this emoji
+        sequence?</string>
     <string name="home">Home</string>
     <string name="home_icon_description">Click to navigate to the home screen</string>
     <string name="search">Search</string>
@@ -29,4 +30,6 @@ easily add support for multiple languages if needed -->
     <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
     <string name="overview">Overview</string>
+    <string name="start_sequence_icon_description">Click to start a sequence</string>
+    <string name="start_sequence">Start a sequence with</string>
 </resources>
