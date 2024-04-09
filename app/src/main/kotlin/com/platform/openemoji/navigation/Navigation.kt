@@ -65,7 +65,7 @@ fun Navigation(
         bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues).fillMaxSize(),
+            modifier = Modifier.padding(paddingValues),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
