@@ -32,6 +32,7 @@ class FavoritesViewModel(
     suspend fun addCurrentFavoriteToFavorites() {
         _currentFavorite.value?.let { favorite ->
             favoritesRepository.addFavorite(favorite)
+            clearCurrentFavorite()
             getFavorites()
         }
     }

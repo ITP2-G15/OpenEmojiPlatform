@@ -25,6 +25,7 @@ import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
@@ -53,6 +54,11 @@ fun Navigation(
     val eventViewModel =
         viewModel(key = "event") {
             EventViewModel(repositories.eventsRepository)
+        }
+
+    val favoritesViewModel =
+        viewModel(key = "favorites") {
+            FavoritesViewModel(repositories.favoritesRepository)
         }
 
     val navController = rememberNavController()
@@ -108,6 +114,7 @@ fun Navigation(
 
                     emoji.value?.let {
                         EmojiDetailScreen(
+                            favoritesViewModel = favoritesViewModel,
                             emoji = it,
                             navController = navController,
                         )
