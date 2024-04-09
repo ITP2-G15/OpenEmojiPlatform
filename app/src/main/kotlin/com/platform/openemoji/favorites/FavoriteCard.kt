@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 
 @Composable
-fun Sequence(favorite: Favorite) {
+fun FavoriteCard(favorite: Favorite) {
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
 
@@ -42,8 +42,7 @@ fun Sequence(favorite: Favorite) {
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-                .testTag("SequenceCard"),
+                .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
         Column(
             modifier =
@@ -55,7 +54,7 @@ fun Sequence(favorite: Favorite) {
             Text(
                 text = favorite.name,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 8.dp).testTag("SequenceName"),
+                modifier = Modifier.padding(bottom = 8.dp).testTag("favoriteName"),
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -73,7 +72,7 @@ fun Sequence(favorite: Favorite) {
                     // Set the maximum number of lines before overflow
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(bottom = 8.dp).testTag("EmojiSequence"),
+                    modifier = Modifier.padding(bottom = 8.dp).testTag("emojiSequence"),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -86,7 +85,7 @@ fun Sequence(favorite: Favorite) {
                             R.string.copy_to_clipboard,
                             Toast.LENGTH_SHORT,
                         ).show()
-                    }, modifier = Modifier.testTag("CopyButton")) {
+                    }, modifier = Modifier.testTag("copyButton")) {
                         Icon(
                             Icons.Filled.ContentCopy,
                             contentDescription = stringResource(R.string.copy),
@@ -95,7 +94,7 @@ fun Sequence(favorite: Favorite) {
                     }
                     Button(onClick = {
                         showDialog = true
-                    }, modifier = Modifier.testTag("DeleteButton")) {
+                    }, modifier = Modifier.testTag("deleteButton")) {
                         Icon(
                             Icons.Filled.DeleteOutline,
                             contentDescription = stringResource(R.string.delete),
@@ -120,14 +119,14 @@ fun Sequence(favorite: Favorite) {
                 Button(onClick = {
                     // HANDLE DELETE ACTION HERE
                     showDialog = false
-                }, modifier = Modifier.testTag("ConfirmDeleteButton")) {
+                }, modifier = Modifier.testTag("confirmDeleteButton")) {
                     Text("Yes")
                 }
             },
             dismissButton = {
                 Button(onClick = {
                     showDialog = false
-                }, modifier = Modifier.testTag("DismissDeleteButton")) {
+                }, modifier = Modifier.testTag("dismissDeleteButton")) {
                     Text("No")
                 }
             },

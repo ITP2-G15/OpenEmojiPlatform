@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
 import com.platform.openemoji.favorites.Favorite
-import com.platform.openemoji.favorites.Sequence
+import com.platform.openemoji.favorites.FavoriteCard
 import com.platform.openemoji.header.HeaderLogo
 
 @Composable
@@ -41,7 +41,7 @@ fun FavoritesScreen(navController: NavController) {
 
         // Loop through the list of favorites and display each one
         items(favorites) { favorite ->
-            Sequence(favorite = favorite)
+            FavoriteCard(favorite = favorite)
         }
     }
 }
