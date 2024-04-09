@@ -56,5 +56,6 @@ fun HomeScreen(
         InlineAd()
 
         LatestNews(newsViewModel, navController)
+
     }
 }
