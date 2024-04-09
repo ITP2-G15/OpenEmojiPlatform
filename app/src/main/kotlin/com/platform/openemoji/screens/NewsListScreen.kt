@@ -30,9 +30,9 @@ fun NewsListScreen(
 
     Column(
         modifier =
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 8.dp),
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp),
     ) {
         /**
          * Arrow back button, takes you back to previous location.

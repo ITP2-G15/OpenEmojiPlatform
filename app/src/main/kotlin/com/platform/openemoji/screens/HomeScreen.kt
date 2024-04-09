@@ -37,9 +37,9 @@ fun HomeScreen(
 
     Column(
         modifier =
-        Modifier
-            .testTag("homeScreen")
-            .verticalScroll(rememberScrollState()),
+            Modifier
+                .testTag("homeScreen")
+                .verticalScroll(rememberScrollState()),
     ) {
         HeaderLogo()
         TopBottomAd()
@@ -59,6 +59,5 @@ fun HomeScreen(
 
         LatestNews(newsViewModel, navController)
         TopBottomAd()
-
     }
 }

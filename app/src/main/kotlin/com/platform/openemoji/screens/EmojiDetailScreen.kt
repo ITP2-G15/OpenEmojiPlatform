@@ -61,9 +61,9 @@ fun EmojiDetailScreen(
 
         Card(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
             Column(
                 modifier =

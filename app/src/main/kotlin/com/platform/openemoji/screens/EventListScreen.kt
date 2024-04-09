@@ -30,10 +30,10 @@ fun EventListScreen(
 
     Column(
         modifier =
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 8.dp)
-            .testTag("eventListScreen"),
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp)
+                .testTag("eventListScreen"),
     ) {
         BackButtonNavigation(
             navController = navController,
