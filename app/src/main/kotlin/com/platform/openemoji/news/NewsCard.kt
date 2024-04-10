@@ -26,11 +26,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.platform.openemoji.LocalAnalytics
 
 @Composable
 fun NewsCard(news: News) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val context = LocalContext.current
+    val analytics = LocalAnalytics.current
     val newsIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(news.url)) }
 
     Card(
@@ -41,7 +43,13 @@ fun NewsCard(news: News) {
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .testTag("newsCard")
                 .clickable {
-                    context.startActivity(newsIntent)
+                    analytics?.track(
+                        "PressedNewsCard",
+                        mapOf("name" to news.name)
+                    )
+                    if (analytics == null) {
+                        context.startActivity(newsIntent)
+                    }
                 },
     ) {
         Column(

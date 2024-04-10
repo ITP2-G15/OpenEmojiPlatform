@@ -3,6 +3,8 @@ package com.platform.openemoji
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.android.DefaultTrackingOptions
@@ -10,6 +12,9 @@ import com.amplitude.core.ServerZone
 import com.google.android.gms.ads.MobileAds
 import com.platform.openemoji.navigation.Navigation
 import com.platform.openemoji.theme.OpenEmojiPlatformTheme
+
+@Suppress("ktlint:standard:property-naming")
+val LocalAnalytics = compositionLocalOf<Amplitude?> { null }
 
 class Activity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +28,18 @@ class Activity : ComponentActivity() {
                     context = applicationContext,
                     defaultTracking = DefaultTrackingOptions.ALL,
                     serverZone = ServerZone.EU,
-                    flushIntervalMillis = 2000,
+                    flushIntervalMillis = 10000,
                 ),
             )
+        amplitude.track("Hello")
+        amplitude.flush()
 
         MobileAds.initialize(this) {}
         setContent {
-            OpenEmojiPlatformTheme {
-                Navigation()
+            CompositionLocalProvider(LocalAnalytics provides amplitude) {
+                OpenEmojiPlatformTheme {
+                    Navigation()
+                }
             }
         }
     }
