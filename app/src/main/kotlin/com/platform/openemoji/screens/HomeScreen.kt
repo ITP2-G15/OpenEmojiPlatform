@@ -41,8 +41,8 @@ fun HomeScreen(
                 .testTag("homeScreen")
                 .verticalScroll(rememberScrollState()),
     ) {
-        HeaderLogo()
         TopBottomAd()
+        HeaderLogo()
         // Most Popular
         // Made using EmojiCatalogue with only one category: "Most Popular"
         EmojiCatalogue(
