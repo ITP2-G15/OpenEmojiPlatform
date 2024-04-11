@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
+import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.events.EventCard
 import com.platform.openemoji.events.EventViewModel
@@ -30,10 +31,10 @@ fun EventListScreen(
 
     Column(
         modifier =
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 8.dp)
-                .testTag("eventListScreen"),
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 8.dp)
+            .testTag("eventListScreen"),
     ) {
         BackButtonNavigation(
             navController = navController,
@@ -45,7 +46,7 @@ fun EventListScreen(
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
-        TopBottomAd()
+        InlineAd()
         events?.let {
             for (event in it) {
                 EventCard(event)

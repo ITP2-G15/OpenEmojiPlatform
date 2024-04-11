@@ -22,6 +22,7 @@ import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.platform.openemoji.ads.AdSettings
+import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
@@ -45,7 +46,6 @@ fun EmojiDetailScreen(
             }
         }
     }
-    TopBottomAd()
     Column(
         modifier = Modifier.testTag("emojiDetailScreen"),
     ) {
@@ -58,18 +58,18 @@ fun EmojiDetailScreen(
         ) {
             interstitialAd.value?.show(context as Activity)
         }
-
+        InlineAd()
         Card(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 8.dp),
         ) {
             Column(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 16.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(

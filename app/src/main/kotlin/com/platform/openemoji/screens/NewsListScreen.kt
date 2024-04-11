@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
+import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.navigation.BackButtonNavigation
 import com.platform.openemoji.news.NewsCard
@@ -47,7 +48,7 @@ fun NewsListScreen(
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
-        TopBottomAd()
+        InlineAd()
         newsList?.let {
             for (news in it) {
                 NewsCard(news)
