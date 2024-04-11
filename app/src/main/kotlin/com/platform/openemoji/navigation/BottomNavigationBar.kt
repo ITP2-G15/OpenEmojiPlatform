@@ -27,7 +27,6 @@ fun BottomNavigationBar(
 ) {
     Surface {
         Column {
-
             NavigationBar {
                 val selectedRootScreen = remember { mutableStateOf(startDestination) }
                 NavigationBarItem(
@@ -66,7 +65,10 @@ fun BottomNavigationBar(
                     icon = {
                         Icon(
                             Icons.Filled.Search,
-                            contentDescription = stringResource(R.string.search_icon_description),
+                            contentDescription =
+                                stringResource(
+                                    R.string.search_icon_description,
+                                ),
                         )
                     },
                     onClick = {
@@ -113,7 +115,6 @@ fun BottomNavigationBar(
                 )
             }
             TopBottomAd()
-
-    }
+        }
     }
 }
