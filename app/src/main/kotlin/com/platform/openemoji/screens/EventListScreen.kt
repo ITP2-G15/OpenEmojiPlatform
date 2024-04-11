@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.ads.InlineAd
-import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.events.EventCard
 import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.navigation.BackButtonNavigation
@@ -31,10 +30,10 @@ fun EventListScreen(
 
     Column(
         modifier =
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 8.dp)
-            .testTag("eventListScreen"),
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 8.dp)
+                .testTag("eventListScreen"),
     ) {
         BackButtonNavigation(
             navController = navController,

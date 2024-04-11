@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.ads.InlineAd
-import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.navigation.BackButtonNavigation
 import com.platform.openemoji.news.NewsCard
 import com.platform.openemoji.news.NewsViewModel
