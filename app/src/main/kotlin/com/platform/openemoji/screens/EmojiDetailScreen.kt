@@ -27,8 +27,8 @@ import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
-import com.platform.openemoji.favorites.FavoriteMaker
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.FavoriteMaker
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable

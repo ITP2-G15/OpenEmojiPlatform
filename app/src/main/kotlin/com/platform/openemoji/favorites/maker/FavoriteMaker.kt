@@ -1,4 +1,4 @@
-package com.platform.openemoji.favorites
+package com.platform.openemoji.favorites.maker
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,30 +12,27 @@ import androidx.compose.material.icons.automirrored.filled.Backspace
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.SaveAs
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
+import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.dialogs.FavoriteSaveDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,96 +59,19 @@ fun FavoriteMaker(
                 ),
             )
         }
-    val nameLengthError =
-        stringResource(
-            R.string.name_length_error,
-            MIN_NAME_LENGTH,
-            MAX_NAME_LENGTH,
-        )
-    val focusRequester = remember { FocusRequester() }
 
-    if (showSaveDialog.value) {
-        AlertDialog(
-            onDismissRequest = { showSaveDialog.value = false },
-            title = {
-                Text(
-                    stringResource(
-                        R.string.enter_name_for_favorite,
-                    ),
+    FavoriteSaveDialog(
+        showSaveDialog = showSaveDialog,
+        name = name,
+        nameError = nameError,
+        onSave = {
+            CoroutineScope(Dispatchers.Main).launch {
+                favoritesViewModel.addCurrentFavoriteToFavorites(
+                    name = name.value.text,
                 )
-            },
-            text = {
-                Column {
-                    TextField(
-                        value = name.value,
-                        onValueChange = { newValue ->
-                            if (newValue.text.length !in
-                                MIN_NAME_LENGTH..MAX_NAME_LENGTH
-                            ) {
-                                nameError.value = nameLengthError
-                            } else {
-                                nameError.value = null
-                            }
-                            name.value = newValue
-                        },
-                        label = {
-                            Text(
-                                stringResource(
-                                    R.string.name,
-                                ),
-                            )
-                        },
-                        modifier = Modifier.focusRequester(focusRequester),
-                    )
-
-                    if (nameError.value != null) {
-                        Text(nameError.value!!, color = MaterialTheme.colorScheme.error)
-                    }
-                }
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            favoritesViewModel.addCurrentFavoriteToFavorites(
-                                name = name.value.text,
-                            )
-                        }
-                        showSaveDialog.value = false
-                    },
-                    enabled =
-                        name.value.text.length in
-                            MIN_NAME_LENGTH..MAX_NAME_LENGTH,
-                ) {
-                    Text(
-                        stringResource(
-                            R.string.save,
-                        ),
-                    )
-                }
-            },
-            dismissButton = {
-                Button(
-                    onClick = { showSaveDialog.value = false },
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor =
-                                MaterialTheme.colorScheme.secondary,
-                            contentColor = MaterialTheme.colorScheme.onSecondary,
-                        ),
-                ) {
-                    Text(
-                        stringResource(
-                            R.string.cancel,
-                        ),
-                    )
-                }
-            },
-        )
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
-        }
-    }
+            }
+        },
+    )
 
     if (localCurrentFavorite == null) {
         Card(
