@@ -45,11 +45,9 @@ fun NewsCard(news: News) {
                 .clickable {
                     analytics?.track(
                         "PressedNewsCard",
-                        mapOf("name" to news.name)
+                        mapOf("name" to news.name),
                     )
-                    if (analytics == null) {
-                        context.startActivity(newsIntent)
-                    }
+                    context.startActivity(newsIntent)
                 },
     ) {
         Column(
