@@ -18,16 +18,43 @@ fun FavoritesScreen(navController: NavController) {
         listOf(
             Favorite(
                 name = "Sample Name 1",
-                emojiSequence =
-                    "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D" +
-                        "\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D\uDE00" +
-                        "\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01" +
-                        "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01",
+                emojiCodes =
+                    (
+                        "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D" +
+                            "\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D\uDE00" +
+                            "\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01" +
+                            "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01"
+                    )
+                        .toCharArray().map { it.toString() }.toTypedArray(),
             ),
-            Favorite(name = "Sample Name 2", emojiSequence = "🥳🤩🤪🤣"),
-            Favorite(name = "Sample Name 3", emojiSequence = "😎😍😘😗"),
-            Favorite(name = "Sample Name 4", emojiSequence = "🙂🙃😉😊"),
-            Favorite(name = "Sample Name 5", emojiSequence = "🙂🙃😉😊"),
+            Favorite(
+                name = "Sample Name 2",
+                emojiCodes =
+                    "🥳🤩🤪🤣".toCharArray().map {
+                        it.toString()
+                    }.toTypedArray(),
+            ),
+            Favorite(
+                name = "Sample Name 3",
+                emojiCodes =
+                    "😎😍😘😗".toCharArray().map {
+                        it.toString()
+                    }.toTypedArray(),
+            ),
+            Favorite(
+                name = "Sample Name 4",
+                emojiCodes =
+                    "🙂🙃😉😊".toCharArray().map {
+                        it.toString()
+                    }.toTypedArray(),
+            ),
+            Favorite(
+                name = "Sample Name 5",
+                emojiCodes =
+                    "🙂🙃😉😊".toCharArray().map {
+                        it.toString()
+                    }.toTypedArray(),
+            ),
         )
 
     LazyColumn(

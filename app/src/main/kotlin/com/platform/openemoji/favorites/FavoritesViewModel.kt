@@ -43,16 +43,27 @@ class FavoritesViewModel(
     }
 
     fun setCurrentFavoriteName(name: String) {
-        val favorite = _currentFavorite.value ?: Favorite("", "")
+        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
         _currentFavorite.value = favorite.copy(name = name)
     }
 
-    fun appendToCurrentFavoriteEmojiSequence(emojiCode: String) {
-        val favorite = _currentFavorite.value ?: Favorite("", "")
+    fun appendToCurrentFavoriteEmojiCodes(emojiCode: String) {
+        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
         _currentFavorite.value =
             favorite.copy(
-                emojiSequence = favorite.emojiSequence + emojiCode,
+                emojiCodes = favorite.emojiCodes + emojiCode,
             )
+    }
+
+    fun removeLastEmojiCodeFromCurrentFavorite() {
+        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
+        _currentFavorite.value =
+            favorite.copy(
+                emojiCodes = favorite.emojiCodes.dropLast(1).toTypedArray(),
+            )
+        if (favorite.emojiCodes.size == 1) {
+            clearCurrentFavorite()
+        }
     }
 
     fun clearCurrentFavorite() {

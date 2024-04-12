@@ -31,5 +31,11 @@ easily add support for multiple languages if needed -->
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
     <string name="overview">Overview</string>
     <string name="start_sequence_icon_description">Click to start a sequence</string>
-    <string name="start_sequence">Start a sequence with</string>
+    <string name="start_sequence">Start a new favorite sequence with</string>
+    <string name="add_emoji_button_description">Click to add emoji to favorite sequence</string>
+    <string name="save_favorite_button_description">Click to save current favorite sequence to
+        favorites</string>
+    <string name="remove_last_emoji_button_description">Click to remove the last emoji in the
+        favorite sequence</string>
+    <string name="clear_sequence_button_description">Click to clear the favorite sequence</string>
 </resources>

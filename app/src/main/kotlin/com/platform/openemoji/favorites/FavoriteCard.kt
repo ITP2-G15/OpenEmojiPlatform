@@ -63,7 +63,7 @@ fun FavoriteCard(favorite: Favorite) {
                 val emojiRegex = "[\\uD83C-\\uDBFF\\uDC00-\\uDFFF]+".toRegex()
                 val emojis =
                     emojiRegex.findAll(
-                        favorite.emojiSequence,
+                        favorite.emojiCodes.joinToString(""),
                     ).map { it.value }.toList()
 
                 Text(
@@ -79,7 +79,9 @@ fun FavoriteCard(favorite: Favorite) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Button(onClick = {
-                        clipboardManager.setText(AnnotatedString(favorite.emojiSequence))
+                        clipboardManager.setText(
+                            AnnotatedString(favorite.emojiCodes.joinToString("")),
+                        )
                         Toast.makeText(
                             context,
                             R.string.copy_to_clipboard,
