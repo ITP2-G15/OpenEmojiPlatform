@@ -84,10 +84,13 @@ fun BottomNavigationBar(
                 Text(stringResource(R.string.games_icon_description))
             },
             icon = {
-                   Icon(
-                       Icons.Default.Extension,
-                       contentDescription = stringResource(R.string.games_icon_description),
-                   )
+                Icon(
+                    Icons.Default.Extension,
+                    contentDescription =
+                        stringResource(
+                            R.string.games_icon_description,
+                        ),
+                )
             },
             onClick = {
                 selectedRootScreen.value = Screen.GameScreen.route
