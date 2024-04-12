@@ -38,4 +38,9 @@ easily add support for multiple languages if needed -->
     <string name="remove_last_emoji_button_description">Click to remove the last emoji in the
         favorite sequence</string>
     <string name="clear_sequence_button_description">Click to clear the favorite sequence</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="enter_name_for_favorite">Enter a name for your favorite sequence</string>
+    <string name="name_length_error">Name must be between %1$d and %2$d characters</string>
 </resources>

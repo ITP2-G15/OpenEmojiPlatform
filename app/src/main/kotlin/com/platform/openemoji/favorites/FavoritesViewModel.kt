@@ -29,9 +29,10 @@ class FavoritesViewModel(
         }
     }
 
-    suspend fun addCurrentFavoriteToFavorites() {
+    suspend fun addCurrentFavoriteToFavorites(name: String) {
         _currentFavorite.value?.let { favorite ->
-            favoritesRepository.addFavorite(favorite)
+            val updatedFavorite = favorite.copy(name = name)
+            favoritesRepository.addFavorite(updatedFavorite)
             clearCurrentFavorite()
             getFavorites()
         }
@@ -40,11 +41,6 @@ class FavoritesViewModel(
     suspend fun deleteFavorite(favorite: Favorite) {
         favoritesRepository.deleteFavorite(favorite)
         getFavorites()
-    }
-
-    fun setCurrentFavoriteName(name: String) {
-        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
-        _currentFavorite.value = favorite.copy(name = name)
     }
 
     fun appendToCurrentFavoriteEmojiCodes(emojiCode: String) {

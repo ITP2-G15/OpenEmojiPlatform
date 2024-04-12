@@ -11,25 +11,37 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Backspace
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.SaveAs
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
+private const val MIN_NAME_LENGTH = 3
+private const val MAX_NAME_LENGTH = 35
 
 @Composable
 fun FavoriteMaker(
@@ -38,6 +50,108 @@ fun FavoriteMaker(
 ) {
     val currentFavorite by favoritesViewModel.currentFavorite.collectAsState()
     val localCurrentFavorite = currentFavorite
+
+    val showSaveDialog = remember { mutableStateOf(false) }
+    val nameError = remember { mutableStateOf<String?>(null) }
+    val name =
+        remember {
+            mutableStateOf(
+                TextFieldValue(
+                    text = emoji.name,
+                    selection = TextRange(emoji.name.length),
+                ),
+            )
+        }
+    val nameLengthError =
+        stringResource(
+            R.string.name_length_error,
+            MIN_NAME_LENGTH,
+            MAX_NAME_LENGTH,
+        )
+    val focusRequester = remember { FocusRequester() }
+
+    if (showSaveDialog.value) {
+        AlertDialog(
+            onDismissRequest = { showSaveDialog.value = false },
+            title = {
+                Text(
+                    stringResource(
+                        R.string.enter_name_for_favorite,
+                    ),
+                )
+            },
+            text = {
+                Column {
+                    TextField(
+                        value = name.value,
+                        onValueChange = { newValue ->
+                            if (newValue.text.length !in
+                                MIN_NAME_LENGTH..MAX_NAME_LENGTH
+                            ) {
+                                nameError.value = nameLengthError
+                            } else {
+                                nameError.value = null
+                            }
+                            name.value = newValue
+                        },
+                        label = {
+                            Text(
+                                stringResource(
+                                    R.string.name,
+                                ),
+                            )
+                        },
+                        modifier = Modifier.focusRequester(focusRequester),
+                    )
+
+                    if (nameError.value != null) {
+                        Text(nameError.value!!, color = MaterialTheme.colorScheme.error)
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            favoritesViewModel.addCurrentFavoriteToFavorites(
+                                name = name.value.text,
+                            )
+                        }
+                        showSaveDialog.value = false
+                    },
+                    enabled =
+                        name.value.text.length in
+                            MIN_NAME_LENGTH..MAX_NAME_LENGTH,
+                ) {
+                    Text(
+                        stringResource(
+                            R.string.save,
+                        ),
+                    )
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = { showSaveDialog.value = false },
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor =
+                                MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
+                        ),
+                ) {
+                    Text(
+                        stringResource(
+                            R.string.cancel,
+                        ),
+                    )
+                }
+            },
+        )
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+    }
 
     if (localCurrentFavorite == null) {
         Card(
@@ -124,23 +238,6 @@ fun FavoriteMaker(
 
                     Button(
                         onClick = {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                favoritesViewModel.addCurrentFavoriteToFavorites()
-                            }
-                        },
-                        modifier = Modifier.padding(end = 8.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Save,
-                            contentDescription =
-                                stringResource(
-                                    R.string.save_favorite_button_description,
-                                ),
-                        )
-                    }
-
-                    Button(
-                        onClick = {
                             favoritesViewModel
                                 .removeLastEmojiCodeFromCurrentFavorite()
                         },
@@ -158,6 +255,19 @@ fun FavoriteMaker(
                                     R.string.remove_last_emoji_button_description,
                                 ),
                             tint = MaterialTheme.colorScheme.onSecondary,
+                        )
+                    }
+
+                    Button(
+                        onClick = { showSaveDialog.value = true },
+                        modifier = Modifier.padding(end = 8.dp),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.SaveAs,
+                            contentDescription =
+                                stringResource(
+                                    R.string.save_favorite_button_description,
+                                ),
                         )
                     }
 
