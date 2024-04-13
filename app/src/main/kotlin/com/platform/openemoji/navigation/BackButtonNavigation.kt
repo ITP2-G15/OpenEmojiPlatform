@@ -1,5 +1,6 @@
 package com.platform.openemoji.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -28,7 +29,7 @@ fun BackButtonNavigation(
             Icons.AutoMirrored.Default.ArrowBack,
             contentDescription = stringResource(R.string.back_arrow),
             tint = MaterialTheme.colorScheme.primary,
-            modifier = modifier.size(48.dp).testTag("eventListBackButton"),
+            modifier = modifier.size(48.dp).testTag("eventListBackButton").padding(4.dp),
         )
     }
 }
