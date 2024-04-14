@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.dialogs.FavoriteCancelDialog
 import com.platform.openemoji.favorites.maker.dialogs.FavoriteSaveDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +61,8 @@ fun FavoriteMaker(
             )
         }
 
+    val showCancelDialog = remember { mutableStateOf(false) }
+
     FavoriteSaveDialog(
         showSaveDialog = showSaveDialog,
         name = name,
@@ -70,6 +73,13 @@ fun FavoriteMaker(
                     name = name.value.text,
                 )
             }
+        },
+    )
+
+    FavoriteCancelDialog(
+        showCancelDialog = showCancelDialog,
+        onCancel = {
+            favoritesViewModel.clearCurrentFavorite()
         },
     )
 
@@ -192,7 +202,7 @@ fun FavoriteMaker(
                     }
 
                     Button(
-                        onClick = { favoritesViewModel.clearCurrentFavorite() },
+                        onClick = { showCancelDialog.value = true },
                         colors =
                             ButtonDefaults.buttonColors(
                                 containerColor =
