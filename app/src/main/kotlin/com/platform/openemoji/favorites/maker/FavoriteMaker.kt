@@ -1,5 +1,6 @@
 package com.platform.openemoji.favorites.maker
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,8 +24,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -46,6 +49,8 @@ fun FavoriteMaker(
     favoritesViewModel: FavoritesViewModel,
     emoji: Emoji,
 ) {
+    val context = LocalContext.current
+
     val currentFavorite by favoritesViewModel.currentFavorite.collectAsState()
     val localCurrentFavorite = currentFavorite
 
@@ -60,7 +65,6 @@ fun FavoriteMaker(
                 ),
             )
         }
-
     val showCancelDialog = remember { mutableStateOf(false) }
 
     FavoriteSaveDialog(
@@ -73,6 +77,12 @@ fun FavoriteMaker(
                     name = name.value.text,
                 )
             }
+
+            Toast.makeText(
+                context,
+                R.string.save_sequence_toast_message,
+                Toast.LENGTH_SHORT,
+            ).show()
         },
     )
 
