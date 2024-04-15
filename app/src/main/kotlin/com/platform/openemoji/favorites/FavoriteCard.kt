@@ -1,15 +1,19 @@
 package com.platform.openemoji.favorites
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.DeleteOutline
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +29,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +42,7 @@ fun FavoriteCard(
     favorite: Favorite,
 ) {
     val clipboardManager = LocalClipboardManager.current
-    var showDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Card(
         modifier =
@@ -56,7 +60,8 @@ fun FavoriteCard(
             Text(
                 text = favorite.name,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 8.dp).testTag("favoriteName"),
+                modifier =
+                    Modifier.padding(bottom = 8.dp).testTag("favoriteName"),
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -65,44 +70,78 @@ fun FavoriteCard(
                 Text(
                     text = favorite.emojiCodes.joinToString(""),
                     style = MaterialTheme.typography.displaySmall,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(bottom = 8.dp).testTag("emojiSequence"),
+                    modifier =
+                        Modifier.padding(bottom = 8.dp).clickable {
+                            clipboardManager.setText(
+                                AnnotatedString(favorite.emojiCodes.joinToString("")),
+                            )
+                        }.testTag("emojiSequence"),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Button(onClick = {
-                        clipboardManager.setText(
-                            AnnotatedString(favorite.emojiCodes.joinToString("")),
-                        )
-                    }, modifier = Modifier.testTag("copyButton")) {
+                    Button(
+                        onClick = {
+                            clipboardManager.setText(
+                                AnnotatedString(favorite.emojiCodes.joinToString("")),
+                            )
+                        },
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor =
+                                    MaterialTheme.colorScheme.primary,
+                            ),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.testTag("copyButton"),
+                    ) {
                         Icon(
-                            Icons.Filled.ContentCopy,
-                            contentDescription = stringResource(R.string.copy),
+                            Icons.Default.ContentCopy,
+                            contentDescription =
+                                stringResource(
+                                    R.string.copy_sequence_icon_description,
+                                ),
+                            modifier = Modifier.size(18.dp),
+                            tint = MaterialTheme.colorScheme.onPrimary,
                         )
-                        Text(text = stringResource(R.string.copy))
+                        Text(
+                            stringResource(R.string.copy),
+                            fontWeight = FontWeight.SemiBold,
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier.padding(start = 4.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        )
                     }
-                    Button(onClick = {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            favoritesViewModel.deleteFavorite(favorite)
-                        }
-                    }, modifier = Modifier.testTag("deleteButton")) {
+
+                    Button(
+                        onClick = {
+                            showDeleteDialog = true
+                        },
+                        shape = RoundedCornerShape(12.dp),
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor =
+                                    MaterialTheme.colorScheme.error,
+                            ),
+                        modifier = Modifier.testTag("deleteButton"),
+                    ) {
                         Icon(
-                            Icons.Filled.DeleteOutline,
-                            contentDescription = stringResource(R.string.delete),
+                            imageVector = Icons.Default.Delete,
+                            contentDescription =
+                                stringResource(
+                                    R.string.delete,
+                                ),
+                            tint = MaterialTheme.colorScheme.onError,
                         )
-                        Text(text = stringResource(R.string.delete))
                     }
                 }
             }
         }
     }
 
-    if (showDialog) {
+    if (showDeleteDialog) {
         AlertDialog(
-            onDismissRequest = { showDialog = false },
+            onDismissRequest = { showDeleteDialog = false },
             title = { Text(text = stringResource(R.string.delete_confirmation)) },
             text = {
                 Text(
@@ -114,16 +153,25 @@ fun FavoriteCard(
                     CoroutineScope(Dispatchers.Main).launch {
                         favoritesViewModel.deleteFavorite(favorite)
                     }
-                    showDialog = false
+                    showDeleteDialog = false
                 }, modifier = Modifier.testTag("confirmDeleteButton")) {
-                    Text("Yes")
+                    Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {
-                Button(onClick = {
-                    showDialog = false
-                }, modifier = Modifier.testTag("dismissDeleteButton")) {
-                    Text("No")
+                Button(
+                    onClick = {
+                        showDeleteDialog = false
+                    },
+                    modifier = Modifier.testTag("dismissDeleteButton"),
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor =
+                                MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary,
+                        ),
+                ) {
+                    Text(stringResource(R.string.cancel))
                 }
             },
         )
