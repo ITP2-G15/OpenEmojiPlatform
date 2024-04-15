@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class SequenceTest {
+class FavoriteCardTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
@@ -29,7 +29,7 @@ class SequenceTest {
             Sequence(favorite = favorite)
         }
 
-        composeTestRule.onNodeWithTag("SequenceName").assertTextEquals("Test")
+        composeTestRule.onNodeWithTag("favoriteName").assertTextEquals("Test")
     }
 
     @Test
@@ -38,7 +38,7 @@ class SequenceTest {
             Sequence(favorite = favorite)
         }
 
-        composeTestRule.onNodeWithTag("CopyButton").assertExists()
+        composeTestRule.onNodeWithTag("copyButton").assertExists()
     }
 
     @Test
@@ -47,7 +47,7 @@ class SequenceTest {
             Sequence(favorite = favorite)
         }
 
-        composeTestRule.onNodeWithTag("DeleteButton").assertExists()
+        composeTestRule.onNodeWithTag("deleteButton").assertExists()
     }
 
     @Test
@@ -58,7 +58,7 @@ class SequenceTest {
             }
         }
 
-        composeTestRule.onNodeWithTag("CopyButton").performClick()
+        composeTestRule.onNodeWithTag("copyButton").performClick()
 
         val clipboardManager =
             composeTestRule.activity.applicationContext.getSystemService(

@@ -4,6 +4,8 @@ import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,10 +28,13 @@ import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
+import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.FavoriteMaker
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
 fun EmojiDetailScreen(
+    favoritesViewModel: FavoritesViewModel,
     emoji: Emoji,
     navController: NavController,
 ) {
@@ -46,7 +51,10 @@ fun EmojiDetailScreen(
         }
     }
     Column(
-        modifier = Modifier.testTag("emojiDetailScreen"),
+        modifier =
+            Modifier.testTag(
+                "emojiDetailScreen",
+            ).verticalScroll(rememberScrollState()),
     ) {
         /**
          * Arrow back button, takes you back to previous location.
@@ -81,13 +89,15 @@ fun EmojiDetailScreen(
             }
         }
 
+        FavoriteMaker(favoritesViewModel, emoji)
+
         Text(
             text =
                 HtmlCompat.fromHtml(
                     emoji.description,
                     HtmlCompat.FROM_HTML_MODE_COMPACT,
                 ).toString(),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
         )
     }

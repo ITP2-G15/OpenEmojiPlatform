@@ -72,7 +72,7 @@ fun IconCopy(emoji: Emoji) {
         ) {
             Icon(
                 Icons.Default.ContentCopy,
-                contentDescription = stringResource(R.string.copy_icon_description),
+                contentDescription = stringResource(R.string.copy_emoji_description),
                 modifier = Modifier.size(18.dp),
                 tint = MaterialTheme.colorScheme.onPrimary,
             )
