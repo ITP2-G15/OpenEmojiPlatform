@@ -105,7 +105,7 @@ fun EmojiDetailScreen(
             style = MaterialTheme.typography.bodyMedium,
             modifier =
                 Modifier
-                    .padding(horizontal = 20.dp, vertical = 8.dp)
+                    .padding(horizontal = 20.dp, vertical = 4.dp)
                     .clickable {
                         uriHandler.openUri(emoji.url)
                     },
