@@ -88,10 +88,19 @@ fun Navigation(
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
                 }
+
                 /**
                  * Routing for FavoritesScreen
                  */
-                composable(route = Screen.FavoritesScreen.route) {
+                composable(
+                    route = Screen.FavoritesScreen.route,
+                    enterTransition = slideEnterTransition(),
+                    exitTransition = slideExitTransition(),
+                    popEnterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                ) {
                     FavoritesScreen(navController = navController)
                 }
 
@@ -152,6 +161,7 @@ fun Navigation(
                         navController,
                     )
                 }
+
                 /**
                  * Navigates to NewsListScreen.
                  */
@@ -162,6 +172,7 @@ fun Navigation(
                 ) {
                     NewsListScreen(newsViewModel, navController)
                 }
+
                 /**
                  * Navigates to EventListScreen.
                  */
