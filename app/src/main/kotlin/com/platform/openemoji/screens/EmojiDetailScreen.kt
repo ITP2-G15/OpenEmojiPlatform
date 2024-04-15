@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,8 +50,12 @@ fun EmojiDetailScreen(
             }
         }
     }
+    val scrollState = rememberScrollState()
     Column(
-        modifier = Modifier.testTag("emojiDetailScreen"),
+        modifier =
+            Modifier
+                .testTag("emojiDetailScreen")
+                .verticalScroll(scrollState),
     ) {
         /**
          * Arrow back button, takes you back to previous location.
@@ -60,6 +66,7 @@ fun EmojiDetailScreen(
         ) {
             interstitialAd.value?.show(context as Activity)
         }
+
         InlineAd()
         Card(
             modifier =
@@ -94,7 +101,7 @@ fun EmojiDetailScreen(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
         )
         Text(
-            text = "Visit for more info",
+            text = "See more details here",
             style = MaterialTheme.typography.bodyMedium,
             modifier =
                 Modifier
