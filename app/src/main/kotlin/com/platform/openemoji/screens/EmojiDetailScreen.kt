@@ -57,7 +57,6 @@ fun EmojiDetailScreen(
         ) {
             interstitialAd.value?.show(context as Activity)
         }
-
         Card(
             modifier =
                 Modifier
