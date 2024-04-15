@@ -98,14 +98,14 @@ fun EmojiDetailScreen(
                     HtmlCompat.FROM_HTML_MODE_COMPACT,
                 ).toString(),
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 2.dp),
         )
         Text(
             text = "See more details here",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleMedium,
             modifier =
                 Modifier
-                    .padding(horizontal = 20.dp, vertical = 4.dp)
+                    .padding(horizontal = 20.dp, vertical = 2.dp)
                     .clickable {
                         uriHandler.openUri(emoji.url)
                     },
