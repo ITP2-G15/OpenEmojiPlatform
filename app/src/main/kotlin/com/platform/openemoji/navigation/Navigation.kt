@@ -87,7 +87,7 @@ fun Navigation(
                  * Routing for FavoritesScreen
                  */
                 composable(route = Screen.FavoritesScreen.route) {
-                    FavoritesScreen(navController = navController)
+                    FavoritesScreen(favoritesViewModel)
                 }
 
                 /**

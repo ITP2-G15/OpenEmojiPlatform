@@ -4,58 +4,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.navigation.NavController
-import com.platform.openemoji.favorites.Favorite
 import com.platform.openemoji.favorites.FavoriteCard
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.header.HeaderLogo
 
 @Composable
-fun FavoritesScreen(navController: NavController) {
-    val favorites =
-        listOf(
-            Favorite(
-                name = "Sample Name 1",
-                emojiCodes =
-                    (
-                        "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D" +
-                            "\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01\uD83D\uDE00" +
-                            "\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01" +
-                            "\uD83D\uDE00\uD83D\uDE03\uD83D\uDE04\uD83D\uDE01"
-                    )
-                        .toCharArray().map { it.toString() }.toTypedArray(),
-            ),
-            Favorite(
-                name = "Sample Name 2",
-                emojiCodes =
-                    "🥳🤩🤪🤣".toCharArray().map {
-                        it.toString()
-                    }.toTypedArray(),
-            ),
-            Favorite(
-                name = "Sample Name 3",
-                emojiCodes =
-                    "😎😍😘😗".toCharArray().map {
-                        it.toString()
-                    }.toTypedArray(),
-            ),
-            Favorite(
-                name = "Sample Name 4",
-                emojiCodes =
-                    "🙂🙃😉😊".toCharArray().map {
-                        it.toString()
-                    }.toTypedArray(),
-            ),
-            Favorite(
-                name = "Sample Name 5",
-                emojiCodes =
-                    "🙂🙃😉😊".toCharArray().map {
-                        it.toString()
-                    }.toTypedArray(),
-            ),
-        )
+fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
+    val favoritesState = favoritesViewModel.favorites.collectAsState()
+    val favorites = favoritesState.value ?: listOf()
 
     LazyColumn(
         modifier =
@@ -66,9 +26,8 @@ fun FavoritesScreen(navController: NavController) {
     ) {
         item { HeaderLogo() }
 
-        // Loop through the list of favorites and display each one
         items(favorites) { favorite ->
-            FavoriteCard(favorite = favorite)
+            FavoriteCard(favoritesViewModel, favorite)
         }
     }
 }
