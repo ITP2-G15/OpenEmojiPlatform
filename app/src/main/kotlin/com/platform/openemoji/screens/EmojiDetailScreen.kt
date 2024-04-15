@@ -24,6 +24,7 @@ import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.platform.openemoji.ads.AdSettings
+import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
@@ -49,7 +50,6 @@ fun EmojiDetailScreen(
             }
         }
     }
-
     Column(
         modifier =
             Modifier.testTag(
@@ -65,7 +65,7 @@ fun EmojiDetailScreen(
         ) {
             interstitialAd.value?.show(context as Activity)
         }
-
+        InlineAd()
         Card(
             modifier =
                 Modifier

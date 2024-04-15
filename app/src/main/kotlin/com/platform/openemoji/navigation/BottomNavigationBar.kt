@@ -60,7 +60,10 @@ fun BottomNavigationBar(
             icon = {
                 Icon(
                     Icons.Filled.Search,
-                    contentDescription = stringResource(R.string.search_icon_description),
+                    contentDescription =
+                        stringResource(
+                            R.string.search_icon_description,
+                        ),
                 )
             },
             onClick = {
