@@ -48,7 +48,7 @@ fun FavoriteCard(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(8.dp),
     ) {
         Column(
             modifier =

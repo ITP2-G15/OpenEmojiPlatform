@@ -1,6 +1,8 @@
 package com.platform.openemoji.favorites.maker.dialogs
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import com.platform.openemoji.R
 
@@ -68,6 +71,12 @@ fun FavoriteSaveDialog(
                             )
                         },
                         modifier = Modifier.focusRequester(focusRequester),
+                        keyboardActions =
+                            KeyboardActions(onDone = {
+                                onSave()
+                                showSaveDialog.value = false
+                            }),
+                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                     )
 
                     if (nameError.value != null) {
