@@ -1,6 +1,7 @@
 package com.platform.openemoji.screens
 
 import android.app.Activity
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,6 +36,7 @@ fun EmojiDetailScreen(
     navController: NavController,
 ) {
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
 
     // Start loading an interstitial fullscreen ad. Only if this ad is loaded
     // by the time the user presses the return arrow, will the ad be shown.
@@ -89,6 +92,17 @@ fun EmojiDetailScreen(
                 ).toString(),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+        )
+        Text(
+            text = "Visit for more info",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier =
+                Modifier
+                    .padding(horizontal = 20.dp, vertical = 8.dp)
+                    .clickable {
+                        uriHandler.openUri(emoji.url)
+                    },
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
