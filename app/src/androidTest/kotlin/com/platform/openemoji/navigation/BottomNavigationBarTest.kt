@@ -24,6 +24,7 @@ class BottomNavigationBarTest {
         listOf(
             "bottomNavigationBarHome" to "homeScreen",
             "bottomNavigationBarSearch" to "searchScreen",
+            "bottomNavigationBarGame" to "gameScreen",
             // Extend with future screens here
         ).forEach { (navTag, screenTag) ->
             composeTestRule.onNodeWithTag(navTag)

@@ -136,6 +136,7 @@ fun BottomNavigationBar(
             },
             modifier = Modifier.testTag("bottomNavigationBarFavourites"),
         )
+            modifier = Modifier.testTag("bottomNavigationBarGame"),
         )
     }
 }
