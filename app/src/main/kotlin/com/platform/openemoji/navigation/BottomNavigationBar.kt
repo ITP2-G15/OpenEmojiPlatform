@@ -81,6 +81,30 @@ fun BottomNavigationBar(
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
         NavigationBarItem(
+            selected = selectedRootScreen.value == Screen.GameScreen.route,
+            label = {
+                Text(stringResource(R.string.games))
+            },
+            icon = {
+                   Icon(
+                       Icons.Filled.Games,
+                       contentDescription = stringResource(R.string.games_icon_description),
+                   )
+            },
+            onClick = {
+                selectedRootScreen.value = Screen.GamesScreen.route
+                navController.navigate(Screen.GamesScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            modifier = Modifier.testTag("bottomNavigationBarGames"),
+        NavigationBarItem(
             selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
             label = {
                 Text(stringResource(R.string.favorite))
