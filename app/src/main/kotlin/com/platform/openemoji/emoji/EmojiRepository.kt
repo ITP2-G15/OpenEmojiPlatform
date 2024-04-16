@@ -39,6 +39,13 @@ class EmojiMockDataRepository(
         ConcurrentHashMap()
     private var overviewEmojisCache: Map<String, List<Emoji>>? = null
 
+    // The gradual filling of this cache is not simulated here. That would be silly,
+    // since this is temporary. getEmoji, the user of this cache, will in practise always
+    // get an emoji from this cache that had already been loaded; otherwise, how did it
+    // get the emoji's name?
+    private val emojisByNameCache: Map<String, Emoji>
+        get() = mockdata?.associateBy { it.name } ?: emptyMap()
+
     private var mockdata: List<Emoji>? = null
 
     // This method loads the emojis from the assets folder and is only needed when not using an API
@@ -87,6 +94,7 @@ class EmojiMockDataRepository(
                     allEmojis.filter { it.category == category },
             )
         catalogueCache[category] = emojisOfCategory
+
         return emojisOfCategory
     }
 
@@ -119,6 +127,10 @@ class EmojiMockDataRepository(
     }
 
     override suspend fun getEmoji(name: String): Emoji? {
+        val emoji = emojisByNameCache[name]
+        if (emoji != null) {
+            return emoji
+        }
         delay(simulatedDelay)
         return loadMockdata().find { it.name == name }
     }

@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.platform.openemoji.R
 import com.platform.openemoji.ads.InlineAd
+import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
@@ -40,6 +41,7 @@ fun HomeScreen(
                 .testTag("homeScreen")
                 .verticalScroll(rememberScrollState()),
     ) {
+        TopBottomAd()
         HeaderLogo()
         // Most Popular
         // Made using EmojiCatalogue with only one category: "Most Popular"

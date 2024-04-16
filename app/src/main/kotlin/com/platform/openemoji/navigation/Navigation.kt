@@ -25,9 +25,11 @@ import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
+import com.platform.openemoji.screens.FavoritesScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -54,6 +56,11 @@ fun Navigation(
             EventViewModel(repositories.eventsRepository)
         }
 
+    val favoritesViewModel =
+        viewModel(key = "favorites") {
+            FavoritesViewModel(repositories.favoritesRepository)
+        }
+
     val navController = rememberNavController()
     val startDestination = Screen.HomeScreen.route
     Scaffold(
@@ -75,6 +82,12 @@ fun Navigation(
                     route = Screen.SearchScreen.route,
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
+                }
+                /**
+                 * Routing for FavoritesScreen
+                 */
+                composable(route = Screen.FavoritesScreen.route) {
+                    FavoritesScreen(favoritesViewModel)
                 }
 
                 /**
@@ -101,6 +114,7 @@ fun Navigation(
 
                     emoji.value?.let {
                         EmojiDetailScreen(
+                            favoritesViewModel = favoritesViewModel,
                             emoji = it,
                             navController = navController,
                         )
