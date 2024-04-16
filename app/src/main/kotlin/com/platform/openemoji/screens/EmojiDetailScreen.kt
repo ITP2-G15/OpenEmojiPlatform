@@ -20,7 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
@@ -51,6 +53,21 @@ fun EmojiDetailScreen(
         }
     }
     val scrollState = rememberScrollState()
+    val description =
+        HtmlCompat.fromHtml(
+            emoji.description,
+            HtmlCompat.FROM_HTML_MODE_COMPACT,
+        ).toString()
+    val seeMore = "See more details here"
+    val annotatedString =
+        buildAnnotatedString {
+            withStyle(style = MaterialTheme.typography.titleMedium.toSpanStyle()) {
+                append(description)
+            }
+            withStyle(style = MaterialTheme.typography.titleMedium.toSpanStyle().copy()) {
+                append(seeMore)
+            }
+        }
     Column(
         modifier =
             Modifier
@@ -92,24 +109,11 @@ fun EmojiDetailScreen(
         }
 
         Text(
-            text =
-                HtmlCompat.fromHtml(
-                    emoji.description,
-                    HtmlCompat.FROM_HTML_MODE_COMPACT,
-                ).toString(),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 2.dp),
-        )
-        Text(
-            text = "See more details here",
-            style = MaterialTheme.typography.titleMedium,
+            text = annotatedString,
             modifier =
-                Modifier
-                    .padding(horizontal = 20.dp, vertical = 2.dp)
-                    .clickable {
-                        uriHandler.openUri(emoji.url)
-                    },
-            color = MaterialTheme.colorScheme.primary,
+                Modifier.padding(horizontal = 20.dp, vertical = 2.dp).clickable {
+                    uriHandler.openUri(emoji.url)
+                },
         )
     }
 }
