@@ -1,8 +1,8 @@
 package com.platform.openemoji.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Extension
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -108,6 +108,7 @@ fun BottomNavigationBar(
                 }
             },
             modifier = Modifier.testTag("bottomNavigationBarGames"),
+        )
         NavigationBarItem(
             selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
             label = {
@@ -135,8 +136,6 @@ fun BottomNavigationBar(
                 }
             },
             modifier = Modifier.testTag("bottomNavigationBarFavourites"),
-        )
-            modifier = Modifier.testTag("bottomNavigationBarGame"),
         )
     }
 }
