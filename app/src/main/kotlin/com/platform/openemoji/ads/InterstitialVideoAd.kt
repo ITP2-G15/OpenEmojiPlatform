@@ -1,10 +1,5 @@
 package com.platform.openemoji.ads
-import android.app.Activity
 import android.content.Context
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -26,7 +21,7 @@ fun loadInterstitialVideoAd(
     )
 }
 
-// DETTE SKAL INN I SEQUEENS SCREEN
+/*// DETTE SKAL INN I SEQUEENS SCREEN
 // Start loading an interstitial fullscreen ad. Only if this ad is loaded
 // by the time the user presses the return arrow, will the ad be shown.
 val interstitialAd = remember { mutableStateOf<InterstitialAd?>(null) }
@@ -38,7 +33,8 @@ if (AdSettings.get().displayInterstitialAdFromEmojiDetailScreen) {
     }
 }
 
-// PÅ SELVE COPY KNAPPEN
+
+ PÅ SELVE COPY KNAPPEN
 {
     interstitialAd.value?.show(context as Activity)
-}
+}*/
