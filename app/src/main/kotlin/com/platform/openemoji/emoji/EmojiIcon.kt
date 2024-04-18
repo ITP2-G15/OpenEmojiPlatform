@@ -22,6 +22,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
 
@@ -47,6 +48,7 @@ fun IconRoute(
 @Composable
 fun IconCopy(emoji: Emoji) {
     val clipboardManager = LocalClipboardManager.current
+    val analytics = LocalAnalytics.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -56,6 +58,10 @@ fun IconCopy(emoji: Emoji) {
             modifier =
                 Modifier.clickable {
                     clipboardManager.setText(AnnotatedString(emoji.code))
+                    analytics?.track(
+                        "CopiedEmoji",
+                        mapOf("emoji name" to emoji.name),
+                    )
                 },
         )
         Button(
