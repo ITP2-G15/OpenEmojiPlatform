@@ -29,9 +29,7 @@ easily add support for multiple languages if needed -->
     <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
     <string name="overview">Overview</string>
-<<<<<<< HEAD
     <string name="see_more_details">See more details</string>
-=======
     <string name="start_sequence_icon_description">Click to start a sequence</string>
     <string name="start_sequence">Start a new favorite sequence with</string>
     <string name="add_emoji_button_description">Click to add emoji to favorite sequence</string>
