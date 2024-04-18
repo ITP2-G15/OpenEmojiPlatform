@@ -27,6 +27,7 @@ import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
@@ -60,6 +61,10 @@ fun Navigation(
     val favoritesViewModel =
         viewModel(key = "favorites") {
             FavoritesViewModel(repositories.favoritesRepository)
+        }
+    val gameViewModel =
+        viewModel(key = "game") {
+            GameViewModel(repositories.gameRepository)
         }
 
     val navController = rememberNavController()
@@ -146,7 +151,7 @@ fun Navigation(
                     EventListScreen(eventViewModel, navController)
                 }
                 composable(route = Screen.GameScreen.route) {
-                    GameScreen(navController)
+                    GameScreen(gameViewModel, navController)
                 }
             }
         }
