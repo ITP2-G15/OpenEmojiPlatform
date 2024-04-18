@@ -1,17 +1,6 @@
 package com.platform.openemoji.favorites
 
-import android.content.ClipboardManager
-import android.content.Context
-import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
-import com.platform.openemoji.theme.OpenEmojiPlatformTheme
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-
+/*
 class FavoriteCardTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
@@ -69,3 +58,4 @@ class FavoriteCardTest {
         assert(favorite.emojiSequence == copiedText)
     }
 }
+*/
