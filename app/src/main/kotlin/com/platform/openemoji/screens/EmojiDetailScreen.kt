@@ -1,11 +1,13 @@
 package com.platform.openemoji.screens
 
 import android.app.Activity
-import androidx.compose.foundation.clickable
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -18,15 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.platform.openemoji.R
 import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.ads.loadInterstitialAd
@@ -40,7 +44,7 @@ fun EmojiDetailScreen(
     navController: NavController,
 ) {
     val context = LocalContext.current
-    val uriHandler = LocalUriHandler.current
+    val eventIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(emoji.url)) }
 
     // Start loading an interstitial fullscreen ad. Only if this ad is loaded
     // by the time the user presses the return arrow, will the ad be shown.
@@ -57,14 +61,21 @@ fun EmojiDetailScreen(
         HtmlCompat.fromHtml(
             emoji.description,
             HtmlCompat.FROM_HTML_MODE_COMPACT,
-        ).toString()
-    val seeMore = "See more details here"
+        ).toString().trim() + "\n"
+    val seeMore = stringResource(R.string.see_more_details)
     val annotatedString =
         buildAnnotatedString {
             withStyle(style = MaterialTheme.typography.titleMedium.toSpanStyle()) {
                 append(description)
             }
-            withStyle(style = MaterialTheme.typography.titleMedium.toSpanStyle().copy()) {
+            withStyle(
+                style =
+                    MaterialTheme.typography.titleMedium.toSpanStyle().copy(
+                        color = MaterialTheme.colorScheme.primary,
+                        textDecoration = TextDecoration.Underline,
+                    ),
+            ) {
+                pushStringAnnotation(tag = seeMore, annotation = seeMore)
                 append(seeMore)
             }
         }
@@ -108,12 +119,19 @@ fun EmojiDetailScreen(
             }
         }
 
-        Text(
+        ClickableText(
             text = annotatedString,
             modifier =
-                Modifier.padding(horizontal = 20.dp, vertical = 2.dp).clickable {
-                    uriHandler.openUri(emoji.url)
-                },
+                Modifier.padding(
+                    horizontal = 14.dp,
+                    vertical = 8.dp,
+                ),
+            onClick = { offset ->
+                annotatedString.getStringAnnotations(offset, offset)
+                    .firstOrNull()?.let {
+                        context.startActivity(eventIntent)
+                    }
+            },
         )
     }
 }
