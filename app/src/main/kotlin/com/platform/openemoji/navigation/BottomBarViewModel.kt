@@ -10,6 +10,13 @@ data class Tab(
     val route: String,
 )
 
+/**
+ * ViewModel for the bottom bar.
+ * Holds the current and previous selected tab
+ * and maps to order and route values.
+ * NOTE: Can add additional list of tabs if needed. Can be useful to loop through
+ * instead of manually creating tabs later.
+ */
 class BottomBarViewModel : ViewModel() {
     // Holds and maps current tab to its order value and route.
     private val currentSelectedTab = MutableStateFlow<Tab?>(null)
