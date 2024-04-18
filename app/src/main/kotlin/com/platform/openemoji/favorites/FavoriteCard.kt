@@ -107,6 +107,7 @@ fun FavoriteCard(
                             clipboardManager.setText(
                                 AnnotatedString(favorite.emojiCodes.joinToString("")),
                             )
+                            interstitialAd.value?.show(context as Activity)
                         },
                         colors =
                             ButtonDefaults.buttonColors(
@@ -116,7 +117,6 @@ fun FavoriteCard(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.testTag("copyButton"),
                     ) {
-                        interstitialAd.value?.show(context as Activity)
                         Icon(
                             Icons.Default.ContentCopy,
                             contentDescription =
