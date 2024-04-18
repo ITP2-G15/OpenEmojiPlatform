@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.Application
+import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
 import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
@@ -24,6 +25,7 @@ import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.search.EmojiSearchViewModel
 import com.platform.openemoji.search.SearchField
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SearchScreen(
@@ -33,6 +35,7 @@ fun SearchScreen(
     repositories: RepositoryStore =
         LocalContext.current.applicationContext as Application,
 ) {
+    val analytics = LocalAnalytics.current
     val emojiSearchViewModel: EmojiSearchViewModel =
         viewModel(key = "emojiSearch") {
             EmojiSearchViewModel(repositories.emojiRepository)
@@ -40,8 +43,21 @@ fun SearchScreen(
     val searchQuery by emojiSearchViewModel.searchQuery.collectAsState()
     val searchResults by emojiSearchViewModel.searchResults
         .collectAsState(emptyList())
+
     val searchResultsAreLoading by emojiSearchViewModel.searchResultsAreLoading
         .collectAsState()
+
+    // Collect search data for analytics
+    LaunchedEffect(LocalLifecycleOwner.current) {
+        emojiSearchViewModel.searchQuery.onEach { query ->
+            if (query.isNotEmpty()) {
+                analytics?.track(
+                    "emoji search",
+                    mapOf("query" to query),
+                )
+            }
+        }
+    }
 
     // Load category names and the initial overview emojis
     LaunchedEffect(LocalLifecycleOwner.current) {
