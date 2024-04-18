@@ -17,10 +17,10 @@ class InlineAdTest {
     @Test
     fun testInlineAdDisplaysWithCorrectHeight() {
         composeTestRule.setContent {
-            InlineAd(minHeight = 150.dp)
+            InlineAd(minHeight = 100.dp)
         }
         composeTestRule.onNodeWithTag(
             "InlineAdView",
-        ).assertIsDisplayed().assertHeightIsAtLeast(150.dp)
+        ).assertIsDisplayed().assertHeightIsAtLeast(100.dp)
     }
 }
