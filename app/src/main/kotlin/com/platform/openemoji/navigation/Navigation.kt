@@ -79,8 +79,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.SearchScreen.route,
-                    enterTransition = slideEnterTransition(),
-                    exitTransition = slideExitTransition(),
+                    enterTransition = selectEnterTransition(navController),
+                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -94,8 +94,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.FavoritesScreen.route,
-                    enterTransition = slideEnterTransition(),
-                    exitTransition = slideExitTransition(),
+                    enterTransition = selectEnterTransition(navController),
+                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -141,14 +141,8 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.HomeScreen.route,
-                    enterTransition =
-                        slideEnterTransition(
-                            AnimatedContentTransitionScope.SlideDirection.Right,
-                        ),
-                    exitTransition =
-                        slideExitTransition(
-                            AnimatedContentTransitionScope.SlideDirection.Left,
-                        ),
+                    enterTransition = selectEnterTransition(navController),
+                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
