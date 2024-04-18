@@ -1,32 +1,40 @@
 package com.platform.openemoji.ads
 
+import android.app.Activity
 import android.content.Context
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAd.load
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
-/**
- * Interstitial ads are fullscreen ads displayed at natural transition points in the app.
- * Loads an interstitial ad and calls onLoaded with the
- * loaded ad as the argument - as long as the ad was loaded successfully.
- *
- * @param context can be accessed in a composable using "LocalContext.current".
- * @param onLoaded the function called with the ad as argument when the ad is finished loading.
- */
-fun loadInterstitialAd(
-    context: Context,
-    onLoaded: (loadedAd: InterstitialAd) -> Unit,
-) {
-    load(
-        context,
-        "ca-app-pub-3940256099942544/1033173712",
-        AdRequest.Builder().build(),
-        object : InterstitialAdLoadCallback() {
-            override fun onAdLoaded(loadedAd: InterstitialAd) {
-                super.onAdLoaded(loadedAd)
-                onLoaded(loadedAd)
+object InterstitialAd {
+    private const val ADUNITID = "ca-app-pub-3940256099942544/1033173712"
+    private var interstitialAd: InterstitialAd? = null
+    private const val COOLDOWN: Long = 2 * 60 * 1000 // 2 minutes
+    private var lastShownTime: Long = 0
+
+    fun show(context: Context) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastShownTime >= COOLDOWN) {
+            interstitialAd?.let {
+                it.show(context as Activity)
+                lastShownTime = System.currentTimeMillis()
+                interstitialAd = null
             }
-        },
-    )
+        }
+    }
+
+    fun load(context: Context) {
+        if (interstitialAd != null) return
+        InterstitialAd.load(
+            context,
+            ADUNITID,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(loadedAd: InterstitialAd) {
+                    super.onAdLoaded(loadedAd)
+                    interstitialAd = loadedAd
+                }
+            },
+        )
+    }
 }
