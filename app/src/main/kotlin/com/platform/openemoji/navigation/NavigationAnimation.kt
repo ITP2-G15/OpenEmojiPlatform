@@ -17,8 +17,8 @@ import androidx.navigation.NavController
 fun selectEnterTransition(
     navController: NavController,
 ): (AnimatedContentTransitionScope<*>) -> EnterTransition {
-    val previousRouteOrder = navController.previousBackStackEntry?.destination?.navOrder
-    val currentRouteOrder = navController.currentBackStackEntry?.destination?.navOrder
+    val previousRouteOrder = navController.previousBackStackEntry?.destination?.id
+    val currentRouteOrder = navController.currentBackStackEntry?.destination?.id
 
     if (previousRouteOrder != null) {
         return if (previousRouteOrder > currentRouteOrder!!) {
@@ -37,8 +37,8 @@ fun selectEnterTransition(
 fun selectExitTransition(
     navController: NavController,
 ): (AnimatedContentTransitionScope<*>) -> ExitTransition {
-    val previousRouteOrder = navController.previousBackStackEntry?.destination?.navOrder
-    val currentRouteOrder = navController.currentBackStackEntry?.destination?.navOrder
+    val previousRouteOrder = navController.previousBackStackEntry?.destination?.id
+    val currentRouteOrder = navController.currentBackStackEntry?.destination?.id
 
     if (previousRouteOrder != null) {
         return if (previousRouteOrder > currentRouteOrder!!) {
