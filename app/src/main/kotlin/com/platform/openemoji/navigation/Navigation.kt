@@ -1,8 +1,6 @@
 package com.platform.openemoji.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -58,6 +58,15 @@ fun Navigation(
             EventViewModel(repositories.eventsRepository)
         }
 
+    val bottomBarViewModel: BottomBarViewModel = viewModel()
+
+    val currentOrderValue by bottomBarViewModel.currentOrderValue.collectAsState(
+        initial = 1,
+    )
+    val previousOrderValue by bottomBarViewModel.previousOrderValue.collectAsState(
+        initial = null,
+    )
+
     val navController = rememberNavController()
     val startDestination = Screen.HomeScreen.route
     Scaffold(
@@ -65,22 +74,31 @@ fun Navigation(
         bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues).fillMaxSize(),
+            modifier =
+                Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
                 navController = navController,
                 startDestination = startDestination,
-                enterTransition = { EnterTransition.None },
-                exitTransition = { ExitTransition.None },
+                enterTransition =
+                    selectEnterTransition(
+                        currentOrderValue,
+                        previousOrderValue,
+                    ),
+                exitTransition =
+                    selectExitTransition(
+                        currentOrderValue,
+                        previousOrderValue,
+                    ),
             ) {
                 /**
                  * Routing for SearchScreen
                  */
                 composable(
                     route = Screen.SearchScreen.route,
-                    enterTransition = selectEnterTransition(navController),
-                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -94,8 +112,6 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.FavoritesScreen.route,
-                    enterTransition = selectEnterTransition(navController),
-                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -141,8 +157,6 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.HomeScreen.route,
-                    enterTransition = selectEnterTransition(navController),
-                    exitTransition = selectExitTransition(navController),
                     popEnterTransition =
                         slideEnterTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,

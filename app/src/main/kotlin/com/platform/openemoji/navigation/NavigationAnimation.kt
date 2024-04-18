@@ -5,7 +5,6 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.navigation.NavController
 
 /**
  * Used to select the transition based on the previous and current route
@@ -15,19 +14,17 @@ import androidx.navigation.NavController
  * @return The transition based on the previous and current route
  */
 fun selectEnterTransition(
-    navController: NavController,
+    currentOrderValue: Int? = null,
+    previousOrderValue: Int? = null,
 ): (AnimatedContentTransitionScope<*>) -> EnterTransition {
-    val previousRouteOrder = navController.previousBackStackEntry?.destination?.id
-    val currentRouteOrder = navController.currentBackStackEntry?.destination?.id
-
-    if (previousRouteOrder != null) {
-        return if (previousRouteOrder > currentRouteOrder!!) {
-            slideEnterTransition(
-                AnimatedContentTransitionScope.SlideDirection.Left,
-            )
-        } else {
+    if (previousOrderValue != null) {
+        return if (previousOrderValue > currentOrderValue!!) {
             slideEnterTransition(
                 AnimatedContentTransitionScope.SlideDirection.Right,
+            )
+        } else {
+            return slideEnterTransition(
+                AnimatedContentTransitionScope.SlideDirection.Left,
             )
         }
     }
@@ -35,19 +32,17 @@ fun selectEnterTransition(
 }
 
 fun selectExitTransition(
-    navController: NavController,
+    currentOrderValue: Int? = null,
+    previousOrderValue: Int? = null,
 ): (AnimatedContentTransitionScope<*>) -> ExitTransition {
-    val previousRouteOrder = navController.previousBackStackEntry?.destination?.id
-    val currentRouteOrder = navController.currentBackStackEntry?.destination?.id
-
-    if (previousRouteOrder != null) {
-        return if (previousRouteOrder > currentRouteOrder!!) {
-            slideExitTransition(
-                AnimatedContentTransitionScope.SlideDirection.Left,
-            )
-        } else {
+    if (previousOrderValue != null) {
+        return if (previousOrderValue > currentOrderValue!!) {
             slideExitTransition(
                 AnimatedContentTransitionScope.SlideDirection.Right,
+            )
+        } else {
+            return slideExitTransition(
+                AnimatedContentTransitionScope.SlideDirection.Left,
             )
         }
     }
