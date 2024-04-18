@@ -1,5 +1,6 @@
 package com.platform.openemoji.navigation
 
+import GameScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,7 @@ import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
@@ -55,6 +57,11 @@ fun Navigation(
             EventViewModel(repositories.eventsRepository)
         }
 
+    val favoritesViewModel =
+        viewModel(key = "favorites") {
+            FavoritesViewModel(repositories.favoritesRepository)
+        }
+
     val navController = rememberNavController()
     val startDestination = Screen.HomeScreen.route
     Scaffold(
@@ -81,7 +88,7 @@ fun Navigation(
                  * Routing for FavoritesScreen
                  */
                 composable(route = Screen.FavoritesScreen.route) {
-                    FavoritesScreen(navController = navController)
+                    FavoritesScreen(favoritesViewModel)
                 }
 
                 /**
@@ -108,6 +115,7 @@ fun Navigation(
 
                     emoji.value?.let {
                         EmojiDetailScreen(
+                            favoritesViewModel = favoritesViewModel,
                             emoji = it,
                             navController = navController,
                         )
@@ -136,6 +144,9 @@ fun Navigation(
                  */
                 composable(route = Screen.EventListScreen.route) {
                     EventListScreen(eventViewModel, navController)
+                }
+                composable(route = Screen.GameScreen.route) {
+                    GameScreen(navController)
                 }
             }
         }

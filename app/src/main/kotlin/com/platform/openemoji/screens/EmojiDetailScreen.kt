@@ -37,10 +37,12 @@ import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.ads.loadInterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
 fun EmojiDetailScreen(
+    favoritesViewModel: FavoritesViewModel,
     emoji: Emoji,
     navController: NavController,
 ) {

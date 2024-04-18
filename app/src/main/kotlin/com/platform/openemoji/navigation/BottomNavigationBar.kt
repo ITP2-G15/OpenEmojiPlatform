@@ -1,6 +1,7 @@
 package com.platform.openemoji.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
@@ -79,6 +80,34 @@ fun BottomNavigationBar(
                 }
             },
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
+        )
+        NavigationBarItem(
+            selected = selectedRootScreen.value == Screen.GameScreen.route,
+            label = {
+                Text(stringResource(R.string.games_icon_description))
+            },
+            icon = {
+                Icon(
+                    Icons.Default.Extension,
+                    contentDescription =
+                        stringResource(
+                            R.string.games_icon_description,
+                        ),
+                )
+            },
+            onClick = {
+                selectedRootScreen.value = Screen.GameScreen.route
+                navController.navigate(Screen.GameScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            modifier = Modifier.testTag("bottomNavigationBarGames"),
         )
         NavigationBarItem(
             selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
