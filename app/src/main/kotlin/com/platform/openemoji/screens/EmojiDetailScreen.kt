@@ -65,6 +65,7 @@ fun EmojiDetailScreen(
         ) {
             interstitialAd.value?.show(context as Activity)
         }
+
         InlineAd()
         Card(
             modifier =
