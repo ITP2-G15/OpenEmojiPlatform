@@ -4,7 +4,6 @@ import android.app.Application
 import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.android.DefaultTrackingOptions
-import com.amplitude.core.ServerZone
 import com.platform.openemoji.emoji.EmojiMockDataRepository
 import com.platform.openemoji.emoji.EmojiRepository
 import com.platform.openemoji.events.EventsMockDataRepository
@@ -55,7 +54,6 @@ class Application : Application(), RepositoryStore {
                     apiKey = "efe7c6f94fd4d20f32b6f9b91f66d6be",
                     context = applicationContext,
                     defaultTracking = DefaultTrackingOptions.ALL,
-                    serverZone = ServerZone.EU,
                 ),
             )
     }
