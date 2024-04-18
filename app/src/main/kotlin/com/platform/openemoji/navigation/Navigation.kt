@@ -1,5 +1,6 @@
 package com.platform.openemoji.navigation
 
+import GameScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -143,6 +144,9 @@ fun Navigation(
                  */
                 composable(route = Screen.EventListScreen.route) {
                     EventListScreen(eventViewModel, navController)
+                }
+                composable(route = Screen.GameScreen.route) {
+                    GameScreen(navController)
                 }
             }
         }
