@@ -28,7 +28,7 @@ class EmojiSearchViewModel(
      * small period of inactivity.
      */
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-    var searchResults =
+    val searchResults =
         searchQuery
             .debounce(250)
             // mapLatest cancels old search jobs
