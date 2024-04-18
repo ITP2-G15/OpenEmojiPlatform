@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.InlineAd
-import com.platform.openemoji.ads.loadInterstitialAd
+import com.platform.openemoji.ads.InterstitialAds
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 import com.platform.openemoji.favorites.FavoritesViewModel
@@ -45,7 +45,7 @@ fun EmojiDetailScreen(
     val interstitialAd = remember { mutableStateOf<InterstitialAd?>(null) }
     if (AdSettings.get().displayInterstitialAdFromEmojiDetailScreen) {
         LaunchedEffect(LocalLifecycleOwner.current) {
-            loadInterstitialAd(context) {
+            InterstitialAds.load(context) {
                 interstitialAd.value = it
             }
         }
