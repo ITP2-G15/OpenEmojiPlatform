@@ -57,15 +57,19 @@ fun IconCopy(emoji: Emoji) {
             style = MaterialTheme.typography.displayLarge,
             modifier =
                 Modifier.clickable {
-                    clipboardManager.setText(AnnotatedString(emoji.code))
                     analytics?.track(
                         "CopiedEmoji",
                         mapOf("emoji name" to emoji.name),
                     )
+                    clipboardManager.setText(AnnotatedString(emoji.code))
                 },
         )
         Button(
             onClick = {
+                analytics?.track(
+                    "CopiedEmoji",
+                    mapOf("emoji name" to emoji.name),
+                )
                 clipboardManager.setText(AnnotatedString(emoji.code))
             },
             colors =
