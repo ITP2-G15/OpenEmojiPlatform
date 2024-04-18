@@ -99,6 +99,7 @@ fun EmojiDetailScreen(
         }
 
         TopBottomAd()
+
         Card(
             modifier =
                 Modifier
