@@ -25,7 +25,6 @@ import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.header.HeaderLogo
 import com.platform.openemoji.search.EmojiSearchViewModel
 import com.platform.openemoji.search.SearchField
-import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SearchScreen(
@@ -48,15 +47,8 @@ fun SearchScreen(
         .collectAsState()
 
     // Collect search data for analytics
-    LaunchedEffect(LocalLifecycleOwner.current) {
-        emojiSearchViewModel.searchQuery.onEach { query ->
-            if (query.isNotEmpty()) {
-                analytics?.track(
-                    "emoji search",
-                    mapOf("query" to query),
-                )
-            }
-        }
+    LaunchedEffect(analytics) {
+        analytics?.let { emojiSearchViewModel.useSearchAnalytics(it) }
     }
 
     // Load category names and the initial overview emojis
