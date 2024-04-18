@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -16,7 +17,7 @@ fun TopBottomAd(minHeight: Dp = 60.dp) {
     Box(
         modifier =
             Modifier
-                .fillMaxWidth().height(minHeight),
+                .fillMaxWidth().height(minHeight).testTag("TopBottomAdView"),
     ) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
