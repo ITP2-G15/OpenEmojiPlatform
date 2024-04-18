@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
+import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.InterstitialAd
@@ -35,6 +36,15 @@ fun EmojiDetailScreen(
     navController: NavController,
 ) {
     val context = LocalContext.current
+
+    // Record for analytics that this screen was entered and the emoji's name.
+    val analytics = LocalAnalytics.current
+    LaunchedEffect(analytics) {
+        analytics?.track(
+            "EnteredEmojiDetails",
+            mapOf("emoji name" to emoji.name),
+        )
+    }
 
     // Start loading an interstitial fullscreen ad. Only if this ad is loaded
     // by the time the user presses the return arrow, will the ad be shown.
