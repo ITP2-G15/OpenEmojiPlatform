@@ -140,7 +140,10 @@ fun Navigation(
                             },
                         ),
                     enterTransition = slideEnterTransition(),
-                    popExitTransition = slideExitTransition(),
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
                     val emoji = remember { mutableStateOf<Emoji?>(null) }
@@ -184,7 +187,10 @@ fun Navigation(
                 composable(
                     route = Screen.NewsListScreen.route,
                     enterTransition = slideEnterTransition(),
-                    popExitTransition = slideExitTransition(),
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
                 ) {
                     NewsListScreen(newsViewModel, navController)
                 }
@@ -195,7 +201,10 @@ fun Navigation(
                 composable(
                     route = Screen.EventListScreen.route,
                     enterTransition = slideEnterTransition(),
-                    popExitTransition = slideExitTransition(),
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
                 ) {
                     EventListScreen(eventViewModel, navController)
                 }

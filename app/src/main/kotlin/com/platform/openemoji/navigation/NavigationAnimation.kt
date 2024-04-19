@@ -5,6 +5,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 
 /**
  * Used to select the transition based on the previous and current route
@@ -66,10 +67,15 @@ fun slideEnterTransition(
 
 fun slideExitTransition(
     direction: AnimatedContentTransitionScope.SlideDirection =
-        AnimatedContentTransitionScope.SlideDirection.Right,
+        AnimatedContentTransitionScope.SlideDirection.Left,
 ): (AnimatedContentTransitionScope<*>.() -> ExitTransition) =
     {
-        slideOutOfContainer(
-            towards = direction,
-        )
+        fadeOut(
+            tween(
+                durationMillis = 300,
+            ),
+        ) +
+            slideOutOfContainer(
+                towards = direction,
+            )
     }
