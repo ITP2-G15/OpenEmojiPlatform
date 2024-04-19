@@ -76,7 +76,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 3)
+                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 2)
                 navController.navigate(Screen.SearchScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -104,7 +104,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 2)
+                bottomBarViewModel.selectTab(Screen.GameScreen.route, 3)
                 navController.navigate(Screen.GameScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -132,7 +132,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.FavoritesScreen.route, 3)
+                bottomBarViewModel.selectTab(Screen.FavoritesScreen.route, 4)
                 navController.navigate(Screen.FavoritesScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
