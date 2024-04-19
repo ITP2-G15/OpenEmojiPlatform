@@ -70,7 +70,7 @@ fun Navigation(
     val currentOrderValue by bottomBarViewModel.currentOrderValue.collectAsState(
         initial = 1,
     )
-    val previousOrderValue by bottomBarViewModel.previousOrderValue.collectAsState(
+    val previousOrderValue by bottomBarViewModel.lastNavigatedOrderValue.collectAsState(
         initial = null,
     )
 
@@ -112,7 +112,7 @@ fun Navigation(
                         ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
-                    bottomBarViewModel.resetPreviousTab()
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -126,7 +126,7 @@ fun Navigation(
                         ),
                 ) {
                     FavoritesScreen(favoritesViewModel)
-                    bottomBarViewModel.resetPreviousTab()
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -181,7 +181,7 @@ fun Navigation(
                         newsViewModel,
                         navController,
                     )
-                    bottomBarViewModel.resetPreviousTab()
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -216,7 +216,7 @@ fun Navigation(
                     popExitTransition = slideExitTransition(),
                 ) {
                     GameScreen(navController)
-                    bottomBarViewModel.resetPreviousTab()
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
             }
         }

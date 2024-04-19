@@ -18,30 +18,29 @@ data class Tab(
  * instead of manually creating tabs later.
  */
 class BottomBarViewModel : ViewModel() {
-    // Holds and maps current tab to its order value and route.
+    // Holds and maps current tab to it's order value and route.
     private val currentSelectedTab = MutableStateFlow<Tab?>(null)
     val currentOrderValue = currentSelectedTab.asStateFlow().map { it?.orderValue }
     val currentRoute = currentSelectedTab.asStateFlow().map { it?.route }
 
-    // Holds and maps previous tab to tis order value and route.
-    private val previousSelectedTab = MutableStateFlow<Tab?>(null)
-    val previousOrderValue = previousSelectedTab.asStateFlow().map { it?.orderValue }
-    val previousRoute = previousSelectedTab.asStateFlow().map { it?.route }
+    // Holds and maps previous tab to it's order value and route.
+    private val lastNavigatedTab = MutableStateFlow<Tab?>(null)
+    val lastNavigatedOrderValue = lastNavigatedTab.asStateFlow().map { it?.orderValue }
 
     // Updates the previous state and the current state of the selected tab.
     fun selectTab(
         screen: String,
         orderValue: Int,
     ) {
-        previousSelectedTab.value = currentSelectedTab.value
+        lastNavigatedTab.value = currentSelectedTab.value
         currentSelectedTab.value = Tab(orderValue, screen)
     }
 
-    // Resets the previous state and the current state of the selected tab.
+    // Resets the previous state of the selected tab.
     // NOTE: This is needed in order to properly transition to elements in each tab
     // that does not count as a tab element. As they transition differently. Therefore,
     // we need to reset the previous tab to null after transition has been complete.
-    fun resetPreviousTab() {
-        previousSelectedTab.value = null
+    fun resetLastNavigatedTab() {
+        lastNavigatedTab.value = null
     }
 }
