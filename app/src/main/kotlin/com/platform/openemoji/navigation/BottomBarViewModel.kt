@@ -36,4 +36,12 @@ class BottomBarViewModel : ViewModel() {
         previousSelectedTab.value = currentSelectedTab.value
         currentSelectedTab.value = Tab(orderValue, screen)
     }
+
+    // Resets the previous state and the current state of the selected tab.
+    // NOTE: This is needed in order to properly transition to elements in each tab
+    // that does not count as a tab element. As they transition differently. Therefore,
+    // we need to reset the previous tab to null after transition has been complete.
+    fun resetPreviousTab() {
+        previousSelectedTab.value = null
+    }
 }

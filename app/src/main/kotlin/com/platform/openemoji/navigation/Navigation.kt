@@ -112,6 +112,7 @@ fun Navigation(
                         ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
+                    bottomBarViewModel.resetPreviousTab()
                 }
 
                 /**
@@ -125,6 +126,7 @@ fun Navigation(
                         ),
                 ) {
                     FavoritesScreen(favoritesViewModel)
+                    bottomBarViewModel.resetPreviousTab()
                 }
 
                 /**
@@ -179,6 +181,7 @@ fun Navigation(
                         newsViewModel,
                         navController,
                     )
+                    bottomBarViewModel.resetPreviousTab()
                 }
 
                 /**
@@ -213,6 +216,7 @@ fun Navigation(
                     popExitTransition = slideExitTransition(),
                 ) {
                     GameScreen(navController)
+                    bottomBarViewModel.resetPreviousTab()
                 }
             }
         }
