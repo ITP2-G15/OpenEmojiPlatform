@@ -1,7 +1,7 @@
 package com.platform.openemoji.navigation
 
-import androidx.compose.animation.AnimatedContentTransitionScope
 import GameScreen
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -201,7 +201,7 @@ fun Navigation(
                 }
                 composable(
                     route = Screen.GameScreen.route,
-                    popExitTransition = slideExitTransition()
+                    popExitTransition = slideExitTransition(),
                 ) {
                     GameScreen(navController)
                 }
