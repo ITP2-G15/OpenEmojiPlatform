@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -16,7 +15,7 @@ import com.google.android.gms.ads.AdView
 @Composable
 fun InlineAd(minHeight: Dp = 100.dp) {
     Box(
-        modifier = Modifier.fillMaxWidth().height(minHeight).testTag("InlineAdView"),
+        modifier = Modifier.fillMaxWidth().height(minHeight),
     ) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
