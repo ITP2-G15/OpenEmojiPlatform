@@ -58,6 +58,7 @@ fun BottomNavigationBar(
                     launchSingleTop = true
                     restoreState = true
                 }
+                bottomBarViewModel.resetLastNavigatedTab()
             },
             modifier = Modifier.testTag("bottomNavigationBarHome"),
         )
@@ -86,6 +87,7 @@ fun BottomNavigationBar(
                     launchSingleTop = true
                     restoreState = true
                 }
+                bottomBarViewModel.resetLastNavigatedTab()
             },
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
@@ -114,6 +116,7 @@ fun BottomNavigationBar(
                     launchSingleTop = true
                     restoreState = true
                 }
+                bottomBarViewModel.resetLastNavigatedTab()
             },
             modifier = Modifier.testTag("bottomNavigationBarGames"),
         )
@@ -142,6 +145,7 @@ fun BottomNavigationBar(
                     launchSingleTop = true
                     restoreState = true
                 }
+                bottomBarViewModel.resetLastNavigatedTab()
             },
             modifier = Modifier.testTag("bottomNavigationBarFavourites"),
         )
