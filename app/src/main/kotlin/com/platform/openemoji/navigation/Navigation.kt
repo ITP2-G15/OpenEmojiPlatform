@@ -1,6 +1,7 @@
 package com.platform.openemoji.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import GameScreen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +29,7 @@ import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
+import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
@@ -56,6 +58,11 @@ fun Navigation(
     val eventViewModel =
         viewModel(key = "event") {
             EventViewModel(repositories.eventsRepository)
+        }
+
+    val favoritesViewModel =
+        viewModel(key = "favorites") {
+            FavoritesViewModel(repositories.favoritesRepository)
         }
 
     val bottomBarViewModel: BottomBarViewModel = viewModel()
@@ -117,7 +124,7 @@ fun Navigation(
                             AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) {
-                    FavoritesScreen(navController = navController)
+                    FavoritesScreen(favoritesViewModel)
                 }
 
                 /**
@@ -146,6 +153,7 @@ fun Navigation(
 
                     emoji.value?.let {
                         EmojiDetailScreen(
+                            favoritesViewModel = favoritesViewModel,
                             emoji = it,
                             navController = navController,
                         )
@@ -190,6 +198,12 @@ fun Navigation(
                     popExitTransition = slideExitTransition(),
                 ) {
                     EventListScreen(eventViewModel, navController)
+                }
+                composable(
+                    route = Screen.GameScreen.route,
+                    popExitTransition = slideExitTransition()
+                ) {
+                    GameScreen(navController)
                 }
             }
         }

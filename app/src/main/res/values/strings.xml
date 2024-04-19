@@ -4,11 +4,11 @@ easily add support for multiple languages if needed -->
     <string name="app_name">Open Emoji</string>
     <string name="copy">Copy</string>
     <string name="delete">Delete</string>
-    <string name="copy_icon_description">Click to copy emoji</string>
+    <string name="copy_emoji_description">Click to copy emoji</string>
     <string name="copy_to_clipboard">Copied to clipboard</string>
-    <string name="delete_sequence">Delete</string>
     <string name="delete_confirmation">Delete Confirmation</string>
-    <string name="delete_confirmation_message_sequence">Are you sure you want to delete this emoji sequence?</string>
+    <string name="delete_confirmation_message_sequence">Are you sure you want to delete this emoji
+        sequence?</string>
     <string name="home">Home</string>
     <string name="home_icon_description">Click to navigate to the home screen</string>
     <string name="search">Search</string>
@@ -29,4 +29,25 @@ easily add support for multiple languages if needed -->
     <string name="events_and_topics">Events &amp; Topics</string>
     <string name="open_emoji_platform_logo">Open Emoji Platform Logo Icon</string>
     <string name="overview">Overview</string>
+    <string name="start_sequence_icon_description">Click to start a sequence</string>
+    <string name="start_sequence">Start a new favorite sequence with</string>
+    <string name="add_emoji_button_description">Click to add emoji to favorite sequence</string>
+    <string name="save_favorite_button_description">Click to save current favorite sequence to
+        favorites</string>
+    <string name="remove_last_emoji_button_description">Click to remove the last emoji in the
+        favorite sequence</string>
+    <string name="clear_sequence_button_description">Click to clear the favorite sequence</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="name">Name</string>
+    <string name="enter_name_for_favorite">Enter a name for your favorite sequence</string>
+    <string name="name_length_error">Name must be between %1$d and %2$d characters</string>
+    <string name="confirm_clear_title">Clear Confirmation</string>
+    <string name="confirm_clear_message">Are you sure you want to clear your favorite sequence?</string>
+    <string name="save_sequence_toast_message">Favorite sequence saved</string>
+    <string name="copy_sequence_icon_description">Click to copy favorite sequence</string>
+    <string name="no_favorites">You don\'t have any favorites yet. Navigate to an emoji to start
+        creating your first emoji sequence</string>
+    <string name="games_icon_description">Games</string>
 </resources>

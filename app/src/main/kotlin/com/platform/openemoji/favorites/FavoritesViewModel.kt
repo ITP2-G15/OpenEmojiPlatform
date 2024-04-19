@@ -29,9 +29,11 @@ class FavoritesViewModel(
         }
     }
 
-    suspend fun addCurrentFavoriteToFavorites() {
+    suspend fun addCurrentFavoriteToFavorites(name: String) {
         _currentFavorite.value?.let { favorite ->
-            favoritesRepository.addFavorite(favorite)
+            val updatedFavorite = favorite.copy(name = name)
+            favoritesRepository.addFavorite(updatedFavorite)
+            clearCurrentFavorite()
             getFavorites()
         }
     }
@@ -41,17 +43,23 @@ class FavoritesViewModel(
         getFavorites()
     }
 
-    fun setCurrentFavoriteName(name: String) {
-        val favorite = _currentFavorite.value ?: Favorite("", "")
-        _currentFavorite.value = favorite.copy(name = name)
-    }
-
-    fun appendToCurrentFavoriteEmojiSequence(emojiCode: String) {
-        val favorite = _currentFavorite.value ?: Favorite("", "")
+    fun appendToCurrentFavoriteEmojiCodes(emojiCode: String) {
+        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
         _currentFavorite.value =
             favorite.copy(
-                emojiSequence = favorite.emojiSequence + emojiCode,
+                emojiCodes = favorite.emojiCodes + emojiCode,
             )
+    }
+
+    fun removeLastEmojiCodeFromCurrentFavorite() {
+        val favorite = _currentFavorite.value ?: Favorite("", arrayOf())
+        _currentFavorite.value =
+            favorite.copy(
+                emojiCodes = favorite.emojiCodes.dropLast(1).toTypedArray(),
+            )
+        if (favorite.emojiCodes.size == 1) {
+            clearCurrentFavorite()
+        }
     }
 
     fun clearCurrentFavorite() {

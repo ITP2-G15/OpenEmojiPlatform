@@ -1,5 +1,4 @@
 package com.platform.openemoji.ads
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,16 +11,18 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
 @Composable
-fun InlineAd() {
+fun TopBottomAd() {
     Box(
-        modifier = Modifier.fillMaxWidth().height(100.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth().height(60.dp),
     ) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
             factory = { context ->
                 AdView(context).apply {
-                    setAdSize(AdSize.LARGE_BANNER)
-                    adUnitId = "ca-app-pub-3940256099942544/9214589741"
+                    setAdSize(AdSize.FULL_BANNER)
+                    adUnitId = "ca-app-pub-3940256099942544/6300978111"
                     loadAd(AdRequest.Builder().build())
                 }
             },

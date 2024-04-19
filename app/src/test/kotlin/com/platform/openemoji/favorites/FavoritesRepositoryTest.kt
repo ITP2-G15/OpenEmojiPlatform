@@ -14,15 +14,15 @@ class FavoritesRepositoryTest {
         mutableListOf(
             Favorite(
                 "name1",
-                "sequence1",
+                arrayOf("code1", "code2", "code3"),
             ),
             Favorite(
                 "name2",
-                "sequence2",
+                arrayOf("code2", "code3", "code4"),
             ),
             Favorite(
                 "name3",
-                "sequence3",
+                arrayOf("code4", "code8", "code4"),
             ),
         )
 
@@ -42,7 +42,7 @@ class FavoritesRepositoryTest {
     @Test
     fun testAddFavorite() =
         runBlocking {
-            val favorite = Favorite("name4", "sequence4")
+            val favorite = Favorite("name4", arrayOf("code2", "code2", "code3"))
             favoritesRepository.addFavorite(favorite)
 
             val actualFavorites = favoritesRepository.getFavorites().first()
