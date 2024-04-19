@@ -66,9 +66,14 @@ fun EmojiDetailScreen(
             HtmlCompat.FROM_HTML_MODE_COMPACT,
         ).toString().trim() + "\n"
     val seeMore = stringResource(R.string.see_more_details)
-    val annotatedString =
+    val styledEmojiDescription =
         buildAnnotatedString {
-            withStyle(style = MaterialTheme.typography.titleMedium.toSpanStyle()) {
+            withStyle(
+                style =
+                    MaterialTheme.typography.titleMedium.toSpanStyle().copy(
+                        color = MaterialTheme.colorScheme.onSurface,
+                    ),
+            ) {
                 append(description)
             }
             withStyle(
@@ -124,14 +129,14 @@ fun EmojiDetailScreen(
         }
 
         ClickableText(
-            text = annotatedString,
+            text = styledEmojiDescription,
             modifier =
                 Modifier.padding(
                     horizontal = 14.dp,
                     vertical = 8.dp,
                 ),
             onClick = { offset ->
-                annotatedString.getStringAnnotations(offset, offset)
+                styledEmojiDescription.getStringAnnotations(offset, offset)
                     .firstOrNull()?.let {
                         context.startActivity(eventIntent)
                     }
