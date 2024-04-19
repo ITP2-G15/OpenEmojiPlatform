@@ -1,5 +1,4 @@
 package com.platform.openemoji.screens
-
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -14,8 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -35,6 +32,10 @@ import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.ads.loadInterstitialAd
+import com.platform.openemoji.LocalAnalytics
+import com.platform.openemoji.ads.AdSettings
+import com.platform.openemoji.ads.InlineAd
+import com.platform.openemoji.ads.InterstitialAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 import com.platform.openemoji.favorites.FavoritesViewModel
@@ -49,14 +50,20 @@ fun EmojiDetailScreen(
     val context = LocalContext.current
     val eventIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(emoji.url)) }
 
+    // Record for analytics that this screen was entered and the emoji's name.
+    val analytics = LocalAnalytics.current
+    LaunchedEffect(analytics) {
+        analytics?.track(
+            "EnteredEmojiDetails",
+            mapOf("emoji name" to emoji.name),
+        )
+    }
+
     // Start loading an interstitial fullscreen ad. Only if this ad is loaded
     // by the time the user presses the return arrow, will the ad be shown.
-    val interstitialAd = remember { mutableStateOf<InterstitialAd?>(null) }
     if (AdSettings.get().displayInterstitialAdFromEmojiDetailScreen) {
         LaunchedEffect(LocalLifecycleOwner.current) {
-            loadInterstitialAd(context) {
-                interstitialAd.value = it
-            }
+            InterstitialAd.load(context)
         }
     }
     val scrollState = rememberScrollState()
@@ -100,7 +107,7 @@ fun EmojiDetailScreen(
             navController = navController,
             modifier = Modifier.testTag("emojiDetailBackButton"),
         ) {
-            interstitialAd.value?.show(context as Activity)
+            InterstitialAd.show(context)
         }
 
         TopBottomAd()
