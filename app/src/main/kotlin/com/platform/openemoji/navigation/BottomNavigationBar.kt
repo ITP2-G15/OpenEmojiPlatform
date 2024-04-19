@@ -76,7 +76,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 2)
+                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 3)
                 navController.navigate(Screen.SearchScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -90,7 +90,7 @@ fun BottomNavigationBar(
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
         NavigationBarItem(
-            selected = selectedRootScreen.value == Screen.GameScreen.route,
+            selected = currentRoute == Screen.GameScreen.route,
             label = {
                 Text(stringResource(R.string.games_icon_description))
             },
@@ -104,7 +104,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                selectedRootScreen.value = Screen.GameScreen.route
+                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 2)
                 navController.navigate(Screen.GameScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
