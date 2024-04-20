@@ -29,7 +29,6 @@ import androidx.navigation.NavController
 import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
 import com.platform.openemoji.ads.AdSettings
-import com.platform.openemoji.ads.InlineAd
 import com.platform.openemoji.ads.InterstitialAd
 import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.emoji.Emoji
@@ -105,7 +104,6 @@ fun EmojiDetailScreen(
         ) {
             InterstitialAd.show(context)
         }
-
         TopBottomAd()
 
         Card(
