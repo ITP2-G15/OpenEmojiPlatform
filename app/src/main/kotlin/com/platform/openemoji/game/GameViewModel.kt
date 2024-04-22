@@ -36,6 +36,8 @@ class GameViewModel(
     fun incrementLevelCounter() {
         viewModelScope.launch {
             gameRepository.incrementLevelCounter()
+            _levelCounter.value = gameRepository.getLevelCounter()
+            _currentLevel.value = gameRepository.getCurrentLevel()
         }
     }
 }
