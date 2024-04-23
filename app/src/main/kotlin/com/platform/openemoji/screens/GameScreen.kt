@@ -3,25 +3,28 @@ package com.platform.openemoji.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.platform.openemoji.game.GameLevel
 import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.header.HeaderLogo
 
@@ -29,6 +32,8 @@ import com.platform.openemoji.header.HeaderLogo
 fun GameScreen(gameViewModel: GameViewModel) {
     val currentLevel by gameViewModel.currentLevel.collectAsState()
     val levelCounter by gameViewModel.levelCounter.collectAsState()
+
+    var wrongAnswers by remember { mutableStateOf(List(4) { false }) }
 
     Column(
         modifier =
@@ -48,7 +53,7 @@ fun GameScreen(gameViewModel: GameViewModel) {
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -56,10 +61,14 @@ fun GameScreen(gameViewModel: GameViewModel) {
                     style = TextStyle(fontSize = 40.sp),
                     fontWeight = FontWeight.Bold,
                 )
-                currentLevel?.let { GameLevel(it) }
+                currentLevel?.let {
+                    Text(
+                        text = it.emojiQuestion,
+                        style = TextStyle(fontSize = 50.sp),
+                    )
+                }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
 
         Box(
             modifier =
@@ -71,14 +80,33 @@ fun GameScreen(gameViewModel: GameViewModel) {
                 verticalArrangement = Arrangement.Center,
             ) {
                 currentLevel?.alternatives?.forEachIndexed { index, alternative ->
+
                     Button(
                         modifier =
                             Modifier
                                 .padding(vertical = 10.dp)
                                 .fillMaxWidth(1f),
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor =
+                                    if (wrongAnswers[index]) {
+                                        MaterialTheme.colorScheme.error
+                                    } else {
+                                        MaterialTheme.colorScheme.primary
+                                    },
+                            ),
                         onClick = {
                             if (currentLevel?.correctAlternative == index) {
                                 gameViewModel.incrementLevelCounter()
+                                wrongAnswers = List(wrongAnswers.size) { false }
+                            } else {
+                                wrongAnswers =
+                                    wrongAnswers.toMutableList().apply {
+                                        set(
+                                            index,
+                                            true,
+                                        )
+                                    }
                             }
                         },
                     ) {
