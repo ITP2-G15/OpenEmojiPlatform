@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,6 +34,15 @@ import com.platform.openemoji.header.HeaderLogo
 fun GameScreen(gameViewModel: GameViewModel) {
     val currentLevel by gameViewModel.currentLevel.collectAsState()
     val levelCounter by gameViewModel.levelCounter.collectAsState()
+
+    val context = LocalContext.current
+
+    val correctAlternativSound =
+        MediaPlayer.create(
+            context,
+            "File:///assets/SFX/correctAlternativ.mp3",
+        )
+    val wrongAlternativSound = MediaPlayer.create(context, R.raw.audio)
 
     var wrongAnswers by remember { mutableStateOf(List(4) { false }) }
 
