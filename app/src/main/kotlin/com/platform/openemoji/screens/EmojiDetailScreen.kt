@@ -35,6 +35,7 @@ import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.FavoriteMaker
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
@@ -120,6 +121,8 @@ fun EmojiDetailScreen(
                         .padding(horizontal = 12.dp, vertical = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                FavoriteMaker(favoritesViewModel, emoji)
+
                 Text(
                     text = emoji.name,
                     modifier = Modifier.padding(bottom = 12.dp),
