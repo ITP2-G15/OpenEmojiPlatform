@@ -15,8 +15,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 interface GameRepository {
-    suspend fun getAllLevels(): List<Level> = emptyList()
-
     suspend fun getCurrentLevel(): Level? = null
 
     suspend fun getLevelCounter(): Int = 0
@@ -72,10 +70,6 @@ class GameMockDataRepository(
                 gameData[levelCounter] ?: 0
             }
             ?.first() ?: testLevelCounter
-    }
-
-    override suspend fun getAllLevels(): List<Level> {
-        return loadMockdata()
     }
 
     override suspend fun getCurrentLevel(): Level? {

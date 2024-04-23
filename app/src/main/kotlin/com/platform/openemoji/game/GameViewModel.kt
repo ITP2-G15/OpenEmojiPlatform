@@ -9,10 +9,6 @@ import kotlinx.coroutines.launch
 class GameViewModel(
     private val gameRepository: GameRepository,
 ) : ViewModel() {
-    // not sure if this is ever needed?
-    private val _allLevels = MutableStateFlow<List<Level>>(emptyList())
-    val allLevels = _allLevels.asStateFlow()
-
     private val _currentLevel = MutableStateFlow<Level?>(null)
     val currentLevel = _currentLevel.asStateFlow()
 
@@ -20,10 +16,6 @@ class GameViewModel(
     val levelCounter = _levelCounter.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            _allLevels.value = gameRepository.getAllLevels()
-        }
-
         viewModelScope.launch {
             _levelCounter.value = gameRepository.getLevelCounter()
         }
