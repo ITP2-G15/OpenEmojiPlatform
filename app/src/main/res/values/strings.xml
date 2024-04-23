@@ -33,6 +33,7 @@ easily add support for multiple languages if needed -->
     <string name="start_sequence_icon_description">Click to start a sequence</string>
     <string name="start_sequence">Start a new favorite sequence with</string>
     <string name="add_emoji_button_description">Click to add emoji to favorite sequence</string>
+    <string name="add_text_button_description">Click to add custom text to favorite sequence</string>
     <string name="save_favorite_button_description">Click to save current favorite sequence to
         favorites</string>
     <string name="remove_last_emoji_button_description">Click to remove the last emoji in the
@@ -50,4 +51,5 @@ easily add support for multiple languages if needed -->
     <string name="copy_sequence_icon_description">Click to copy favorite sequence</string>
     <string name="no_favorites">You don\'t have any favorites yet.</string>
     <string name="games_icon_description">Games</string>
+    <string name="add_custom_favorite_text">Add custom text to sequence</string>
 </resources>

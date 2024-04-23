@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Backspace
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.SaveAs
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -50,6 +52,7 @@ fun FavoriteMaker(
     emoji: Emoji,
 ) {
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
     val currentFavorite by favoritesViewModel.currentFavorite.collectAsState()
     val localCurrentFavorite = currentFavorite
@@ -66,6 +69,8 @@ fun FavoriteMaker(
             )
         }
     val showCancelDialog = remember { mutableStateOf(false) }
+
+    val customText = remember { mutableStateOf(TextFieldValue("")) }
 
     FavoriteSaveDialog(
         showSaveDialog = showSaveDialog,
@@ -93,140 +98,188 @@ fun FavoriteMaker(
         },
     )
 
-    if (localCurrentFavorite == null) {
+    Column {
         Card(
             modifier =
                 Modifier
                     .fillMaxWidth().padding(
                         horizontal = 12.dp,
                         vertical = 8.dp,
-                    ).clickable {
-                        favoritesViewModel.appendToCurrentFavoriteEmojiCodes(
-                            emoji.code,
-                        )
+                    ).let {
+                        if (localCurrentFavorite == null) {
+                            it.clickable {
+                                favoritesViewModel
+                                    .appendToCurrentFavoriteEmojiCodes(emoji.code)
+                            }
+                        } else {
+                            it
+                        }
                     },
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier =
-                    Modifier.padding(8.dp),
-            ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription =
-                        stringResource(
-                            R.string.start_sequence_icon_description,
-                        ),
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(start = 8.dp).size(36.dp),
-                )
-                Text(
-                    text = "${stringResource(R.string.start_sequence)} ${emoji.code}",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-            }
-        }
-    } else {
-        Card(
-            modifier =
-                Modifier
-                    .fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-        ) {
             Column {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier =
-                        Modifier.padding(8.dp),
-                ) {
-                    Text(
-                        text = localCurrentFavorite.emojiCodes.joinToString(""),
-                        style = MaterialTheme.typography.displaySmall,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
+                if (localCurrentFavorite == null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier =
+                            Modifier.padding(8.dp),
+                    ) {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription =
+                                stringResource(
+                                    R.string.start_sequence_icon_description,
+                                ),
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(start = 8.dp).size(36.dp),
+                        )
+                        Text(
+                            text = "${stringResource(
+                                R.string.start_sequence,
+                            )} ${emoji.code}",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
+                    }
+                } else {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier =
+                            Modifier.padding(8.dp),
+                    ) {
+                        Text(
+                            text = localCurrentFavorite.emojiCodes.joinToString(""),
+                            style = MaterialTheme.typography.displaySmall,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
+                    }
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier =
-                        Modifier
-                            .fillMaxWidth().padding(horizontal = 12.dp)
-                            .padding(bottom = 8.dp),
-                ) {
-                    Button(
-                        onClick = {
-                            favoritesViewModel.appendToCurrentFavoriteEmojiCodes(
-                                emoji.code,
+
+                FavoriteMakerTextInput(customText, favoritesViewModel)
+
+                if (localCurrentFavorite != null) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier =
+                            Modifier
+                                .fillMaxWidth().padding(horizontal = 12.dp)
+                                .padding(bottom = 8.dp),
+                    ) {
+                        Button(
+                            onClick = {
+                                if (customText.value.text.isNotEmpty()) {
+                                    favoritesViewModel.appendToCurrentFavoriteEmojiCodes(
+                                        customText.value.text,
+                                    )
+                                    customText.value = TextFieldValue("")
+                                } else {
+                                    favoritesViewModel.appendToCurrentFavoriteEmojiCodes(
+                                        emoji.code,
+                                    )
+                                }
+                                focusManager.clearFocus()
+                            },
+                            modifier = Modifier.padding(end = 8.dp),
+                            colors =
+                                ButtonDefaults.buttonColors(
+                                    containerColor =
+                                        MaterialTheme.colorScheme.tertiary,
+                                ),
+                        ) {
+                            Row {
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription =
+                                        if (customText.value.text.isNotEmpty()) {
+                                            stringResource(
+                                                R.string.add_text_button_description,
+                                            )
+                                        } else {
+                                            stringResource(
+                                                R.string.add_emoji_button_description,
+                                            )
+                                        },
+                                    tint = MaterialTheme.colorScheme.onTertiary,
+                                )
+                                if (customText.value.text.isNotEmpty()) {
+                                    Icon(
+                                        imageVector = Icons.Default.EditNote,
+                                        contentDescription =
+                                            stringResource(
+                                                R.string.add_text_button_description,
+                                            ),
+                                        tint = MaterialTheme.colorScheme.onTertiary,
+                                        modifier =
+                                            Modifier.padding(
+                                                start = 3.dp,
+                                            ),
+                                    )
+                                } else {
+                                    Text(
+                                        text = emoji.code,
+                                        style =
+                                            MaterialTheme.typography.bodyLarge,
+                                        modifier =
+                                            Modifier.padding(
+                                                start = 3.dp,
+                                            ),
+                                    )
+                                }
+                            }
+                        }
+
+                        Button(
+                            onClick = {
+                                favoritesViewModel
+                                    .removeLastEmojiCodeFromCurrentFavorite()
+                            },
+                            modifier = Modifier.padding(end = 8.dp),
+                            colors =
+                                ButtonDefaults.buttonColors(
+                                    containerColor =
+                                        MaterialTheme.colorScheme.secondary,
+                                ),
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.Backspace,
+                                contentDescription =
+                                    stringResource(
+                                        R.string.remove_last_emoji_button_description,
+                                    ),
+                                tint = MaterialTheme.colorScheme.onSecondary,
                             )
-                        },
-                        modifier = Modifier.padding(end = 8.dp),
-                        colors =
-                            ButtonDefaults.buttonColors(
-                                containerColor =
-                                    MaterialTheme.colorScheme.tertiary,
-                            ),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription =
-                                stringResource(
-                                    R.string.add_emoji_button_description,
-                                ),
-                            tint = MaterialTheme.colorScheme.onTertiary,
-                        )
-                    }
+                        }
 
-                    Button(
-                        onClick = {
-                            favoritesViewModel
-                                .removeLastEmojiCodeFromCurrentFavorite()
-                        },
-                        modifier = Modifier.padding(end = 8.dp),
-                        colors =
-                            ButtonDefaults.buttonColors(
-                                containerColor =
-                                    MaterialTheme.colorScheme.secondary,
-                            ),
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Default.Backspace,
-                            contentDescription =
-                                stringResource(
-                                    R.string.remove_last_emoji_button_description,
-                                ),
-                            tint = MaterialTheme.colorScheme.onSecondary,
-                        )
-                    }
+                        Button(
+                            onClick = { showSaveDialog.value = true },
+                            modifier = Modifier.padding(end = 8.dp),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.SaveAs,
+                                contentDescription =
+                                    stringResource(
+                                        R.string.save_favorite_button_description,
+                                    ),
+                            )
+                        }
 
-                    Button(
-                        onClick = { showSaveDialog.value = true },
-                        modifier = Modifier.padding(end = 8.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.SaveAs,
-                            contentDescription =
-                                stringResource(
-                                    R.string.save_favorite_button_description,
+                        Button(
+                            onClick = { showCancelDialog.value = true },
+                            colors =
+                                ButtonDefaults.buttonColors(
+                                    containerColor =
+                                        MaterialTheme.colorScheme.error,
                                 ),
-                        )
-                    }
-
-                    Button(
-                        onClick = { showCancelDialog.value = true },
-                        colors =
-                            ButtonDefaults.buttonColors(
-                                containerColor =
-                                    MaterialTheme.colorScheme.error,
-                            ),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription =
-                                stringResource(
-                                    R.string.clear_sequence_button_description,
-                                ),
-                            tint = MaterialTheme.colorScheme.onError,
-                        )
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription =
+                                    stringResource(
+                                        R.string.clear_sequence_button_description,
+                                    ),
+                                tint = MaterialTheme.colorScheme.onError,
+                            )
+                        }
                     }
                 }
             }
