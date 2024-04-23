@@ -65,14 +65,16 @@ fun Navigation(
             FavoritesViewModel(repositories.favoritesRepository)
         }
 
-    val bottomBarViewModel: BottomBarViewModel = viewModel()
+    val bottomNavigationBarViewModel: BottomNavigationBarViewModel = viewModel()
 
-    val currentOrderValue by bottomBarViewModel.currentOrderValue.collectAsState(
-        initial = 1,
-    )
-    val previousOrderValue by bottomBarViewModel.lastNavigatedOrderValue.collectAsState(
-        initial = null,
-    )
+    val currentOrderValue by bottomNavigationBarViewModel
+        .currentOrderValue.collectAsState(
+            initial = 1,
+        )
+    val previousOrderValue by bottomNavigationBarViewModel
+        .lastNavigatedOrderValue.collectAsState(
+            initial = null,
+        )
 
     val navController = rememberNavController()
     val startDestination = Screen.HomeScreen.route
@@ -112,7 +114,7 @@ fun Navigation(
                         ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
-                    bottomBarViewModel.resetLastNavigatedTab()
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -126,7 +128,7 @@ fun Navigation(
                         ),
                 ) {
                     FavoritesScreen(favoritesViewModel)
-                    bottomBarViewModel.resetLastNavigatedTab()
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -180,7 +182,7 @@ fun Navigation(
                         newsViewModel,
                         navController,
                     )
-                    bottomBarViewModel.resetLastNavigatedTab()
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -213,7 +215,7 @@ fun Navigation(
                     popExitTransition = slideExitTransition(),
                 ) {
                     GameScreen(navController)
-                    bottomBarViewModel.resetLastNavigatedTab()
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
             }
         }

@@ -25,10 +25,10 @@ fun BottomNavigationBar(
     startDestination: String,
 ) {
     // Initialize view model and select start destination
-    val bottomBarViewModel = viewModel<BottomBarViewModel>()
-    bottomBarViewModel.selectTab(startDestination, 1)
+    val bottomNavigationBarViewModel = viewModel<BottomNavigationBarViewModel>()
+    bottomNavigationBarViewModel.selectTab(startDestination, 1)
 
-    val currentRoute by bottomBarViewModel.currentRoute.collectAsState(
+    val currentRoute by bottomNavigationBarViewModel.currentRoute.collectAsState(
         initial = startDestination,
     )
 
@@ -48,7 +48,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.HomeScreen.route, 1)
+                bottomNavigationBarViewModel.selectTab(Screen.HomeScreen.route, 1)
                 navController.navigate(Screen.HomeScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -76,7 +76,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.SearchScreen.route, 2)
+                bottomNavigationBarViewModel.selectTab(Screen.SearchScreen.route, 2)
                 navController.navigate(Screen.SearchScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -104,7 +104,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.GameScreen.route, 3)
+                bottomNavigationBarViewModel.selectTab(Screen.GameScreen.route, 3)
                 navController.navigate(Screen.GameScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -132,7 +132,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                bottomBarViewModel.selectTab(Screen.FavoritesScreen.route, 4)
+                bottomNavigationBarViewModel.selectTab(Screen.FavoritesScreen.route, 4)
                 navController.navigate(Screen.FavoritesScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
