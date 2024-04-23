@@ -10,7 +10,7 @@ sealed class Screen(val route: String) {
 
     object SearchScreen : Screen("SearchScreen")
 
-    object GameScreen : Screen("GameScreen")
+    object GameScreen : Screen("com.platform.openemoji.screens.GameScreen")
 
     object EmojiDetailScreen : Screen("emoji")
 
