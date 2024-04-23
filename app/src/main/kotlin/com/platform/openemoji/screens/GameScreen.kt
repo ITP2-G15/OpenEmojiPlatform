@@ -27,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.platform.openemoji.R
 import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.header.HeaderLogo
 
@@ -37,12 +38,8 @@ fun GameScreen(gameViewModel: GameViewModel) {
 
     val context = LocalContext.current
 
-    val correctAlternativSound =
-        MediaPlayer.create(
-            context,
-            "File:///assets/SFX/correctAlternativ.mp3",
-        )
-    val wrongAlternativSound = MediaPlayer.create(context, R.raw.audio)
+    val correctAlternativeSound = MediaPlayer.create(context, R.raw.correct_alternativ)
+    val wrongAlternativeSound = MediaPlayer.create(context, R.raw.wrong_alternative)
 
     var wrongAnswers by remember { mutableStateOf(List(4) { false }) }
 
@@ -110,7 +107,9 @@ fun GameScreen(gameViewModel: GameViewModel) {
                             if (currentLevel?.correctAlternative == index) {
                                 gameViewModel.incrementLevelCounter()
                                 wrongAnswers = List(wrongAnswers.size) { false }
+                                correctAlternativeSound.start()
                             } else {
+                                wrongAlternativeSound.start()
                                 wrongAnswers =
                                     wrongAnswers.toMutableList().apply {
                                         set(
