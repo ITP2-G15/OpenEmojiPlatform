@@ -121,7 +121,7 @@ fun FavoriteMaker(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier =
-                            Modifier.padding(8.dp),
+                            Modifier.padding(8.dp).padding(top = 8.dp),
                     ) {
                         Icon(
                             Icons.Default.Add,
