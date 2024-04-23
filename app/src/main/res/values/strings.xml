@@ -7,7 +7,8 @@ easily add support for multiple languages if needed -->
     <string name="copy_emoji_description">Click to copy emoji</string>
     <string name="copy_to_clipboard">Copied to clipboard</string>
     <string name="delete_confirmation">Delete Confirmation</string>
-    <string name="delete_confirmation_message_sequence">Are you sure you want to delete this emoji
+    <string name="delete_confirmation_message_sequence">Are you sure you want to delete the %1$s
+        emoji
         sequence?</string>
     <string name="home">Home</string>
     <string name="home_icon_description">Click to navigate to the home screen</string>

@@ -167,7 +167,11 @@ fun FavoriteCard(
             title = { Text(text = stringResource(R.string.delete_confirmation)) },
             text = {
                 Text(
-                    text = stringResource(R.string.delete_confirmation_message_sequence),
+                    text =
+                        stringResource(
+                            R.string.delete_confirmation_message_sequence,
+                            favorite.name,
+                        ),
                 )
             },
             confirmButton = {
