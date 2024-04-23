@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,6 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,5 +58,24 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
                 }
             }
         }
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        FloatingActionButton(
+            onClick = {},
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+            content = {
+                Icon(
+                    Icons.Default.Create,
+                    contentDescription =
+                        stringResource(R.string.start_sequence_icon_description),
+                )
+            },
+        )
     }
 }

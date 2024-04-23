@@ -121,8 +121,6 @@ fun EmojiDetailScreen(
                         .padding(horizontal = 12.dp, vertical = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                FavoriteMaker(favoritesViewModel, emoji)
-
                 Text(
                     text = emoji.name,
                     modifier = Modifier.padding(bottom = 12.dp),
@@ -132,6 +130,8 @@ fun EmojiDetailScreen(
                 IconCopy(emoji)
             }
         }
+
+        FavoriteMaker(favoritesViewModel, emoji)
 
         ClickableText(
             text = styledEmojiDescription,
