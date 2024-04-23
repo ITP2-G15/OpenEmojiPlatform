@@ -1,6 +1,5 @@
 package com.platform.openemoji.navigation
 
-import GameScreen
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -34,6 +33,7 @@ import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.FavoritesScreen
+import com.platform.openemoji.screens.GameScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen

@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,29 +27,30 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
     val favoritesState = favoritesViewModel.favorites.collectAsState()
     val favorites = favoritesState.value ?: listOf()
 
-    HeaderLogo()
-
-    if (favorites.isEmpty()) {
-        Text(
-            stringResource(R.string.no_favorites),
-            style = MaterialTheme.typography.titleLarge,
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(Alignment.Center)
-                    .padding(16.dp),
-            textAlign = TextAlign.Center,
-        )
-    } else {
-        LazyColumn(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .testTag("favoritesScreen"),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            items(favorites) { favorite ->
-                FavoriteCard(favoritesViewModel, favorite)
+    Column {
+        HeaderLogo()
+        if (favorites.isEmpty()) {
+            Text(
+                stringResource(R.string.no_favorites),
+                style = MaterialTheme.typography.titleLarge,
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .wrapContentSize(Alignment.Center)
+                        .padding(16.dp),
+                textAlign = TextAlign.Center,
+            )
+        } else {
+            LazyColumn(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .testTag("favoritesScreen"),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                items(favorites) { favorite ->
+                    FavoriteCard(favoritesViewModel, favorite)
+                }
             }
         }
     }

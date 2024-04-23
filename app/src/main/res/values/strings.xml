@@ -48,7 +48,6 @@ easily add support for multiple languages if needed -->
     <string name="confirm_clear_message">Are you sure you want to clear your favorite sequence?</string>
     <string name="save_sequence_toast_message">Favorite sequence saved</string>
     <string name="copy_sequence_icon_description">Click to copy favorite sequence</string>
-    <string name="no_favorites">You don\'t have any favorites yet. Navigate to an emoji to start
-        creating your first emoji sequence</string>
+    <string name="no_favorites">You don\'t have any favorites yet.</string>
     <string name="games_icon_description">Games</string>
 </resources>
