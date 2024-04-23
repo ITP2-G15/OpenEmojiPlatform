@@ -112,6 +112,7 @@ fun Navigation(
                         ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -125,6 +126,7 @@ fun Navigation(
                         ),
                 ) {
                     FavoritesScreen(favoritesViewModel)
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -139,7 +141,6 @@ fun Navigation(
                                 nullable = true
                             },
                         ),
-                    enterTransition = slideEnterTransition(),
                     popExitTransition =
                         slideExitTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -179,6 +180,7 @@ fun Navigation(
                         newsViewModel,
                         navController,
                     )
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -186,7 +188,6 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.NewsListScreen.route,
-                    enterTransition = slideEnterTransition(),
                     popExitTransition =
                         slideExitTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -200,7 +201,6 @@ fun Navigation(
                  */
                 composable(
                     route = Screen.EventListScreen.route,
-                    enterTransition = slideEnterTransition(),
                     popExitTransition =
                         slideExitTransition(
                             AnimatedContentTransitionScope.SlideDirection.Right,
@@ -213,6 +213,7 @@ fun Navigation(
                     popExitTransition = slideExitTransition(),
                 ) {
                     GameScreen(navController)
+                    bottomBarViewModel.resetLastNavigatedTab()
                 }
             }
         }
