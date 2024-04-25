@@ -107,7 +107,7 @@ fun BottomNavigationBar(
                     restoreState = true
                 }
             },
-            modifier = Modifier.testTag("bottomNavigationBarGames"),
+            modifier = Modifier.testTag("bottomNavigationBarGame"),
         )
         NavigationBarItem(
             selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
