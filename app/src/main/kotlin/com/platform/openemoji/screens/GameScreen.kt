@@ -24,10 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.platform.openemoji.R
 import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.header.HeaderLogo
@@ -58,25 +57,39 @@ fun GameScreen(gameViewModel: GameViewModel) {
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .height(250.dp)
                     .padding(bottom = 16.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
             Column(
-                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    text = "Level $levelCounter \n",
-                    style = TextStyle(fontSize = 40.sp),
-                    fontWeight = FontWeight.Bold,
-                )
+                if (currentLevel != null) {
+                    Text(
+                        text =
+                            stringResource(
+                                R.string.game_counter,
+                                levelCounter + 1,
+                            ),
+                        style = MaterialTheme.typography.displaySmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
                 currentLevel?.let {
                     Text(
                         text = it.emojiQuestion,
-                        style = TextStyle(fontSize = 50.sp),
+                        style = MaterialTheme.typography.displayLarge,
+                        modifier = Modifier.padding(top = 50.dp),
                     )
-                }
+                } ?: Text(
+                    text = stringResource(R.string.no_games),
+                    style = MaterialTheme.typography.displayMedium,
+                    fontWeight = FontWeight.Medium,
+                )
             }
         }
 
@@ -95,7 +108,7 @@ fun GameScreen(gameViewModel: GameViewModel) {
                         modifier =
                             Modifier
                                 .padding(vertical = 10.dp)
-                                .fillMaxWidth(1f),
+                                .fillMaxWidth(),
                         colors =
                             ButtonDefaults.buttonColors(
                                 containerColor =
@@ -103,6 +116,12 @@ fun GameScreen(gameViewModel: GameViewModel) {
                                         MaterialTheme.colorScheme.error
                                     } else {
                                         MaterialTheme.colorScheme.primary
+                                    },
+                                contentColor =
+                                    if (wrongAnswers[index]) {
+                                        MaterialTheme.colorScheme.onError
+                                    } else {
+                                        MaterialTheme.colorScheme.onPrimary
                                     },
                             ),
                         onClick = {
@@ -124,10 +143,7 @@ fun GameScreen(gameViewModel: GameViewModel) {
                     ) {
                         Text(
                             text = alternative,
-                            style =
-                                TextStyle(
-                                    fontSize = 25.sp,
-                                ),
+                            style = MaterialTheme.typography.titleLarge,
                         )
                     }
                 }
