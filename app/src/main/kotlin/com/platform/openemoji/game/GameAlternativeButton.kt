@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -34,7 +35,8 @@ fun GameAlternativeButton(
         modifier =
             Modifier
                 .padding(vertical = 10.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag("GameAlternativeButton"),
         colors =
             ButtonDefaults.buttonColors(
                 containerColor = containerColor,
