@@ -1,6 +1,5 @@
 package com.platform.openemoji.navigation
 
-import GameScreen
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -30,10 +29,12 @@ import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.FavoritesScreen
+import com.platform.openemoji.screens.GameScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -63,6 +64,10 @@ fun Navigation(
     val favoritesViewModel =
         viewModel(key = "favorites") {
             FavoritesViewModel(repositories.favoritesRepository)
+        }
+    val gameViewModel =
+        viewModel(key = "game") {
+            GameViewModel(repositories.gameRepository)
         }
 
     val bottomNavigationBarViewModel: BottomNavigationBarViewModel = viewModel()
@@ -210,11 +215,15 @@ fun Navigation(
                 ) {
                     EventListScreen(eventViewModel, navController)
                 }
+
+                /**
+                 * Navigates to GameScreen.
+                 */
                 composable(
                     route = Screen.GameScreen.route,
                     popExitTransition = slideExitTransition(),
                 ) {
-                    GameScreen(navController)
+                    GameScreen(gameViewModel)
                     bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
             }

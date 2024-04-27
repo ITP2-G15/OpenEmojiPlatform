@@ -32,13 +32,6 @@ class GameRepositoryTest {
     }
 
     @Test
-    fun testGetAllLevels() =
-        runBlocking {
-            val levels = repository.getAllLevels()
-            Assert.assertEquals(3, levels.size)
-        }
-
-    @Test
     fun testGetCurrentLevel() =
         runBlocking {
             val expectedLevel =

@@ -51,4 +51,6 @@ easily add support for multiple languages if needed -->
     <string name="no_favorites">You don\'t have any favorites yet. Navigate to an emoji to start
         creating your first emoji sequence</string>
     <string name="games_icon_description">Games</string>
+    <string name="no_games"> Congratulations you have beat all levels!</string>
+    <string name="game_counter"> "Level %1$d" </string>
 </resources>

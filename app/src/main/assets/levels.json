@@ -5,22 +5,22 @@
     "correctAlternative": 0
   },
   {
-    "emojiquestion": "🧝‍♂️👑🐉",
+    "emojiQuestion": "🧝‍♂️👑🐉",
     "alternatives": ["The Witcher", "Skyrim", "The Lord of the Rings", "Game of Thrones"],
     "correctAlternative": 3
   },
   {
-    "emojiquestion": "🏰🍄👸🐢",
+    "emojiQuestion": "🏰🍄👸🐢",
     "alternatives": ["Mario", "Zelda", "Minecraft", "Assassin's Creed"],
     "correctAlternative": 0
   },
   {
-    "emojiquestion": "👨‍🚀🌌👽🛸",
+    "emojiQuestion": "👨‍🚀🌌👽🛸",
     "alternatives": ["Interstellar", "Star Wars", "Alien", "Gravity"],
     "correctAlternative": 2
   },
   {
-    "emojiquestion": "🎮🔫🧟‍♂️💣",
+    "emojiQuestion": "🎮🔫🧟‍♂️💣",
     "alternatives": ["Call of Duty", "Fortnite", "Resident Evil", "Minecraft"],
     "correctAlternative": 0
   },
