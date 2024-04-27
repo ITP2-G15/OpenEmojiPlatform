@@ -1,4 +1,4 @@
-package com.platform.openemoji.favorites
+package com.platform.openemoji.favorites.card
 
 import android.app.Activity
 import androidx.compose.foundation.clickable
@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,6 +38,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.platform.openemoji.R
 import com.platform.openemoji.ads.AdSettings
 import com.platform.openemoji.ads.loadInterstitialVideoAd
+import com.platform.openemoji.favorites.Favorite
+import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.card.dialogs.FavoriteDeleteDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,13 +51,13 @@ fun FavoriteCard(
     favorite: Favorite,
 ) {
     val clipboardManager = LocalClipboardManager.current
-    var showDeleteDialog by remember { mutableStateOf(false) }
+    val showDeleteDialog = remember { mutableStateOf(false) }
 
     val context = LocalContext.current
 
     // DETTE SKAL INN I SEQUEENS SCREEN
-// Start loading an interstitial fullscreen ad. Only if this ad is loaded
-// by the time the user presses the return arrow, will the ad be shown.
+    // Start loading an interstitial fullscreen ad. Only if this ad is loaded
+    // by the time the user presses the return arrow, will the ad be shown.
     val interstitialAd = remember { mutableStateOf<InterstitialAd?>(null) }
     if (AdSettings.get().displayInterstitialAdFromEmojiDetailScreen) {
         LaunchedEffect(LocalLifecycleOwner.current) {
@@ -137,7 +139,7 @@ fun FavoriteCard(
 
                     Button(
                         onClick = {
-                            showDeleteDialog = true
+                            showDeleteDialog.value = true
                         },
                         shape = RoundedCornerShape(12.dp),
                         colors =
@@ -161,45 +163,13 @@ fun FavoriteCard(
         }
     }
 
-    if (showDeleteDialog) {
-        AlertDialog(
-            onDismissRequest = { showDeleteDialog = false },
-            title = { Text(text = stringResource(R.string.delete_confirmation)) },
-            text = {
-                Text(
-                    text =
-                        stringResource(
-                            R.string.delete_confirmation_message_sequence,
-                            favorite.name,
-                        ),
-                )
-            },
-            confirmButton = {
-                Button(onClick = {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        favoritesViewModel.deleteFavorite(favorite)
-                    }
-                    showDeleteDialog = false
-                }, modifier = Modifier.testTag("confirmDeleteButton")) {
-                    Text(stringResource(R.string.delete))
-                }
-            },
-            dismissButton = {
-                Button(
-                    onClick = {
-                        showDeleteDialog = false
-                    },
-                    modifier = Modifier.testTag("dismissDeleteButton"),
-                    colors =
-                        ButtonDefaults.buttonColors(
-                            containerColor =
-                                MaterialTheme.colorScheme.secondary,
-                            contentColor = MaterialTheme.colorScheme.onSecondary,
-                        ),
-                ) {
-                    Text(stringResource(R.string.cancel))
-                }
-            },
-        )
-    }
+    FavoriteDeleteDialog(
+        favorite = favorite,
+        showDeleteDialog = showDeleteDialog,
+        onDelete = {
+            CoroutineScope(Dispatchers.Main).launch {
+                favoritesViewModel.deleteFavorite(favorite)
+            }
+        },
+    )
 }

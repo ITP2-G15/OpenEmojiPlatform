@@ -2,8 +2,10 @@ package com.platform.openemoji.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,8 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
-import com.platform.openemoji.favorites.FavoriteCard
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.card.FavoriteCard
 import com.platform.openemoji.header.HeaderLogo
 
 @Composable
@@ -55,6 +57,9 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
             ) {
                 items(favorites) { favorite ->
                     FavoriteCard(favoritesViewModel, favorite)
+                }
+                item {
+                    Spacer(modifier = Modifier.height(96.dp))
                 }
             }
         }
