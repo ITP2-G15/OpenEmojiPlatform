@@ -33,9 +33,13 @@ import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.favorites.card.FavoriteCard
 import com.platform.openemoji.favorites.dialogMaker.FavoriteDialogMaker
 import com.platform.openemoji.header.HeaderLogo
+import com.platform.openemoji.search.SearchViewModel
 
 @Composable
-fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
+fun FavoritesScreen(
+    favoritesViewModel: FavoritesViewModel,
+    searchViewModel: SearchViewModel,
+) {
     val favoritesState = favoritesViewModel.favorites.collectAsState()
     val favorites = favoritesState.value ?: listOf()
 
@@ -43,6 +47,7 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
 
     FavoriteDialogMaker(
         favoritesViewModel = favoritesViewModel,
+        searchViewModel = searchViewModel,
         showCreateDialog = showCreateDialog,
     )
 

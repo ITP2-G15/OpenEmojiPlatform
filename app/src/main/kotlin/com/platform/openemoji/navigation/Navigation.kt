@@ -38,6 +38,7 @@ import com.platform.openemoji.screens.GameScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
+import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun Navigation(
@@ -46,6 +47,12 @@ fun Navigation(
         LocalContext.current.applicationContext as Application,
 ) {
     val overview = stringResource(R.string.overview)
+
+    val searchViewModel: SearchViewModel =
+        viewModel(key = "search") {
+            SearchViewModel(repositories.emojiRepository)
+        }
+
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {
             EmojiCatalogueViewModel(repositories.emojiRepository, overview)
@@ -118,7 +125,11 @@ fun Navigation(
                             AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) {
-                    SearchScreen(emojiCatalogueViewModel, navController)
+                    SearchScreen(
+                        searchViewModel,
+                        emojiCatalogueViewModel,
+                        navController,
+                    )
                     bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 
@@ -132,7 +143,7 @@ fun Navigation(
                             AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) {
-                    FavoritesScreen(favoritesViewModel)
+                    FavoritesScreen(favoritesViewModel, searchViewModel)
                     bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 

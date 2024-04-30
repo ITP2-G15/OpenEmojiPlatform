@@ -19,14 +19,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun FavoriteDialogMaker(
     favoritesViewModel: FavoritesViewModel,
+    searchViewModel: SearchViewModel,
     showCreateDialog: MutableState<Boolean>,
 ) {
     val currentFavorite by favoritesViewModel.currentFavorite.collectAsState()
     val localCurrentFavorite = currentFavorite
+
+    val searchQuery by searchViewModel.searchQuery.collectAsState()
+    val searchResults by searchViewModel.searchResults
+        .collectAsState(emptyList())
+
+    val searchResultsAreLoading by searchViewModel.searchResultsAreLoading
+        .collectAsState()
 
     if (showCreateDialog.value) {
         AlertDialog(
