@@ -52,6 +52,8 @@ easily add support for multiple languages if needed -->
     <string name="copy_sequence_icon_description">Click to copy favorite sequence</string>
     <string name="no_favorites">You don\'t have any favorites yet.</string>
     <string name="games_icon_description">Games</string>
+    <string name="no_games"> Congratulations you have beat all levels!</string>
+    <string name="game_counter"> "Level %1$d" </string>
     <string name="add_custom_favorite_text">Add custom text to sequence</string>
     <string name="create_sequence">Create favorite sequence</string>
 </resources>
