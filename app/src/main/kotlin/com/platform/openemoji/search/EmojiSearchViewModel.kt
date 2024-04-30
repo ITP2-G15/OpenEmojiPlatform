@@ -1,6 +1,7 @@
 package com.platform.openemoji.search
 
 import androidx.lifecycle.ViewModel
+import com.amplitude.core.Amplitude
 import com.platform.openemoji.emoji.EmojiRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -49,5 +50,22 @@ class EmojiSearchViewModel(
 
     fun search(query: String) {
         _searchQuery.value = query
+    }
+
+    // Starts collecting search analytics after calling useSearchAnalytics.
+    // There's a long debounce to make it more likely that the user finished typing
+    // before the search query is recorded.
+    @OptIn(FlowPreview::class)
+    suspend fun useSearchAnalytics(analytics: Amplitude) {
+        searchQuery
+            .debounce(2000)
+            .collect { query ->
+                if (query.isNotEmpty()) {
+                    analytics.track(
+                        "search",
+                        mapOf("query" to query),
+                    )
+                }
+            }
     }
 }

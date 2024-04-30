@@ -22,11 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.platform.openemoji.LocalAnalytics
 
 @Composable
 fun EventCard(event: Event) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val context = LocalContext.current
+    val analytics = LocalAnalytics.current
     val eventIntent = remember { Intent(Intent.ACTION_VIEW, Uri.parse(event.url)) }
 
     Card(
@@ -36,6 +38,10 @@ fun EventCard(event: Event) {
                 .size(width = screenWidth, height = 150.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .clickable {
+                    analytics?.track(
+                        "PressedEventCard",
+                        mapOf("name" to event.name),
+                    )
                     context.startActivity(eventIntent)
                 }
                 .testTag("eventCard"),

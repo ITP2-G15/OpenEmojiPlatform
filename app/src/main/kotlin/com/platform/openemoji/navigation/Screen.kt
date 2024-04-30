@@ -5,10 +5,11 @@ package com.platform.openemoji.navigation
  * @param String type of a route.
  */
 sealed class Screen(val route: String) {
-    // Search Screen NavigationItem with nested NavigationItems.
     object HomeScreen : Screen("HomeScreen")
 
     object SearchScreen : Screen("SearchScreen")
+
+    object GameScreen : Screen("GameScreen")
 
     object EmojiDetailScreen : Screen("emoji")
 

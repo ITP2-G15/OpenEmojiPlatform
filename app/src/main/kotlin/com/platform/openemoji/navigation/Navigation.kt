@@ -1,5 +1,6 @@
 package com.platform.openemoji.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -7,6 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -26,10 +29,12 @@ import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.events.EventViewModel
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.game.GameViewModel
 import com.platform.openemoji.news.NewsViewModel
 import com.platform.openemoji.screens.EmojiDetailScreen
 import com.platform.openemoji.screens.EventListScreen
 import com.platform.openemoji.screens.FavoritesScreen
+import com.platform.openemoji.screens.GameScreen
 import com.platform.openemoji.screens.HomeScreen
 import com.platform.openemoji.screens.NewsListScreen
 import com.platform.openemoji.screens.SearchScreen
@@ -60,6 +65,21 @@ fun Navigation(
         viewModel(key = "favorites") {
             FavoritesViewModel(repositories.favoritesRepository)
         }
+    val gameViewModel =
+        viewModel(key = "game") {
+            GameViewModel(repositories.gameRepository)
+        }
+
+    val bottomNavigationBarViewModel: BottomNavigationBarViewModel = viewModel()
+
+    val currentOrderValue by bottomNavigationBarViewModel
+        .currentOrderValue.collectAsState(
+            initial = 1,
+        )
+    val previousOrderValue by bottomNavigationBarViewModel
+        .lastNavigatedOrderValue.collectAsState(
+            initial = null,
+        )
 
     val navController = rememberNavController()
     val startDestination = Screen.HomeScreen.route
@@ -68,26 +88,52 @@ fun Navigation(
         bottomBar = { BottomNavigationBar(navController, startDestination) },
     ) { paddingValues ->
         Surface(
-            modifier = Modifier.padding(paddingValues),
+            modifier =
+                Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
                 navController = navController,
                 startDestination = startDestination,
+                enterTransition =
+                    selectEnterTransition(
+                        currentOrderValue,
+                        previousOrderValue,
+                    ),
+                exitTransition =
+                    selectExitTransition(
+                        currentOrderValue,
+                        previousOrderValue,
+                    ),
             ) {
                 /**
                  * Routing for SearchScreen
                  */
                 composable(
                     route = Screen.SearchScreen.route,
+                    popEnterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
                 ) {
                     SearchScreen(emojiCatalogueViewModel, navController)
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
+
                 /**
                  * Routing for FavoritesScreen
                  */
-                composable(route = Screen.FavoritesScreen.route) {
+                composable(
+                    route = Screen.FavoritesScreen.route,
+                    popEnterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                ) {
                     FavoritesScreen(favoritesViewModel)
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 
                 /**
@@ -101,6 +147,10 @@ fun Navigation(
                                 type = NavType.StringType
                                 nullable = true
                             },
+                        ),
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) { backStackEntry ->
                     val emojiName = backStackEntry.arguments?.getString("emojiName")
@@ -124,25 +174,57 @@ fun Navigation(
                 /**
                  * Navigates to HomeScreen.
                  */
-                composable(route = Screen.HomeScreen.route) {
+                composable(
+                    route = Screen.HomeScreen.route,
+                    popEnterTransition =
+                        slideEnterTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                ) {
                     HomeScreen(
                         emojiCatalogueViewModel,
                         eventViewModel,
                         newsViewModel,
                         navController,
                     )
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
+
                 /**
                  * Navigates to NewsListScreen.
                  */
-                composable(route = Screen.NewsListScreen.route) {
+                composable(
+                    route = Screen.NewsListScreen.route,
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                ) {
                     NewsListScreen(newsViewModel, navController)
                 }
+
                 /**
                  * Navigates to EventListScreen.
                  */
-                composable(route = Screen.EventListScreen.route) {
+                composable(
+                    route = Screen.EventListScreen.route,
+                    popExitTransition =
+                        slideExitTransition(
+                            AnimatedContentTransitionScope.SlideDirection.Right,
+                        ),
+                ) {
                     EventListScreen(eventViewModel, navController)
+                }
+
+                /**
+                 * Navigates to GameScreen.
+                 */
+                composable(
+                    route = Screen.GameScreen.route,
+                    popExitTransition = slideExitTransition(),
+                ) {
+                    GameScreen(gameViewModel)
+                    bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
             }
         }

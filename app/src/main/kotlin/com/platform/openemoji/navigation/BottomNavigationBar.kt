@@ -1,6 +1,7 @@
 package com.platform.openemoji.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
@@ -9,11 +10,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.R
 
@@ -22,10 +24,17 @@ fun BottomNavigationBar(
     navController: NavController,
     startDestination: String,
 ) {
+    // Initialize view model and select start destination
+    val bottomNavigationBarViewModel = viewModel<BottomNavigationBarViewModel>()
+    bottomNavigationBarViewModel.selectTab(startDestination, 1)
+
+    val currentRoute by bottomNavigationBarViewModel.currentRoute.collectAsState(
+        initial = startDestination,
+    )
+
     NavigationBar {
-        val selectedRootScreen = remember { mutableStateOf(startDestination) }
         NavigationBarItem(
-            selected = selectedRootScreen.value == Screen.HomeScreen.route,
+            selected = currentRoute == Screen.HomeScreen.route,
             label = {
                 Text(stringResource(R.string.home))
             },
@@ -39,7 +48,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                selectedRootScreen.value = Screen.HomeScreen.route
+                bottomNavigationBarViewModel.selectTab(Screen.HomeScreen.route, 1)
                 navController.navigate(Screen.HomeScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -53,7 +62,7 @@ fun BottomNavigationBar(
             modifier = Modifier.testTag("bottomNavigationBarHome"),
         )
         NavigationBarItem(
-            selected = selectedRootScreen.value == Screen.SearchScreen.route,
+            selected = currentRoute == Screen.SearchScreen.route,
             label = {
                 Text(stringResource(R.string.search))
             },
@@ -67,7 +76,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                selectedRootScreen.value = Screen.SearchScreen.route
+                bottomNavigationBarViewModel.selectTab(Screen.SearchScreen.route, 2)
                 navController.navigate(Screen.SearchScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
@@ -81,7 +90,35 @@ fun BottomNavigationBar(
             modifier = Modifier.testTag("bottomNavigationBarSearch"),
         )
         NavigationBarItem(
-            selected = selectedRootScreen.value == Screen.FavoritesScreen.route,
+            selected = currentRoute == Screen.GameScreen.route,
+            label = {
+                Text(stringResource(R.string.games_icon_description))
+            },
+            icon = {
+                Icon(
+                    Icons.Default.Extension,
+                    contentDescription =
+                        stringResource(
+                            R.string.games_icon_description,
+                        ),
+                )
+            },
+            onClick = {
+                bottomNavigationBarViewModel.selectTab(Screen.GameScreen.route, 3)
+                navController.navigate(Screen.GameScreen.route) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            modifier = Modifier.testTag("bottomNavigationBarGame"),
+        )
+        NavigationBarItem(
+            selected = currentRoute == Screen.FavoritesScreen.route,
             label = {
                 Text(stringResource(R.string.favorite))
             },
@@ -95,7 +132,7 @@ fun BottomNavigationBar(
                 )
             },
             onClick = {
-                selectedRootScreen.value = Screen.FavoritesScreen.route
+                bottomNavigationBarViewModel.selectTab(Screen.FavoritesScreen.route, 4)
                 navController.navigate(Screen.FavoritesScreen.route) {
                     navController.graph.startDestinationRoute?.let { route ->
                         popUpTo(route) {
