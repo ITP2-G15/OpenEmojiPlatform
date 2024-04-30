@@ -42,8 +42,8 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
     val showCreateDialog = remember { mutableStateOf(false) }
 
     FavoriteDialogMaker(
+        favoritesViewModel = favoritesViewModel,
         showCreateDialog = showCreateDialog,
-        onCreate = {},
     )
 
     Column {
@@ -81,7 +81,9 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
         modifier = Modifier.fillMaxSize(),
     ) {
         FloatingActionButton(
-            onClick = {},
+            onClick = {
+                showCreateDialog.value = true
+            },
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
