@@ -1,18 +1,23 @@
 package com.platform.openemoji.favorites.dialogMaker
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Backspace
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,19 +60,63 @@ fun FavoriteDialogMaker(
                     Card(
                         modifier =
                             Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 8.dp),
+                                .fillMaxWidth().padding(
+                                    vertical = 8.dp,
+                                ),
                     ) {
-                        Text(
-                            text = (
-                                localCurrentFavorite
-                                    ?.emojiCodes
-                                    ?.joinToString("")
-                                    ?: ""
-                            ),
-                            style = MaterialTheme.typography.displaySmall,
-                            modifier = Modifier.padding(start = 8.dp),
-                        )
+                        Column {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier =
+                                    Modifier.padding(8.dp),
+                            ) {
+                                Text(
+                                    text =
+                                        localCurrentFavorite?.emojiCodes
+                                            ?.joinToString(
+                                                "",
+                                            ) ?: "",
+                                    style =
+                                        MaterialTheme.typography
+                                            .displaySmall,
+                                    modifier = Modifier.padding(start = 8.dp),
+                                )
+                            }
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth().padding(horizontal = 12.dp)
+                                        .padding(bottom = 8.dp),
+                            ) {
+                                Button(
+                                    onClick = {
+                                        favoritesViewModel
+                                            .removeLastEmojiCodeFromCurrentFavorite()
+                                    },
+                                    modifier = Modifier.padding(end = 8.dp),
+                                    colors =
+                                        ButtonDefaults.buttonColors(
+                                            containerColor =
+                                                MaterialTheme.colorScheme.secondary,
+                                        ),
+                                ) {
+                                    Icon(
+                                        imageVector =
+                                            Icons.AutoMirrored
+                                                .Default.Backspace,
+                                        contentDescription =
+                                            stringResource(
+                                                R.string
+                                                    .remove_last_emoji_button_description,
+                                            ),
+                                        tint = MaterialTheme.colorScheme.onSecondary,
+                                    )
+                                }
+                            }
+                        }
                     }
                     Card(
                         modifier =
