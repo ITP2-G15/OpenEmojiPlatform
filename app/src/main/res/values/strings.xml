@@ -56,4 +56,5 @@ easily add support for multiple languages if needed -->
     <string name="game_counter"> "Level %1$d" </string>
     <string name="add_custom_favorite_text">Add custom text to sequence</string>
     <string name="create_sequence">Create favorite sequence</string>
+    <string name="no_search">No search results</string>
 </resources>
