@@ -31,23 +31,23 @@ import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.favorites.card.FavoriteCard
-import com.platform.openemoji.favorites.dialogMaker.FavoriteDialogMaker
+import com.platform.openemoji.favorites.makerDialog.FavoriteMakerDialog
 import com.platform.openemoji.header.HeaderLogo
-import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun FavoritesScreen(
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as Application,
     favoritesViewModel: FavoritesViewModel,
-    searchViewModel: SearchViewModel,
 ) {
     val favoritesState = favoritesViewModel.favorites.collectAsState()
     val favorites = favoritesState.value ?: listOf()
 
     val showCreateDialog = remember { mutableStateOf(false) }
 
-    FavoriteDialogMaker(
+    FavoriteMakerDialog(
+        repositories = repositories,
         favoritesViewModel = favoritesViewModel,
-        searchViewModel = searchViewModel,
         showCreateDialog = showCreateDialog,
     )
 

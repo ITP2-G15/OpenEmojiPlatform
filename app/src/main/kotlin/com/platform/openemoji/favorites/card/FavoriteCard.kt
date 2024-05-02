@@ -85,6 +85,28 @@ fun FavoriteCard(
                 ) {
                     Button(
                         onClick = {
+                            showDeleteDialog.value = true
+                        },
+                        shape = RoundedCornerShape(12.dp),
+                        colors =
+                            ButtonDefaults.buttonColors(
+                                containerColor =
+                                    MaterialTheme.colorScheme.error,
+                            ),
+                        modifier = Modifier.testTag("deleteButton"),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription =
+                                stringResource(
+                                    R.string.delete,
+                                ),
+                            tint = MaterialTheme.colorScheme.onError,
+                        )
+                    }
+
+                    Button(
+                        onClick = {
                             clipboardManager.setText(
                                 AnnotatedString(favorite.emojiCodes.joinToString("")),
                             )
@@ -112,28 +134,6 @@ fun FavoriteCard(
                             style = MaterialTheme.typography.labelLarge,
                             modifier = Modifier.padding(start = 4.dp),
                             color = MaterialTheme.colorScheme.onPrimary,
-                        )
-                    }
-
-                    Button(
-                        onClick = {
-                            showDeleteDialog.value = true
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        colors =
-                            ButtonDefaults.buttonColors(
-                                containerColor =
-                                    MaterialTheme.colorScheme.error,
-                            ),
-                        modifier = Modifier.testTag("deleteButton"),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription =
-                                stringResource(
-                                    R.string.delete,
-                                ),
-                            tint = MaterialTheme.colorScheme.onError,
                         )
                     }
                 }

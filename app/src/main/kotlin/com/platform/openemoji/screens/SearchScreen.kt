@@ -1,5 +1,6 @@
 package com.platform.openemoji.screens
 
+import android.app.Application
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -8,12 +9,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
+import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogue
 import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
@@ -24,11 +28,17 @@ import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun SearchScreen(
-    searchViewModel: SearchViewModel,
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as Application,
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
     navController: NavController,
 ) {
     val analytics = LocalAnalytics.current
+
+    val searchViewModel: SearchViewModel =
+        viewModel {
+            SearchViewModel(repositories.emojiRepository)
+        }
 
     val searchQuery by searchViewModel.searchQuery.collectAsState()
     val searchResults by searchViewModel.searchResults

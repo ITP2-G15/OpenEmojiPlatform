@@ -1,5 +1,6 @@
-package com.platform.openemoji.favorites.dialogMaker
+package com.platform.openemoji.favorites.makerDialog
 
+import android.app.Application
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,7 +38,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.platform.openemoji.R
+import com.platform.openemoji.RepositoryStore
 import com.platform.openemoji.emoji.IconFavorite
 import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.favorites.maker.FavoriteMakerTextInput
@@ -50,8 +53,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FavoriteDialogMaker(
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as Application,
     favoritesViewModel: FavoritesViewModel,
-    searchViewModel: SearchViewModel,
     showCreateDialog: MutableState<Boolean>,
 ) {
     val context = LocalContext.current
@@ -59,6 +63,11 @@ fun FavoriteDialogMaker(
 
     val currentFavorite by favoritesViewModel.currentFavorite.collectAsState()
     val localCurrentFavorite = currentFavorite
+
+    val searchViewModel: SearchViewModel =
+        viewModel {
+            SearchViewModel(repositories.emojiRepository)
+        }
 
     val searchQuery by searchViewModel.searchQuery.collectAsState()
     val searchResults by searchViewModel.searchResults
