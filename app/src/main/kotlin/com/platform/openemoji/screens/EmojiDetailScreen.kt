@@ -19,6 +19,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -69,6 +71,12 @@ fun EmojiDetailScreen(
             HtmlCompat.FROM_HTML_MODE_COMPACT,
         ).toString().trim() + "\n"
     val seeMore = stringResource(R.string.see_more_details)
+    val seeTechnicalDetails =
+        stringResource(
+            R.string.view_technical_details,
+            emoji.name,
+        )
+
     val styledEmojiDescription =
         buildAnnotatedString {
             withStyle(
@@ -136,7 +144,9 @@ fun EmojiDetailScreen(
                 Modifier.padding(
                     horizontal = 14.dp,
                     vertical = 8.dp,
-                ),
+                ).semantics {
+                    this.contentDescription = seeTechnicalDetails
+                },
             onClick = { offset ->
                 styledEmojiDescription.getStringAnnotations(offset, offset)
                     .firstOrNull()?.let {
