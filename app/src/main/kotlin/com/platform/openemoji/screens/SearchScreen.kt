@@ -1,6 +1,5 @@
 package com.platform.openemoji.screens
 
-import android.app.Application
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,10 +27,10 @@ import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun SearchScreen(
-    repositories: RepositoryStore =
-        LocalContext.current.applicationContext as Application,
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
     navController: NavController,
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as RepositoryStore,
 ) {
     val analytics = LocalAnalytics.current
 

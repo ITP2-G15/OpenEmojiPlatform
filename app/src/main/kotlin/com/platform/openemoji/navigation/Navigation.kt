@@ -120,7 +120,6 @@ fun Navigation(
                         ),
                 ) {
                     SearchScreen(
-                        repositories,
                         emojiCatalogueViewModel,
                         navController,
                     )

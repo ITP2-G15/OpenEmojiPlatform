@@ -18,10 +18,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -31,22 +29,17 @@ import androidx.compose.ui.unit.dp
 import com.platform.openemoji.R
 import com.platform.openemoji.favorites.FavoritesViewModel
 import com.platform.openemoji.favorites.card.FavoriteCard
-import com.platform.openemoji.favorites.makerDialog.FavoriteMakerDialog
+import com.platform.openemoji.favorites.makerDialog.FavoriteDialogMaker
 import com.platform.openemoji.header.HeaderLogo
 
 @Composable
-fun FavoritesScreen(
-    repositories: RepositoryStore =
-        LocalContext.current.applicationContext as Application,
-    favoritesViewModel: FavoritesViewModel,
-) {
+fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
     val favoritesState = favoritesViewModel.favorites.collectAsState()
     val favorites = favoritesState.value ?: listOf()
 
     val showCreateDialog = remember { mutableStateOf(false) }
 
-    FavoriteMakerDialog(
-        repositories = repositories,
+    FavoriteDialogMaker(
         favoritesViewModel = favoritesViewModel,
         showCreateDialog = showCreateDialog,
     )

@@ -1,6 +1,5 @@
 package com.platform.openemoji.favorites.makerDialog
 
-import android.app.Application
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -53,10 +52,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FavoriteDialogMaker(
-    repositories: RepositoryStore =
-        LocalContext.current.applicationContext as Application,
     favoritesViewModel: FavoritesViewModel,
     showCreateDialog: MutableState<Boolean>,
+    repositories: RepositoryStore =
+        LocalContext.current.applicationContext as RepositoryStore,
 ) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
@@ -99,6 +98,7 @@ fun FavoriteDialogMaker(
             ).show()
 
             showCreateDialog.value = false
+            searchViewModel.search("")
         },
     )
 
@@ -220,7 +220,7 @@ fun FavoriteDialogMaker(
                     ) {
                         SearchField(searchQuery) { searchViewModel.search(it) }
 
-                        if (!searchQuery.isEmpty() && searchResultsAreLoading) {
+                        if (searchQuery.isNotEmpty() && searchResultsAreLoading) {
                             EmptySearchBox {
                                 CircularProgressIndicator()
                             }
@@ -266,6 +266,7 @@ fun FavoriteDialogMaker(
                     onClick = {
                         favoritesViewModel.clearCurrentFavorite()
                         showCreateDialog.value = false
+                        searchViewModel.search("")
                     },
                     colors =
                         ButtonDefaults.buttonColors(
