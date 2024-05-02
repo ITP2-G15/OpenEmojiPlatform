@@ -19,7 +19,7 @@
 ## About OpenEmojiPlatform
 
 OpenEmojiPlatform is based on the Emojipedia website which is established by Zedge AS. The app is developed by seven students for the course Informatics Project II IT2901 at Norges teknisk-naturvitenskapelige universitet (NTNU).
-The purpose of OpenEmojiPlatform is to be the predecessor of the official Emojipedia, with Zedge retaining the option to continue its development.
+The purpose of OpenEmojiPlatform is to be the predecessor of the official Emojipedia app, with Zedge retaining the option to continue its development.
 
 ## About The Screens
 
