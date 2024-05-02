@@ -44,7 +44,9 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
         showCreateDialog = showCreateDialog,
     )
 
-    Column {
+    Column(
+        modifier = Modifier.testTag("favoritesScreen"),
+    ) {
         HeaderLogo()
         if (favorites.isEmpty()) {
             Text(
@@ -61,8 +63,7 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
             LazyColumn(
                 modifier =
                     Modifier
-                        .fillMaxWidth()
-                        .testTag("favoritesScreen"),
+                        .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 items(favorites) { favorite ->
@@ -85,7 +86,8 @@ fun FavoritesScreen(favoritesViewModel: FavoritesViewModel) {
             modifier =
                 Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .testTag("showCreateDialogButton"),
             content = {
                 Icon(
                     Icons.Default.Create,

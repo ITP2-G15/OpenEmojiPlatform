@@ -50,7 +50,8 @@ fun FavoriteCard(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp)
+                .testTag("favoriteCard"),
     ) {
         Column(
             modifier =
@@ -63,7 +64,9 @@ fun FavoriteCard(
                 text = favorite.name,
                 style = MaterialTheme.typography.titleLarge,
                 modifier =
-                    Modifier.padding(bottom = 8.dp).testTag("favoriteName"),
+                    Modifier.padding(
+                        bottom = 8.dp,
+                    ).testTag("favoriteName/" + favorite.name),
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -77,7 +80,9 @@ fun FavoriteCard(
                             clipboardManager.setText(
                                 AnnotatedString(favorite.emojiCodes.joinToString("")),
                             )
-                        }.testTag("emojiSequence"),
+                        }.testTag(
+                            "emojiSequence/" + favorite.emojiCodes.joinToString(""),
+                        ),
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -93,7 +98,7 @@ fun FavoriteCard(
                                 containerColor =
                                     MaterialTheme.colorScheme.error,
                             ),
-                        modifier = Modifier.testTag("deleteButton"),
+                        modifier = Modifier.testTag("deleteButton/" + favorite.name),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Delete,
@@ -117,7 +122,7 @@ fun FavoriteCard(
                                     MaterialTheme.colorScheme.primary,
                             ),
                         shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.testTag("copyButton"),
+                        modifier = Modifier.testTag("copyButton/" + favorite.name),
                     ) {
                         Icon(
                             Icons.Default.ContentCopy,

@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -104,6 +105,7 @@ fun FavoriteDialogMaker(
 
     if (showCreateDialog.value) {
         AlertDialog(
+            modifier = Modifier.testTag("createFavoriteDialog"),
             onDismissRequest = { showCreateDialog.value = false },
             title = { Text(text = stringResource(R.string.create_sequence)) },
             text = {
