@@ -1,13 +1,20 @@
 # OpenEmojiPlatform
 
 #### Table of Contents
-[About OpenEmojiPlatform](#About-OpenEmojiPlatform)  
+[About OpenEmojiPlatform](#About-OpenEmojiPlatform)
+
 [About The Screens](#About-The-Screens)
+
 [Commit Conventions](#Commit-Conventions)
+
 [Code Quality](#Code-Quality)
+
 [Important Commands](#Important-Commands)
+
 [How to run with Android Studio](#How-to-run-with-Android-Studio)
+
 [How to run with Visual Studio Code](#How-to-run-with-Visual-Studio-Code)
+
 [Scripts](#Scripts)
 
 
