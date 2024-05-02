@@ -100,7 +100,13 @@ fun FavoriteMaker(
                     .fillMaxWidth().padding(
                         horizontal = 12.dp,
                         vertical = 8.dp,
-                    ).clickable {
+                    ).clickable(
+                        onClickLabel =
+                            stringResource(
+                                R.string.add_emoji_to_sequence,
+                                emoji.name,
+                            ),
+                    ) {
                         favoritesViewModel.appendToCurrentFavoriteEmojiCodes(
                             emoji.code,
                         )

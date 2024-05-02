@@ -36,7 +36,9 @@ fun IconRoute(
         emoji.code,
         style = MaterialTheme.typography.displaySmall,
         modifier =
-            Modifier.clickable {
+            Modifier.clickable(
+                onClickLabel = stringResource(R.string.emoji_icon_click_label, emoji.name),
+            ) {
                 navController.navigate(
                     Screen.EmojiDetailScreen.withArgs(emoji.name),
                 )
@@ -56,7 +58,9 @@ fun IconCopy(emoji: Emoji) {
             emoji.code,
             style = MaterialTheme.typography.displayLarge,
             modifier =
-                Modifier.clickable {
+                Modifier.clickable(
+                    onClickLabel = stringResource(R.string.copy_emoji_description),
+                ) {
                     analytics?.track(
                         "CopiedEmoji",
                         mapOf("emoji name" to emoji.name),

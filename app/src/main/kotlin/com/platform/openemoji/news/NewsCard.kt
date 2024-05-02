@@ -23,10 +23,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.platform.openemoji.LocalAnalytics
+import com.platform.openemoji.R
 
 @Composable
 fun NewsCard(news: News) {
@@ -42,7 +44,9 @@ fun NewsCard(news: News) {
                 .size(width = screenWidth, height = 200.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .testTag("newsCard")
-                .clickable {
+                .clickable(
+                    onClickLabel = stringResource(R.string.view_more_news, news.name),
+                ) {
                     analytics?.track(
                         "PressedNewsCard",
                         mapOf("name" to news.name),
@@ -57,7 +61,11 @@ fun NewsCard(news: News) {
             Box(modifier = Modifier.fillMaxSize()) {
                 AsyncImage(
                     model = news.image,
-                    contentDescription = news.name,
+                    contentDescription =
+                        stringResource(
+                            R.string.news_image_description,
+                            news.name,
+                        ),
                     modifier = Modifier.fillMaxSize(),
                     alignment = Alignment.Center,
                     contentScale = ContentScale.Crop,
@@ -71,9 +79,7 @@ fun NewsCard(news: News) {
                     colors =
                         CardDefaults.cardColors(
                             containerColor =
-                                MaterialTheme.colorScheme.surfaceContainer.copy(
-                                    0.9f,
-                                ),
+                                MaterialTheme.colorScheme.surfaceContainer.copy(),
                             contentColor = MaterialTheme.colorScheme.onBackground,
                         ),
                 ) {
