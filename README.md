@@ -1,6 +1,6 @@
 # OpenEmojiPlatform
 
-#### Table of Contents
+### Table of Contents
 [About OpenEmojiPlatform](#About-OpenEmojiPlatform)
 
 [About The Screens](#About-The-Screens)
@@ -14,8 +14,6 @@
 [How to run with Android Studio](#How-to-run-with-Android-Studio)
 
 [How to run with Visual Studio Code](#How-to-run-with-Visual-Studio-Code)
-
-[Scripts](#Scripts)
 
 
 ## About OpenEmojiPlatform
@@ -44,7 +42,7 @@ The favorite screen is all about managing emoji sequences. The user can delete, 
 
 ### Emoji Detail Screen
 The emoji detail screen is accessed by clicking on an emoji icon from either the home or search screen.
-It allows the user to discover the meaning of an emoji and copy it to the clipboard. Additionally the user can create their own custom emoji sequence
+It allows the user to discover the meaning of an emoji and copy it to the clipboard. Additionally the user can create their own custom emoji sequence.
 
 ### Event List Screen
 The event list screen is accessed from the home screen. It gives the user a listview of the latest events & topics.
@@ -126,7 +124,7 @@ These are all the tools you need to run the app, but it still is a bad developme
 Now that you have all the extension we need to set everything up. Firstly when developing you need to start the emulator using the `Android iOS Emulator` extension. Make sure to provide the correct emulator path to the extension in the vscode settings.
 When that is setup we need to create some scripts for the debugger, for building and running the app and for linting using ktlint. There are extensions for formatting available, but I couldn't get them to work with our Ktlint gradle setup.
 
-## Scripts
+### Scripts
 
 All scripts should be put in .vscode.
 Firstly we need to create a `launch.json` file for the debugger. This is the file that tells the debugger how to run the app. Here is an example:
