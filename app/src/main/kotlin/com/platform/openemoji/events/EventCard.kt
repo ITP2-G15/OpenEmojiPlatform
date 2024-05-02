@@ -21,6 +21,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.platform.openemoji.LocalAnalytics
@@ -47,8 +49,8 @@ fun EventCard(event: Event) {
                         mapOf("name" to event.name),
                     )
                     context.startActivity(eventIntent)
-                }
-                .testTag("eventCard"),
+                }.testTag("eventCard")
+                .semantics { isTraversalGroup = true },
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
@@ -14,7 +16,10 @@ import com.google.android.gms.ads.AdView
 @Composable
 fun InlineAd() {
     Box(
-        modifier = Modifier.fillMaxWidth().height(100.dp),
+        modifier =
+            Modifier.fillMaxWidth().height(
+                100.dp,
+            ).semantics { isTraversalGroup = true },
     ) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),

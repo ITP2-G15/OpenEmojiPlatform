@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
@@ -15,7 +17,8 @@ fun TopBottomAd() {
     Box(
         modifier =
             Modifier
-                .fillMaxWidth().height(60.dp),
+                .fillMaxWidth().height(60.dp)
+                .semantics { isTraversalGroup = true },
     ) {
         AndroidView(
             modifier = Modifier.fillMaxWidth(),
