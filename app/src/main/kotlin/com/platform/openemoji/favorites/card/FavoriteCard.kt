@@ -80,7 +80,11 @@ fun FavoriteCard(
                     style = MaterialTheme.typography.displaySmall,
                     modifier =
                         Modifier.padding(bottom = 8.dp).clickable(
-                            onClickLabel = stringResource(R.string.copy_emoji_favorite, favorite.name),
+                            onClickLabel =
+                                stringResource(
+                                    R.string.copy_emoji_favorite,
+                                    favorite.name,
+                                ),
                         ) {
                             clipboardManager.setText(
                                 AnnotatedString(favorite.emojiCodes.joinToString("")),

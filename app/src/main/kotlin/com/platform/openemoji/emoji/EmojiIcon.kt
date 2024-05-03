@@ -53,7 +53,11 @@ fun IconRoute(
         style = MaterialTheme.typography.displaySmall,
         modifier =
             Modifier.clickable(
-                onClickLabel = stringResource(R.string.emoji_icon_click_label, emoji.name),
+                onClickLabel =
+                    stringResource(
+                        R.string.emoji_icon_click_label,
+                        emoji.name,
+                    ),
             ) {
                 navController.navigate(
                     Screen.EmojiDetailScreen.withArgs(emoji.name),

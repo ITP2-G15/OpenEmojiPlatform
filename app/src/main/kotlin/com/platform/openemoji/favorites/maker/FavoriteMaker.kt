@@ -109,10 +109,10 @@ fun FavoriteMaker(
                         if (localCurrentFavorite == null) {
                             it.clickable(
                                 onClickLabel =
-                                stringResource(
-                                    R.string.add_emoji_to_sequence,
-                                    emoji.name,
-                                ),
+                                    stringResource(
+                                        R.string.add_emoji_to_sequence,
+                                        emoji.name,
+                                    ),
                             ) {
                                 favoritesViewModel
                                     .appendToCurrentFavoriteEmojiCodes(emoji.code)
