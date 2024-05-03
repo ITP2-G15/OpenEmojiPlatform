@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.mapLatest
 
-class EmojiSearchViewModel(
+class SearchViewModel(
     private val emojiRepository: EmojiRepository,
 ) : ViewModel() {
     private val _searchQuery = MutableStateFlow("")

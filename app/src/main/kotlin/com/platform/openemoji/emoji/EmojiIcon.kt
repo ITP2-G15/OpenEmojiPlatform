@@ -26,6 +26,22 @@ import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
 import com.platform.openemoji.navigation.Screen
 
+// This is used to add the emoji to a favorite when searched
+@Composable
+fun IconFavorite(
+    emoji: Emoji,
+    onIconClick: () -> Unit,
+) {
+    Text(
+        emoji.code,
+        style = MaterialTheme.typography.displaySmall,
+        modifier =
+            Modifier.clickable {
+                onIconClick()
+            }.padding(4.dp),
+    )
+}
+
 // This will be used for the emoji grid since it routes to the emoji icon details view
 @Composable
 fun IconRoute(

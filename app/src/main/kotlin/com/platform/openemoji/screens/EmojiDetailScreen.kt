@@ -35,6 +35,7 @@ import com.platform.openemoji.ads.TopBottomAd
 import com.platform.openemoji.emoji.Emoji
 import com.platform.openemoji.emoji.IconCopy
 import com.platform.openemoji.favorites.FavoritesViewModel
+import com.platform.openemoji.favorites.maker.FavoriteMaker
 import com.platform.openemoji.navigation.BackButtonNavigation
 
 @Composable
@@ -129,6 +130,8 @@ fun EmojiDetailScreen(
                 IconCopy(emoji)
             }
         }
+
+        FavoriteMaker(favoritesViewModel, emoji)
 
         ClickableText(
             text = styledEmojiDescription,
