@@ -111,11 +111,7 @@ fun FavoriteSaveDialog(
                             contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                 ) {
-                    Text(
-                        stringResource(
-                            R.string.cancel,
-                        ),
-                    )
+                    Text(stringResource(R.string.cancel))
                 }
             },
         )

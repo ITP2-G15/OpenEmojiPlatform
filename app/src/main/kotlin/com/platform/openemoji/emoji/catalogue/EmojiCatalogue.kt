@@ -102,7 +102,7 @@ private fun SpinLoader() {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp),
+            .padding(vertical = 40.dp),
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator()

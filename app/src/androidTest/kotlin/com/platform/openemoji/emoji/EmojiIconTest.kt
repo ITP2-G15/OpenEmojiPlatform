@@ -40,7 +40,7 @@ class EmojiIconTest {
         composeTestRule.onNodeWithTag("emojiIconCopyButton")
             .performClick()
 
-        // Jesus christ
+        // Check if the emoji code was copied to clipboard
         val clipboardManager =
             composeTestRule.activity.applicationContext.getSystemService(
                 Context.CLIPBOARD_SERVICE,
