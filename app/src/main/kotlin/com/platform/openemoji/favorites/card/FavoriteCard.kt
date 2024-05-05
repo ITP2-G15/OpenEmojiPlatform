@@ -27,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,7 +53,8 @@ fun FavoriteCard(
             Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
-                .testTag("favoriteCard"),
+                .testTag("favoriteCard")
+                .semantics { isTraversalGroup = true },
     ) {
         Column(
             modifier =
@@ -76,7 +79,13 @@ fun FavoriteCard(
                     text = favorite.emojiCodes.joinToString(""),
                     style = MaterialTheme.typography.displaySmall,
                     modifier =
-                        Modifier.padding(bottom = 8.dp).clickable {
+                        Modifier.padding(bottom = 8.dp).clickable(
+                            onClickLabel =
+                                stringResource(
+                                    R.string.copy_emoji_favorite,
+                                    favorite.name,
+                                ),
+                        ) {
                             clipboardManager.setText(
                                 AnnotatedString(favorite.emojiCodes.joinToString("")),
                             )

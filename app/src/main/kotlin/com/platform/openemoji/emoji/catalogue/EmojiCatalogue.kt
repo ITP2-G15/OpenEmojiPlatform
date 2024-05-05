@@ -15,6 +15,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.platform.openemoji.emoji.Emoji
@@ -35,7 +38,15 @@ fun EmojiCatalogue(
                 text = category,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.testTag("catalogueCategoryHeader"),
+                modifier =
+                    Modifier
+                        .semantics {
+                            heading()
+                            isTraversalGroup = true
+                        }
+                        .testTag(
+                            "catalogueCategoryHeader",
+                        ),
             )
             if (emojisOfCategoryAreLoading(category)) {
                 SpinLoader()

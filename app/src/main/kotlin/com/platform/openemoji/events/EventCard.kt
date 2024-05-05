@@ -20,9 +20,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.isTraversalGroup
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.platform.openemoji.LocalAnalytics
+import com.platform.openemoji.R
 
 @Composable
 fun EventCard(event: Event) {
@@ -37,21 +41,27 @@ fun EventCard(event: Event) {
                 .fillMaxWidth()
                 .size(width = screenWidth, height = 150.dp)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
-                .clickable {
+                .clickable(
+                    onClickLabel = stringResource(R.string.view_more_event, event.name),
+                ) {
                     analytics?.track(
                         "PressedEventCard",
                         mapOf("name" to event.name),
                     )
                     context.startActivity(eventIntent)
-                }
-                .testTag("eventCard"),
+                }.testTag("eventCard")
+                .semantics { isTraversalGroup = true },
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
         ) {
             AsyncImage(
                 model = event.image,
-                contentDescription = event.name,
+                contentDescription =
+                    stringResource(
+                        R.string.event_image_description,
+                        event.name,
+                    ),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -61,9 +71,7 @@ fun EventCard(event: Event) {
                     colors =
                         CardDefaults.cardColors(
                             containerColor =
-                                MaterialTheme.colorScheme.secondary.copy(
-                                    alpha = 0.7f,
-                                ),
+                                MaterialTheme.colorScheme.secondary.copy(),
                             contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                 ) {
@@ -78,9 +86,7 @@ fun EventCard(event: Event) {
                     colors =
                         CardDefaults.cardColors(
                             containerColor =
-                                MaterialTheme.colorScheme.secondary.copy(
-                                    alpha = 0.7f,
-                                ),
+                                MaterialTheme.colorScheme.secondary.copy(),
                             contentColor = MaterialTheme.colorScheme.onSecondary,
                         ),
                 ) {
