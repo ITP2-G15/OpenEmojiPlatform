@@ -23,9 +23,8 @@ class NewsCardTest {
         news =
             News(
                 "New emojis",
-                "https://blog.emojipedia.org/first-look-new-emojis-in-ios-17-4/",
-                "https://blog.emojipedia.org/content/images/size/w2000/2024/01/" +
-                    "Emojipedia-iOS-Apple-Emoji-15_0-Header.jpg",
+                "https://www.google.com/search?q=first-look-new-emojis-in-ios-17-4",
+                "https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_1280.jpg",
                 "We are getting new emojis!!",
             )
     }
