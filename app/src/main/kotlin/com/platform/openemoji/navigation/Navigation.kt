@@ -46,6 +46,7 @@ fun Navigation(
         LocalContext.current.applicationContext as Application,
 ) {
     val overview = stringResource(R.string.overview)
+
     val emojiCatalogueViewModel =
         viewModel(key = "emojiCatalogue") {
             EmojiCatalogueViewModel(repositories.emojiRepository, overview)
@@ -118,7 +119,10 @@ fun Navigation(
                             AnimatedContentTransitionScope.SlideDirection.Right,
                         ),
                 ) {
-                    SearchScreen(emojiCatalogueViewModel, navController)
+                    SearchScreen(
+                        emojiCatalogueViewModel,
+                        navController,
+                    )
                     bottomNavigationBarViewModel.resetLastNavigatedTab()
                 }
 

@@ -67,12 +67,12 @@
   {
     "emojiQuestion": "🎩🌂🕰️🏰",
     "alternatives": ["France", "England", "Italy", "Spain"],
-    "correctAlternative": 3
+    "correctAlternative": 1
   },
   {
     "emojiQuestion": "🌳🏔️🐄🍫",
     "alternatives": ["Netherlands", "Switzerland", "Austria", "Belgium"],
-    "correctAlternative": 0
+    "correctAlternative": 2
   },
   {
     "emojiQuestion": "🧟‍♂️🔫🏃‍♂️💀",

@@ -14,7 +14,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.platform.openemoji.Application
 import com.platform.openemoji.LocalAnalytics
 import com.platform.openemoji.R
 import com.platform.openemoji.RepositoryStore
@@ -23,32 +22,33 @@ import com.platform.openemoji.emoji.catalogue.EmojiCatalogueViewModel
 import com.platform.openemoji.emoji.catalogue.SearchScreenEmojiCatalogue
 import com.platform.openemoji.emoji.category.SearchScreenEmojiCategoryCarousel
 import com.platform.openemoji.header.HeaderLogo
-import com.platform.openemoji.search.EmojiSearchViewModel
 import com.platform.openemoji.search.SearchField
+import com.platform.openemoji.search.SearchViewModel
 
 @Composable
 fun SearchScreen(
     emojiCatalogueViewModel: EmojiCatalogueViewModel,
     navController: NavController,
-    // Allows tests to use custom repositories
     repositories: RepositoryStore =
-        LocalContext.current.applicationContext as Application,
+        LocalContext.current.applicationContext as RepositoryStore,
 ) {
     val analytics = LocalAnalytics.current
-    val emojiSearchViewModel: EmojiSearchViewModel =
-        viewModel(key = "emojiSearch") {
-            EmojiSearchViewModel(repositories.emojiRepository)
+
+    val searchViewModel: SearchViewModel =
+        viewModel {
+            SearchViewModel(repositories.emojiRepository)
         }
-    val searchQuery by emojiSearchViewModel.searchQuery.collectAsState()
-    val searchResults by emojiSearchViewModel.searchResults
+
+    val searchQuery by searchViewModel.searchQuery.collectAsState()
+    val searchResults by searchViewModel.searchResults
         .collectAsState(emptyList())
 
-    val searchResultsAreLoading by emojiSearchViewModel.searchResultsAreLoading
+    val searchResultsAreLoading by searchViewModel.searchResultsAreLoading
         .collectAsState()
 
     // Collect search data for analytics
     LaunchedEffect(analytics) {
-        analytics?.let { emojiSearchViewModel.useSearchAnalytics(it) }
+        analytics?.let { searchViewModel.useSearchAnalytics(it) }
     }
 
     // Load category names and the initial overview emojis
@@ -60,7 +60,7 @@ fun SearchScreen(
         modifier = Modifier.testTag("searchScreen"),
     ) {
         HeaderLogo()
-        SearchField(searchQuery) { emojiSearchViewModel.search(it) }
+        SearchField(searchQuery) { searchViewModel.search(it) }
 
         if (searchQuery.isEmpty()) {
             // When user is not searching for emojis

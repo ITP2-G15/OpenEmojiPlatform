@@ -92,7 +92,7 @@ fun BottomNavigationBar(
         NavigationBarItem(
             selected = currentRoute == Screen.GameScreen.route,
             label = {
-                Text(stringResource(R.string.games_icon_description))
+                Text(stringResource(R.string.game))
             },
             icon = {
                 Icon(

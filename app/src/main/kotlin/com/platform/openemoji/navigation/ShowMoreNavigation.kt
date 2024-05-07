@@ -21,7 +21,9 @@ fun ShowMoreNavigation(
         color = MaterialTheme.colorScheme.primary,
         textDecoration = TextDecoration.Underline,
         modifier =
-            modifier.clickable {
+            modifier.clickable(
+                onClickLabel = stringResource(R.string.show_more),
+            ) {
                 navController.navigate(
                     screen.route,
                 )
